@@ -1,4 +1,4 @@
-import 'package:dodi/view/login_view.dart';
+import 'package:dodi/view/class_select_view.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(),
-      home: LoginView(),
+      home: ClassSelectView(),
     );
   }
 }
