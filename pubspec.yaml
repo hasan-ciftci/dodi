@@ -22,6 +22,8 @@ flutter:
   assets:
     - assets/image/classes/
     - assets/image/analyzing.png
+    - assets/image/line.png
+    - assets/image/result.png
     - assets/image/mockquestions/soru1.png
     - assets/image/mockquestions/soru2.png
     - assets/image/mockquestions/soru3.png
