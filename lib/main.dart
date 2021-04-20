@@ -1,4 +1,4 @@
-import 'package:dodi/view/sign_up_view.dart';
+import 'package:dodi/view/analyzing_view.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(),
-      home: SignUpView(),
+      home: AnalyzingView(),
     );
   }
 }

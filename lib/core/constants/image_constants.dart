@@ -13,4 +13,6 @@ class ImageConstants {
 
   String getClassImage(int classNumber) =>
       (classNumber + 1).toString().classToPng;
+
+  String get analysingIcon => "analyzing".toPng;
 }
