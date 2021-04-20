@@ -21,6 +21,7 @@ flutter:
 
   assets:
     - assets/image/classes/
+    - assets/image/introduction/
     - assets/image/analyzing.png
     - assets/image/line.png
     - assets/image/result.png

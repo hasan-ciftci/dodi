@@ -24,4 +24,8 @@ class ImageConstants {
   String get cevap1 => "cevap1".mockQuestionToPng;
   String get cevap2 => "cevap2".mockQuestionToPng;
   String get cevap3 => "cevap3".mockQuestionToPng;
+
+  String get introduction1 => "1".introductionToPng;
+  String get introduction2 => "2".introductionToPng;
+  String get introduction3 => "3".introductionToPng;
 }
