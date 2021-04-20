@@ -15,4 +15,10 @@ class ImageConstants {
       (classNumber + 1).toString().classToPng;
 
   String get analysingIcon => "analyzing".toPng;
+  String get soru1 => "soru1".mockQuestionToPng;
+  String get soru2 => "soru2".mockQuestionToPng;
+  String get soru3 => "soru3".mockQuestionToPng;
+  String get cevap1 => "cevap1".mockQuestionToPng;
+  String get cevap2 => "cevap2".mockQuestionToPng;
+  String get cevap3 => "cevap3".mockQuestionToPng;
 }
