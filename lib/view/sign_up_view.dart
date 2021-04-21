@@ -185,7 +185,9 @@ class _SignUpViewState extends State<SignUpView> {
       height: size.height * .08,
       width: size.width * .9,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pushNamed('/classSelect');
+        },
         child: Text(
           "Kayıt ol",
           style: Theme.of(context).textTheme.headline5,

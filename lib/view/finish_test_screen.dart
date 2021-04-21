@@ -88,7 +88,9 @@ class _FinishTestViewState extends State<FinishTestView> {
           height: size.height * .08,
           width: size.width * .9,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed('/analyzingPage');
+            },
             child: Text(
               "Testi bitir",
               style: Theme.of(context).textTheme.headline5,

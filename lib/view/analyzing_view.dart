@@ -11,6 +11,9 @@ class _AnalyzingViewState extends State<AnalyzingView> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
+    Future.delayed(Duration(seconds: 1),(){
+      Navigator.of(context).pushNamed('/resultPage');
+    });
     return Scaffold(
       body: Stack(
         children: [

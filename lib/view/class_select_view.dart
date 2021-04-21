@@ -7,6 +7,7 @@ class ClassSelectView extends StatefulWidget {
 }
 
 class _ClassSelectViewState extends State<ClassSelectView> {
+  bool isSelected = false;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -48,7 +49,10 @@ class _ClassSelectViewState extends State<ClassSelectView> {
                 ),
               ),
             ),
-            buildSelectClassButton(size, context)
+            AnimatedOpacity(
+                opacity: isSelected ? 1 : 0,
+                duration: Duration(milliseconds: 500),
+                child: buildSelectClassButton(size, context))
           ],
         ),
       ),
@@ -119,9 +123,16 @@ class _ClassSelectViewState extends State<ClassSelectView> {
 
   Flexible buildClassImage(int columnIndex, int rowIndex) {
     return Flexible(
-      child: Image.asset(
-        ImageConstants.instance.getClassImage(
-          (((columnIndex * 3) + (rowIndex))),
+      child: GestureDetector(
+        onTap: () {
+          setState(() {
+            isSelected = true;
+          });
+        },
+        child: Image.asset(
+          ImageConstants.instance.getClassImage(
+            (((columnIndex * 3) + (rowIndex))),
+          ),
         ),
       ),
     );
@@ -135,7 +146,9 @@ class _ClassSelectViewState extends State<ClassSelectView> {
           height: size.height * .08,
           width: size.width * .9,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed('/startTest');
+            },
             child: Text(
               "1. Sınıfı Seç",
               style: Theme.of(context).textTheme.headline5,

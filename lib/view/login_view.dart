@@ -96,9 +96,14 @@ class _LoginViewState extends State<LoginView> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text("Hesabınız yok mu?"),
-            Text(
-              "Hesap Oluştur",
-              style: Theme.of(context).textTheme.subtitle2,
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushNamed('/register');
+              },
+              child: Text(
+                "Hesap Oluştur",
+                style: Theme.of(context).textTheme.subtitle2,
+              ),
             ),
           ],
         ),
@@ -160,7 +165,9 @@ class _LoginViewState extends State<LoginView> {
       height: size.height * .08,
       width: size.width * .9,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pushNamed('/classSelect');
+        },
         child: Text(
           "Giriş Yap",
           style: Theme.of(context).textTheme.headline5,

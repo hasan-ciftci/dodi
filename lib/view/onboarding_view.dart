@@ -7,7 +7,16 @@ class IntroductionPage extends StatefulWidget {
   _IntroductionPageState createState() => _IntroductionPageState();
 }
 
-class _IntroductionPageState extends State<IntroductionPage> {
+class _IntroductionPageState extends State<IntroductionPage>
+    with SingleTickerProviderStateMixin {
+  TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -17,14 +26,21 @@ class _IntroductionPageState extends State<IntroductionPage> {
       body: Stack(
         fit: StackFit.loose,
         children: [
-          buildBody(size, context),
-          buildPageFooter(size),
+          TabBarView(
+            controller: _tabController,
+            children: [
+              buildBody(size, context, 1),
+              buildBody(size, context, 2),
+              buildBody(size, context, 3),
+            ],
+          ),
+          buildPageFooter(size, _tabController.index),
         ],
       ),
     );
   }
 
-  Align buildBody(Size size, BuildContext context) {
+  Align buildBody(Size size, BuildContext context, int index) {
     return Align(
       alignment: Alignment.topCenter,
       child: Container(
@@ -42,7 +58,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
             Spacer(flex: 15),
             Expanded(
               flex: 40,
-              child: buildIntroductionImage(),
+              child: buildIntroductionImage(index),
             ),
             Expanded(
               flex: 30,
@@ -55,8 +71,11 @@ class _IntroductionPageState extends State<IntroductionPage> {
     );
   }
 
-  Image buildIntroductionImage() =>
-      Image.asset(ImageConstants.instance.introduction1);
+  Image buildIntroductionImage(int index) => index == 1
+      ? Image.asset(ImageConstants.instance.introduction1)
+      : index == 2
+          ? Image.asset(ImageConstants.instance.introduction2)
+          : Image.asset(ImageConstants.instance.introduction3);
 
   Center buildIntroductionText(Size size, BuildContext context) {
     return Center(
@@ -70,7 +89,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
     );
   }
 
-  Align buildPageFooter(Size size) {
+  Align buildPageFooter(Size size, int index) {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(
@@ -79,7 +98,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            buildPageIndicators(size),
+            buildPageIndicators(size, index),
             buildNextButton(size),
           ],
         ),
@@ -87,7 +106,10 @@ class _IntroductionPageState extends State<IntroductionPage> {
     );
   }
 
-  Center buildPageIndicators(Size size) {
+  Center buildPageIndicators(Size size, int index) {
+    _tabController.addListener(() {
+      setState(() {});
+    });
     return Center(
         child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -95,7 +117,9 @@ class _IntroductionPageState extends State<IntroductionPage> {
         Container(
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: Colors.transparent,
+            color: index == 0
+                ? Theme.of(context).backgroundColor
+                : Colors.transparent,
             border: Border.all(color: Colors.white),
           ),
           height: size.width * .02,
@@ -107,7 +131,9 @@ class _IntroductionPageState extends State<IntroductionPage> {
         Container(
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: Colors.transparent,
+            color: index == 1
+                ? Theme.of(context).backgroundColor
+                : Colors.transparent,
             border: Border.all(color: Colors.white),
           ),
           height: size.width * .02,
@@ -119,7 +145,9 @@ class _IntroductionPageState extends State<IntroductionPage> {
         Container(
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: Colors.transparent,
+            color: index == 2
+                ? Theme.of(context).backgroundColor
+                : Colors.transparent,
             border: Border.all(color: Colors.white),
           ),
           height: size.width * .02,
@@ -133,10 +161,15 @@ class _IntroductionPageState extends State<IntroductionPage> {
     return Container(
       child: Padding(
         padding: EdgeInsets.only(right: size.width * .1),
-        child: Text(
-          "Geç",
-          style: Theme.of(context).textTheme.subtitle1,
-          textAlign: TextAlign.end,
+        child: GestureDetector(
+          onTap: () {
+            Navigator.of(context).pushNamed('/login');
+          },
+          child: Text(
+            "Geç",
+            style: Theme.of(context).textTheme.subtitle1,
+            textAlign: TextAlign.end,
+          ),
         ),
       ),
     );

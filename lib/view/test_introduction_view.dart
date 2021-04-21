@@ -90,7 +90,9 @@ class _TestIntroductionViewState extends State<TestIntroductionView> {
           height: size.height * .08,
           width: size.width * .9,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed('/quizPage');
+            },
             child: Text(
               "Teste Başla",
               style: Theme.of(context).textTheme.headline5,
