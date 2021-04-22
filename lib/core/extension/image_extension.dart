@@ -5,4 +5,5 @@ extension _ImageExtension on String {
   String get toPng => 'assets/image/$this.png';
   String get mockQuestionToPng => 'assets/image/mockquestions/$this.png';
   String get introductionToPng => 'assets/image/introduction/$this.png';
+  String get socialMediaToPng => 'assets/image/socialmedia/$this.png';
 }

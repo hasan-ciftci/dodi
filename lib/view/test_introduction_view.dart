@@ -33,8 +33,14 @@ class _TestIntroductionViewState extends State<TestIntroductionView> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Icon(Icons.arrow_back_ios_outlined),
-              Text("1. Sınıf"),
+              Icon(
+                Icons.arrow_back_ios_outlined,
+                color: Colors.white,
+              ),
+              Text("1. Sınıf",
+                  style: TextStyle(
+                    color: Colors.white,
+                  )),
             ],
           ),
         ),
@@ -95,7 +101,10 @@ class _TestIntroductionViewState extends State<TestIntroductionView> {
             },
             child: Text(
               "Teste Başla",
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline5
+                  .copyWith(color: Colors.white),
             ),
             style: ButtonStyle(
               shape: MaterialStateProperty.all(StadiumBorder()),
@@ -106,21 +115,16 @@ class _TestIntroductionViewState extends State<TestIntroductionView> {
     );
   }
 
-  Container buildBackground(Size size, BuildContext context) {
-    return Container(
-      height: size.height,
-      width: size.width,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          stops: [0.0, 0.5],
-          colors: [
-            Theme.of(context).backgroundColor,
-            Theme.of(context).primaryColor,
-          ],
+  Column buildBackground(Size size, BuildContext context) {
+    return Column(
+      children: [
+        Expanded(
+          child: Container(color: Theme.of(context).backgroundColor),
         ),
-      ),
+        Expanded(
+          child: Container(color: Theme.of(context).primaryColor),
+        )
+      ],
     );
   }
 }

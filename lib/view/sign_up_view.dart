@@ -1,3 +1,4 @@
+import 'package:dodi/core/constants/image_constants.dart';
 import 'package:flutter/material.dart';
 
 class SignUpView extends StatefulWidget {
@@ -32,8 +33,14 @@ class _SignUpViewState extends State<SignUpView> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Icon(Icons.arrow_back_ios_outlined),
-              Text("Kayıt ol"),
+              Icon(
+                Icons.arrow_back_ios_outlined,
+                color: Colors.white,
+              ),
+              Text(
+                "Kayıt ol",
+                style: TextStyle(color: Colors.white),
+              ),
             ],
           ),
         ),
@@ -127,7 +134,7 @@ class _SignUpViewState extends State<SignUpView> {
       children: [
         Radio(
           onChanged: (value) {},
-          value: 0,
+          value: 1,
           groupValue: 0,
         ),
         Text(
@@ -143,7 +150,7 @@ class _SignUpViewState extends State<SignUpView> {
       children: [
         Radio(
           onChanged: (value) {},
-          value: 0,
+          value: 1,
           groupValue: 0,
         ),
         Text("Rıza beyanını okudum onaylıyorum.")
@@ -156,10 +163,14 @@ class _SignUpViewState extends State<SignUpView> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         CircleAvatar(
+          backgroundColor: Colors.white,
+          child: Image.asset(ImageConstants.instance.google),
           radius: size.width * .06,
         ),
         SizedBox(width: 20),
         CircleAvatar(
+          backgroundColor: Colors.white,
+          child: Image.asset(ImageConstants.instance.facebook),
           radius: size.width * .06,
         ),
       ],
@@ -169,7 +180,10 @@ class _SignUpViewState extends State<SignUpView> {
   TextFormField buildEmailTextFormField() {
     return TextFormField(
       decoration: InputDecoration(
-        suffixIcon: Icon(Icons.done),
+        suffixIcon: Icon(
+          Icons.done,
+          color: Colors.white,
+        ),
         labelText: "E-Posta",
         border: OutlineInputBorder(
           borderRadius: BorderRadius.all(
@@ -190,7 +204,10 @@ class _SignUpViewState extends State<SignUpView> {
         },
         child: Text(
           "Kayıt ol",
-          style: Theme.of(context).textTheme.headline5,
+          style: Theme.of(context)
+              .textTheme
+              .headline5
+              .copyWith(color: Colors.white),
         ),
         style: ButtonStyle(
           shape: MaterialStateProperty.all(StadiumBorder()),
@@ -199,21 +216,16 @@ class _SignUpViewState extends State<SignUpView> {
     );
   }
 
-  Container buildBackground(Size size, BuildContext context) {
-    return Container(
-      height: size.height,
-      width: size.width,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          stops: [0.0, 0.5],
-          colors: [
-            Theme.of(context).backgroundColor,
-            Theme.of(context).primaryColor,
-          ],
+  Column buildBackground(Size size, BuildContext context) {
+    return Column(
+      children: [
+        Expanded(
+          child: Container(color: Theme.of(context).backgroundColor),
         ),
-      ),
+        Expanded(
+          child: Container(color: Theme.of(context).primaryColor),
+        )
+      ],
     );
   }
 

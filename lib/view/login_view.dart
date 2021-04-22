@@ -1,3 +1,4 @@
+import 'package:dodi/core/constants/image_constants.dart';
 import 'package:flutter/material.dart';
 
 class LoginView extends StatefulWidget {
@@ -32,8 +33,16 @@ class _LoginViewState extends State<LoginView> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Icon(Icons.arrow_back_ios_outlined),
-              Text("Üye girişi"),
+              Icon(
+                Icons.arrow_back_ios_outlined,
+                color: Colors.white,
+              ),
+              Text(
+                "Üye girişi",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
             ],
           ),
         ),
@@ -95,14 +104,20 @@ class _LoginViewState extends State<LoginView> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Hesabınız yok mu?"),
+            Text("Hesabınız yok mu?",
+                style: TextStyle(
+                  color: Colors.white,
+                )),
             GestureDetector(
               onTap: () {
                 Navigator.of(context).pushNamed('/register');
               },
               child: Text(
                 "Hesap Oluştur",
-                style: Theme.of(context).textTheme.subtitle2,
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle2
+                    .copyWith(color: Colors.white),
               ),
             ),
           ],
@@ -116,10 +131,14 @@ class _LoginViewState extends State<LoginView> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         CircleAvatar(
+          child: Image.asset(ImageConstants.instance.google),
+          backgroundColor: Colors.white,
           radius: size.width * .06,
         ),
         SizedBox(width: 20),
         CircleAvatar(
+          child: Image.asset(ImageConstants.instance.facebook),
+          backgroundColor: Colors.white,
           radius: size.width * .06,
         ),
       ],
@@ -170,7 +189,10 @@ class _LoginViewState extends State<LoginView> {
         },
         child: Text(
           "Giriş Yap",
-          style: Theme.of(context).textTheme.headline5,
+          style: Theme.of(context)
+              .textTheme
+              .headline5
+              .copyWith(color: Colors.white),
         ),
         style: ButtonStyle(
           shape: MaterialStateProperty.all(StadiumBorder()),
@@ -179,21 +201,16 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  Container buildBackground(Size size, BuildContext context) {
-    return Container(
-      height: size.height,
-      width: size.width,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          stops: [0.0, 0.5],
-          colors: [
-            Theme.of(context).backgroundColor,
-            Theme.of(context).primaryColor,
-          ],
+  Column buildBackground(Size size, BuildContext context) {
+    return Column(
+      children: [
+        Expanded(
+          child: Container(color: Theme.of(context).backgroundColor),
         ),
-      ),
+        Expanded(
+          child: Container(color: Theme.of(context).primaryColor),
+        )
+      ],
     );
   }
 }

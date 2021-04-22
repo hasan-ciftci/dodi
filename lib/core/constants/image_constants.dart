@@ -28,4 +28,7 @@ class ImageConstants {
   String get introduction1 => "1".introductionToPng;
   String get introduction2 => "2".introductionToPng;
   String get introduction3 => "3".introductionToPng;
+
+  String get facebook => "facebook".socialMediaToPng;
+  String get google => "google".socialMediaToPng;
 }

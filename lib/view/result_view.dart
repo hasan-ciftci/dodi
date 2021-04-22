@@ -62,13 +62,17 @@ class _ResultViewState extends State<ResultView> {
   Text buildResultPoint(BuildContext context) {
     return Text(
       "56",
-      style: Theme.of(context).textTheme.headline1,
+      style: Theme.of(context).textTheme.headline1.copyWith(
+          color: Theme.of(context).backgroundColor,
+          fontWeight: FontWeight.w400),
     );
   }
 
   Text buildResultCaption(BuildContext context) {
     return Text("Orta Seviye Başarı",
-        style: Theme.of(context).textTheme.headline6);
+        style: Theme.of(context).textTheme.headline6.copyWith(
+              color: Theme.of(context).backgroundColor,
+            ));
   }
 
   Padding buildResultImage() {
@@ -106,7 +110,9 @@ Sözel önermeleri doğru okuyabilme ve yorumlayabilme becerisi
 Tablo-grafik yorumlama
 örüntü ilişkilerini kavrayabilme gibi konulardaki performansının yorumlanmasına dayanak oluşturmaktadır.
                   """,
-        style: Theme.of(context).textTheme.subtitle1,
+        style: Theme.of(context).textTheme.subtitle1.copyWith(
+              color: Theme.of(context).primaryColor,
+            ),
       ),
     );
   }
@@ -135,8 +141,14 @@ Tablo-grafik yorumlama
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Icon(Icons.arrow_back_ios_outlined),
-              Text("Değerlendirme Tablosu"),
+              Icon(
+                Icons.arrow_back_ios_outlined,
+                color: Colors.white,
+              ),
+              Text(
+                "Değerlendirme Tablosu",
+                style: TextStyle(color: Colors.white),
+              ),
             ],
           ),
         ),
@@ -157,32 +169,39 @@ Tablo-grafik yorumlama
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Icon(Icons.shopping_cart),
-            Icon(Icons.bar_chart),
-            Icon(Icons.home),
-            Icon(Icons.menu_book),
-            Icon(Icons.person),
+            Icon(
+              Icons.shopping_cart,
+              color: Color(0xFFB0B0B0),
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.bar_chart, color: Color(0xFFB0B0B0)),
+                Text(
+                  "Değerlendirme",
+                  style: TextStyle(color: Color(0xFFB0B0B0)),
+                ),
+              ],
+            ),
+            Icon(Icons.home, color: Color(0xFFB0B0B0)),
+            Icon(Icons.menu_book, color: Color(0xFFB0B0B0)),
+            Icon(Icons.person, color: Color(0xFFB0B0B0)),
           ],
         ),
       ),
     );
   }
 
-  Container buildBackground(Size size, BuildContext context) {
-    return Container(
-      height: size.height,
-      width: size.width,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          stops: [0.0, 0.5],
-          colors: [
-            Theme.of(context).backgroundColor,
-            Theme.of(context).primaryColor,
-          ],
+  Column buildBackground(Size size, BuildContext context) {
+    return Column(
+      children: [
+        Expanded(
+          child: Container(color: Theme.of(context).backgroundColor),
         ),
-      ),
+        Expanded(
+          child: Container(color: Theme.of(context).primaryColor),
+        )
+      ],
     );
   }
 
@@ -198,7 +217,10 @@ Tablo-grafik yorumlama
             child: Text(
               "Grafikler",
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline5
+                  .copyWith(color: Colors.white),
             ),
             style: ButtonStyle(
               shape: MaterialStateProperty.all(StadiumBorder()),
@@ -221,7 +243,10 @@ Tablo-grafik yorumlama
             child: Text(
               "Tavsiye Ürünler",
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline5
+                  .copyWith(color: Colors.white),
             ),
             style: ButtonStyle(
               shape: MaterialStateProperty.all(StadiumBorder()),

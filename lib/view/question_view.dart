@@ -9,7 +9,7 @@ class QuestionView extends StatefulWidget {
 }
 
 class _QuestionViewState extends State<QuestionView>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   TabController _tabController;
 
   @override
@@ -140,60 +140,64 @@ class _QuestionViewState extends State<QuestionView>
         height: size.height * .125,
         color: Colors.white,
         child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Icon(Icons.arrow_back_ios_outlined),
-                  Text("1. sınıf"),
-                ],
-              ),
-              Stack(
-                children: [
-                  Container(
-                    width: size.width,
-                    height: size.height * .01,
-                    color: Theme.of(context).disabledColor,
-                  ),
-                  AnimatedContainer(
-                    duration: Duration(milliseconds: 1000),
-                    curve: Curves.elasticInOut,
-                    child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          child: SafeArea(
+            bottom: false,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Icon(
+                      Icons.arrow_back_ios_outlined,
+                      color: Theme.of(context).backgroundColor,
+                    ),
+                    Text(
+                      "1. sınıf",
+                      style: TextStyle(
+                        color: Theme.of(context).backgroundColor,
+                      ),
+                    ),
+                  ],
+                ),
+                Stack(
+                  children: [
+                    Container(
+                      width: size.width,
+                      height: size.height * .01,
+                      color: Theme.of(context).disabledColor,
+                    ),
+                    AnimatedContainer(
+                      duration: Duration(milliseconds: 500),
+                      curve: Curves.easeInOut,
                       width: size.width *
                           (tabController.index + 1) /
-                          (tabController.length),
+                          (tabController.length - 1),
                       height: size.height * .01,
-                      color: Theme.of(context).primaryColor,
+                      color: Theme.of(context).backgroundColor,
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  Container buildBackground(Size size, BuildContext context) {
-    return Container(
-      height: size.height,
-      width: size.width,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          stops: [0.0, 0.5],
-          colors: [
-            Theme.of(context).backgroundColor,
-            Theme.of(context).primaryColor,
-          ],
+  Column buildBackground(Size size, BuildContext context) {
+    return Column(
+      children: [
+        Expanded(
+          child: Container(color: Theme.of(context).backgroundColor),
         ),
-      ),
+        Expanded(
+          child: Container(color: Theme.of(context).primaryColor),
+        )
+      ],
     );
   }
 }
@@ -352,7 +356,10 @@ class _OptionsState extends State<Options> {
                     radius: widget.size.height * .045,
                     child: Text(
                       "A",
-                      style: Theme.of(context).textTheme.headline4,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline4
+                          .copyWith(color: Colors.white),
                     ),
                   ),
                 ),
@@ -378,7 +385,10 @@ class _OptionsState extends State<Options> {
                     radius: widget.size.height * .045,
                     child: Text(
                       "B",
-                      style: Theme.of(context).textTheme.headline4,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline4
+                          .copyWith(color: Colors.white),
                     ),
                   ),
                 ),
@@ -404,7 +414,10 @@ class _OptionsState extends State<Options> {
                     radius: widget.size.height * .045,
                     child: Text(
                       "C",
-                      style: Theme.of(context).textTheme.headline4,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline4
+                          .copyWith(color: Colors.white),
                     ),
                   ),
                 ),

@@ -17,7 +17,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(),
+      theme: ThemeData().copyWith(
+          primaryColor: Color(0xFF1C742C),
+          backgroundColor: Color(0xFFF38424),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              onPrimary: Color(0xFFF38424),
+              primary: Color(0xFFF38424),
+            ),
+          ),
+          bottomAppBarColor: Color(0xFFE9F0D0)),
       routes: {
         '/': (context) => IntroductionPage(),
         '/login': (context) => LoginView(),

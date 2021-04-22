@@ -51,7 +51,7 @@ class _IntroductionPageState extends State<IntroductionPage>
             bottomLeft: Radius.circular(50),
             bottomRight: Radius.circular(50),
           ),
-          color: Colors.white,
+          color: Color(0xFFE9F0D0),
         ),
         child: Column(
           children: [
@@ -117,9 +117,7 @@ class _IntroductionPageState extends State<IntroductionPage>
         Container(
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: index == 0
-                ? Theme.of(context).backgroundColor
-                : Colors.transparent,
+            color: index == 0 ? Colors.white : Colors.transparent,
             border: Border.all(color: Colors.white),
           ),
           height: size.width * .02,
@@ -131,9 +129,7 @@ class _IntroductionPageState extends State<IntroductionPage>
         Container(
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: index == 1
-                ? Theme.of(context).backgroundColor
-                : Colors.transparent,
+            color: index == 1 ? Colors.white : Colors.transparent,
             border: Border.all(color: Colors.white),
           ),
           height: size.width * .02,
@@ -145,9 +141,7 @@ class _IntroductionPageState extends State<IntroductionPage>
         Container(
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: index == 2
-                ? Theme.of(context).backgroundColor
-                : Colors.transparent,
+            color: index == 2 ? Colors.white : Colors.transparent,
             border: Border.all(color: Colors.white),
           ),
           height: size.width * .02,
@@ -167,7 +161,10 @@ class _IntroductionPageState extends State<IntroductionPage>
           },
           child: Text(
             "Geç",
-            style: Theme.of(context).textTheme.subtitle1,
+            style: Theme.of(context)
+                .textTheme
+                .subtitle1
+                .copyWith(color: Colors.white),
             textAlign: TextAlign.end,
           ),
         ),
