@@ -11,6 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
+  flutter_native_splash: ^1.1.8+4
 
 dev_dependencies:
   flutter_test:
@@ -32,3 +33,10 @@ flutter:
     - assets/image/mockquestions/cevap1.png
     - assets/image/mockquestions/cevap2.png
     - assets/image/mockquestions/cevap3.png
+
+flutter_native_splash:
+  background_image : assets/splash.png
+  andorid: true
+  ios: true
+  android_gravity: fill
+  ios_content_mode: scaleAspectFill
