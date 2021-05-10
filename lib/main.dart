@@ -1,5 +1,6 @@
 import 'package:dodi/view/analyzing_view.dart';
 import 'package:dodi/view/class_select_view.dart';
+import 'package:dodi/view/evaluation_overview_view.dart';
 import 'package:dodi/view/login_view.dart';
 import 'package:dodi/view/onboarding_view.dart';
 import 'package:dodi/view/question_view.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
         '/quizPage': (context) => QuestionView(),
         '/analyzingPage': (context) => AnalyzingView(),
         '/resultPage': (context) => ResultView(),
+        '/evaluationOverview': (context) => EvaluationOverviewView(),
       },
     );
   }
