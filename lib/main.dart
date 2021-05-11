@@ -1,3 +1,5 @@
+import 'package:dodi/view/choose_profile_view.dart';
+import 'package:dodi/view/phone_register_view.dart';
 import 'package:flutter/material.dart';
 
 import 'view/analyzing_view.dart';
@@ -39,6 +41,8 @@ class MyApp extends StatelessWidget {
         '/analyzingPage': (context) => AnalyzingView(),
         '/resultPage': (context) => ResultView(),
         '/evaluationOverview': (context) => EvaluationOverviewView(),
+        '/phoneRegister': (context) => PhoneRegisterView(),
+        '/chooseProfile': (context) => ChooseProfileView(),
       },
     );
   }

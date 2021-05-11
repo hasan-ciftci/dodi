@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 
 import '../core/constants/image_constants.dart';
 
-class LoginView extends StatefulWidget {
+class PhoneRegisterView extends StatefulWidget {
   @override
-  _LoginViewState createState() => _LoginViewState();
+  _PhoneRegisterViewState createState() => _PhoneRegisterViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _PhoneRegisterViewState extends State<PhoneRegisterView> {
+  bool isVerificationCodeSended = false;
+  TextEditingController _inputController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -17,7 +19,7 @@ class _LoginViewState extends State<LoginView> {
           buildBackground(size, context),
           buildPageHeader(size),
           buildPageFooter(size),
-          buildLoginForm(size, context),
+          buildPhoneForm(size, context),
         ],
       ),
     );
@@ -39,7 +41,7 @@ class _LoginViewState extends State<LoginView> {
                 color: Colors.white,
               ),
               Text(
-                "Üye girişi",
+                "Telefon Numarası ile Giriş",
                 style: TextStyle(
                   color: Colors.white,
                 ),
@@ -51,7 +53,7 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  Align buildLoginForm(Size size, BuildContext context) {
+  Align buildPhoneForm(Size size, BuildContext context) {
     return Align(
       alignment: Alignment.center,
       child: SingleChildScrollView(
@@ -67,28 +69,60 @@ class _LoginViewState extends State<LoginView> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                SizedBox(
-                  height: size.height * .15,
-                ),
+                Spacer(),
                 Column(
                   children: [
-                    buildSocialMediaButtons(size),
-                    SizedBox(height: size.height * .04),
-                    buildEmailTextFormField(),
-                    buildPasswordTextFormField(),
-                    buildRemembermeRadioButton(),
+                    Opacity(
+                      opacity: isVerificationCodeSended ? 1 : 0,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                        child: Text(
+                          "Lütfen T8A8M referans kodlu tek kullanımlık şifrenizi girin.",
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                    buildPhoneNumberTextFormField(),
+                    Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Visibility(
+                          child: buildRemembermeRadioButton(),
+                          visible: !isVerificationCodeSended,
+                        ),
+                        Visibility(
+                          child: buildRemainingTime(),
+                          visible: isVerificationCodeSended,
+                        )
+                      ],
+                    ),
                   ],
                 ),
                 Spacer(),
-                buildLoginButton(size, context),
-                SizedBox(height: size.height * .02),
-                Text("Şifremi unuttum"),
-                Spacer(),
+                buildSendVerificationCodeButton(size, context),
+                SizedBox(height: size.height * .08)
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Row buildRemainingTime() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("01:27"),
+        SizedBox(
+          width: 4,
+        ),
+        Icon(
+          Icons.watch_later_outlined,
+          size: 20,
+          color: Theme.of(context).backgroundColor,
+        )
+      ],
     );
   }
 
@@ -137,26 +171,17 @@ class _LoginViewState extends State<LoginView> {
                 ),
               ],
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("Telefon Numarası ile",
-                    style: TextStyle(
-                      color: Colors.white,
-                    )),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pushNamed('/phoneRegister');
-                  },
-                  child: Text(
-                    "Giriş Yap",
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle2
-                        .copyWith(color: Colors.white),
-                  ),
-                ),
-              ],
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushNamed('/register');
+              },
+              child: Text(
+                "E posta ile Giriş Yap",
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle2
+                    .copyWith(color: Colors.white),
+              ),
             ),
           ],
         ),
@@ -200,13 +225,16 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  Padding buildPasswordTextFormField() {
+  Padding buildPhoneNumberTextFormField() {
     return Padding(
       padding: EdgeInsets.all(8.0),
       child: TextFormField(
+        keyboardType: TextInputType.number,
+        controller: _inputController,
+        textAlign:
+            isVerificationCodeSended ? TextAlign.center : TextAlign.start,
         decoration: InputDecoration(
-          suffixIcon: Icon(Icons.remove_red_eye),
-          labelText: "Şifre",
+          labelText: isVerificationCodeSended ? null : "Telefon Numarası",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(20.0),
@@ -217,16 +245,23 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  SizedBox buildLoginButton(Size size, BuildContext context) {
+  SizedBox buildSendVerificationCodeButton(Size size, BuildContext context) {
     return SizedBox(
       height: size.height * .08,
       width: size.width * .9,
       child: ElevatedButton(
-        onPressed: () {
-          Navigator.of(context).pushNamed('/classSelect');
-        },
+        onPressed: isVerificationCodeSended
+            ? () {
+                Navigator.of(context).pushNamed("/chooseProfile");
+              }
+            : () {
+                setState(() {
+                  _inputController.clear();
+                  isVerificationCodeSended = true;
+                });
+              },
         child: Text(
-          "Giriş Yap",
+          isVerificationCodeSended ? "Devam Et " : "Onay Kodu Gönder",
           style: Theme.of(context)
               .textTheme
               .headline5
