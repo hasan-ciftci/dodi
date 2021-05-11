@@ -72,16 +72,7 @@ class _PhoneRegisterViewState extends State<PhoneRegisterView> {
                 Spacer(),
                 Column(
                   children: [
-                    Opacity(
-                      opacity: isVerificationCodeSended ? 1 : 0,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                        child: Text(
-                          "Lütfen T8A8M referans kodlu tek kullanımlık şifrenizi girin.",
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
+                    buildVerificationInformationText(),
                     buildPhoneNumberTextFormField(),
                     Stack(
                       alignment: Alignment.center,
@@ -104,6 +95,19 @@ class _PhoneRegisterViewState extends State<PhoneRegisterView> {
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Opacity buildVerificationInformationText() {
+    return Opacity(
+      opacity: isVerificationCodeSended ? 1 : 0,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 32.0),
+        child: Text(
+          "Lütfen T8A8M referans kodlu tek kullanımlık şifrenizi girin.",
+          textAlign: TextAlign.center,
         ),
       ),
     );
@@ -184,42 +188,6 @@ class _PhoneRegisterViewState extends State<PhoneRegisterView> {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  Row buildSocialMediaButtons(Size size) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        CircleAvatar(
-          child: Image.asset(ImageConstants.instance.google),
-          backgroundColor: Colors.white,
-          radius: size.width * .06,
-        ),
-        SizedBox(width: 20),
-        CircleAvatar(
-          child: Image.asset(ImageConstants.instance.facebook),
-          backgroundColor: Colors.white,
-          radius: size.width * .06,
-        ),
-      ],
-    );
-  }
-
-  Padding buildEmailTextFormField() {
-    return Padding(
-      padding: EdgeInsets.all(8.0),
-      child: TextFormField(
-        decoration: InputDecoration(
-          suffixIcon: Icon(Icons.done),
-          labelText: "E-Posta",
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(20.0),
-            ),
-          ),
         ),
       ),
     );
