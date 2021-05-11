@@ -1,13 +1,14 @@
-import 'package:dodi/view/analyzing_view.dart';
-import 'package:dodi/view/class_select_view.dart';
-import 'package:dodi/view/evaluation_overview_view.dart';
-import 'package:dodi/view/login_view.dart';
-import 'package:dodi/view/onboarding_view.dart';
-import 'package:dodi/view/question_view.dart';
-import 'package:dodi/view/result_view.dart';
-import 'package:dodi/view/sign_up_view.dart';
-import 'package:dodi/view/test_introduction_view.dart';
 import 'package:flutter/material.dart';
+
+import 'view/analyzing_view.dart';
+import 'view/class_select_view.dart';
+import 'view/evaluation_overview_view.dart';
+import 'view/login_view.dart';
+import 'view/onboarding_view.dart';
+import 'view/question_view.dart';
+import 'view/result_view.dart';
+import 'view/sign_up_view.dart';
+import 'view/test_introduction_view.dart';
 
 void main() {
   runApp(MyApp());

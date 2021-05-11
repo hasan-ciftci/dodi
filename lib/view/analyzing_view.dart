@@ -1,5 +1,6 @@
-import 'package:dodi/core/constants/image_constants.dart';
 import 'package:flutter/material.dart';
+
+import '../core/constants/image_constants.dart';
 
 class AnalyzingView extends StatefulWidget {
   @override
@@ -11,7 +12,7 @@ class _AnalyzingViewState extends State<AnalyzingView> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    Future.delayed(Duration(seconds: 1),(){
+    Future.delayed(Duration(seconds: 1), () {
       Navigator.of(context).pushNamed('/resultPage');
     });
     return Scaffold(

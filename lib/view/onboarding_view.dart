@@ -1,4 +1,4 @@
-import 'package:dodi/core/constants/image_constants.dart';
+import '../core/constants/image_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
