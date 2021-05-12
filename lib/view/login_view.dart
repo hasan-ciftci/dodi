@@ -223,7 +223,7 @@ class _LoginViewState extends State<LoginView> {
       width: size.width * .9,
       child: ElevatedButton(
         onPressed: () {
-          Navigator.of(context).pushNamed('/classSelect');
+          Navigator.of(context).pushNamed('/chooseProfile');
         },
         child: Text(
           "Giriş Yap",
