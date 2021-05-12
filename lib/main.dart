@@ -1,4 +1,5 @@
 import 'package:dodi/view/choose_profile_extra.dart';
+import 'package:dodi/view/create_profile_extra.dart';
 import 'package:dodi/view/create_profile_view.dart';
 import 'package:flutter/material.dart';
 
@@ -48,6 +49,8 @@ class MyApp extends StatelessWidget {
         '/createProfile': (context) => CreateProfileView(),
         //Same with Choose Profile but included one more profile for scenerio.
         '/chooseProfileExtra': (context) => ChooseProfileExtra(),
+        //Same with Create Profile but earlier created informations included.
+        '/createProfileExtra': (context) => CreateProfileExtra(),
       },
     );
   }

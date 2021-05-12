@@ -77,7 +77,10 @@ class _ChooseProfileExtraState extends State<ChooseProfileExtra> {
                     size: size,
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      if (editMode == true)
+                        Navigator.of(context).pushNamed("/createProfileExtra");
+                    },
                     child: ProfileWidget(
                       image: ImageConstants.instance.profile,
                       isEditing: editMode,
