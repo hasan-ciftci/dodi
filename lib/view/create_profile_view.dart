@@ -101,23 +101,16 @@ class _CreateProfileViewState extends State<CreateProfileView> {
             });
           },
           child: ProfileWidget(
+            image: isProfilePictureSelected
+                ? ImageConstants.instance.profile
+                : null,
             name: "Profil Resmi Yükle",
             icon: Icons.add,
             size: size,
           ),
         ),
-        Visibility(
-            visible: isProfilePictureSelected,
-            child: buildProfilePicture(size)),
       ],
     );
-  }
-
-  SizedBox buildProfilePicture(Size size) {
-    return SizedBox(
-        height: size.width / 4,
-        width: size.width / 4,
-        child: Image.asset(ImageConstants.instance.profile));
   }
 
   Row buildRadioButtons() {
@@ -216,7 +209,9 @@ class _CreateProfileViewState extends State<CreateProfileView> {
       height: size.height * .08,
       width: size.width * .9,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pushNamed("/chooseProfileExtra");
+        },
         child: Text(
           "Kaydet",
           style: Theme.of(context)

@@ -1,20 +1,27 @@
 import 'package:dodi/core/constants/image_constants.dart';
 import 'package:flutter/material.dart';
 
-class ProfileWidget extends StatelessWidget {
+class ProfileWidget extends StatefulWidget {
   final String name;
   final IconData icon;
   final Size size;
-  bool isEditing;
+  final bool isEditing;
+  final String image;
 
-  ProfileWidget(
-      {Key key,
-      @required this.name,
-      @required this.icon,
-      @required this.size,
-      this.isEditing = false})
-      : super(key: key);
+  ProfileWidget({
+    Key key,
+    @required this.name,
+    @required this.icon,
+    @required this.size,
+    this.isEditing = false,
+    this.image,
+  }) : super(key: key);
 
+  @override
+  _ProfileWidgetState createState() => _ProfileWidgetState();
+}
+
+class _ProfileWidgetState extends State<ProfileWidget> {
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -30,22 +37,16 @@ class ProfileWidget extends StatelessWidget {
                   shape: ContinuousRectangleBorder(
                       borderRadius: BorderRadius.circular(16.0)),
                 ),
-                height: size.width / 4,
-                width: size.width / 4,
-                child: LayoutBuilder(
-                  builder: (BuildContext context, BoxConstraints constraints) {
-                    return Icon(
-                      icon,
-                      color: Colors.white,
-                      size: constraints.maxHeight - 16,
-                    );
-                  },
-                ),
+                height: widget.size.width / 4,
+                width: widget.size.width / 4,
+                child: widget.image == null
+                    ? buildProfileIcon()
+                    : Image.asset(widget.image),
               ),
               SizedBox(
                 height: 4,
               ),
-              Text(name,
+              Text(widget.name,
                   style: Theme.of(context)
                       .textTheme
                       .bodyText2
@@ -54,10 +55,22 @@ class ProfileWidget extends StatelessWidget {
           ),
         ),
         Visibility(
-            visible: isEditing,
+            visible: widget.isEditing,
             child: Positioned(
                 child: Image.asset(ImageConstants.instance.penVector))),
       ],
+    );
+  }
+
+  LayoutBuilder buildProfileIcon() {
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        return Icon(
+          widget.icon,
+          color: Colors.white,
+          size: constraints.maxHeight - 16,
+        );
+      },
     );
   }
 }
