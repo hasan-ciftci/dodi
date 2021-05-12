@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../core/constants/image_constants.dart';
-
 class PhoneRegisterView extends StatefulWidget {
   @override
   _PhoneRegisterViewState createState() => _PhoneRegisterViewState();

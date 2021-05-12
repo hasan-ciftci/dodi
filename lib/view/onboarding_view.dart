@@ -1,6 +1,7 @@
-import '../core/constants/image_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+
+import '../core/constants/image_constants.dart';
 
 class IntroductionPage extends StatefulWidget {
   @override

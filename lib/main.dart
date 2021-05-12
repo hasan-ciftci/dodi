@@ -1,12 +1,12 @@
-import 'package:dodi/view/choose_profile_view.dart';
-import 'package:dodi/view/phone_register_view.dart';
 import 'package:flutter/material.dart';
 
 import 'view/analyzing_view.dart';
+import 'view/choose_profile_view.dart';
 import 'view/class_select_view.dart';
 import 'view/evaluation_overview_view.dart';
 import 'view/login_view.dart';
 import 'view/onboarding_view.dart';
+import 'view/phone_register_view.dart';
 import 'view/question_view.dart';
 import 'view/result_view.dart';
 import 'view/sign_up_view.dart';

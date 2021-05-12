@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../core/constants/image_constants.dart';
-
 class ChooseProfileView extends StatefulWidget {
   @override
   _ChooseProfileViewState createState() => _ChooseProfileViewState();
