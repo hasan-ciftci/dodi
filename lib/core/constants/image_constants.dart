@@ -17,6 +17,7 @@ class ImageConstants {
   String get analysingIcon => "analyzing".toPng;
   String get line => "line".toPng;
   String get result => "result".toPng;
+  String get profile => "profile".toPng;
 
   String get soru1 => "soru1".mockQuestionToPng;
   String get soru2 => "soru2".mockQuestionToPng;
