@@ -1,3 +1,4 @@
+import 'package:dodi/core/constants/image_constants.dart';
 import 'package:dodi/widget/profile_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -7,6 +8,7 @@ class ChooseProfileView extends StatefulWidget {
 }
 
 class _ChooseProfileViewState extends State<ChooseProfileView> {
+  bool editMode = false;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -70,6 +72,7 @@ class _ChooseProfileViewState extends State<ChooseProfileView> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ProfileWidget(
+                    isEditing: editMode,
                     icon: Icons.person,
                     name: 'Yaşar',
                     size: size,
@@ -96,17 +99,23 @@ class _ChooseProfileViewState extends State<ChooseProfileView> {
     );
   }
 
-  Padding buildEditProfilesButton(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          Icon(
-            Icons.edit,
-            color: Theme.of(context).backgroundColor,
+  GestureDetector buildEditProfilesButton(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        toggleEditMode();
+      },
+      child: Container(
+        color: Colors.transparent,
+        child: Padding(
+          padding: EdgeInsets.only(bottom: 16.0),
+          child: Column(
+            children: [
+              Image.asset(ImageConstants.instance.penVectorOrange),
+              SizedBox(height: 4),
+              Text("Profilleri Düzenle"),
+            ],
           ),
-          Text("Profilleri Düzenle"),
-        ],
+        ),
       ),
     );
   }
@@ -144,5 +153,11 @@ class _ChooseProfileViewState extends State<ChooseProfileView> {
         )
       ],
     );
+  }
+
+  void toggleEditMode() {
+    setState(() {
+      editMode = !editMode;
+    });
   }
 }
