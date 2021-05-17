@@ -2,6 +2,8 @@ import 'package:dodi/core/constants/image_constants.dart';
 import 'package:dodi/widget/profile_widget.dart';
 import 'package:flutter/material.dart';
 
+import 'create_profile_extra.dart';
+
 class ChooseProfileView extends StatefulWidget {
   @override
   _ChooseProfileViewState createState() => _ChooseProfileViewState();
@@ -9,6 +11,7 @@ class ChooseProfileView extends StatefulWidget {
 
 class _ChooseProfileViewState extends State<ChooseProfileView> {
   bool editMode = false;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -71,11 +74,26 @@ class _ChooseProfileViewState extends State<ChooseProfileView> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  ProfileWidget(
-                    isEditing: editMode,
-                    icon: Icons.person,
-                    name: 'Yaşar',
-                    size: size,
+                  GestureDetector(
+                    onTap: () {
+                      if (editMode == true)
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => CreateProfileExtra(
+                              isStudent: true,
+                              lastName: "Yaşar",
+                              name: 'Kemal',
+                            ),
+                          ),
+                        );
+                    },
+                    child: ProfileWidget(
+                      isEditing: editMode,
+                      icon: Icons.person,
+                      name: 'Yaşar',
+                      size: size,
+                    ),
                   ),
                   GestureDetector(
                     onTap: () {

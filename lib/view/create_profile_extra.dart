@@ -5,19 +5,37 @@ import 'package:flutter/material.dart';
 enum ProfileType { Student, Parent }
 
 class CreateProfileExtra extends StatefulWidget {
+  final String name;
+  final String lastName;
+  final bool isStudent;
+
+  const CreateProfileExtra(
+      {Key key,
+      @required this.name,
+      @required this.lastName,
+      @required this.isStudent})
+      : super(key: key);
+
   @override
   _CreateProfileExtraState createState() => _CreateProfileExtraState();
 }
 
 class _CreateProfileExtraState extends State<CreateProfileExtra> {
-  ProfileType _profileType = ProfileType.Parent;
+  ProfileType _profileType;
   bool isProfilePictureSelected = false;
-  TextEditingController _nameController = TextEditingController(text: "Ayşe");
-  TextEditingController _lastNameController =
-      TextEditingController(text: "Kemal");
+  TextEditingController _nameController;
+  TextEditingController _lastNameController;
   bool isNameFieldValid = true;
   bool isLastNameFieldValid = true;
   bool isSaveButtonActive = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController = TextEditingController(text: widget.name);
+    _lastNameController = TextEditingController(text: widget.lastName);
+    _profileType = widget.isStudent ? ProfileType.Student : ProfileType.Parent;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +129,11 @@ class _CreateProfileExtraState extends State<CreateProfileExtra> {
             });
           },
           child: ProfileWidget(
-            image: ImageConstants.instance.profile,
+            image: widget.isStudent
+                ? isProfilePictureSelected
+                    ? ImageConstants.instance.profile
+                    : null
+                : ImageConstants.instance.profile,
             name: "Profil Resmi Yükle",
             icon: Icons.add,
             size: size,

@@ -2,6 +2,8 @@ import 'package:dodi/core/constants/image_constants.dart';
 import 'package:dodi/widget/profile_widget.dart';
 import 'package:flutter/material.dart';
 
+import 'create_profile_extra.dart';
+
 class ChooseProfileExtra extends StatefulWidget {
   @override
   _ChooseProfileExtraState createState() => _ChooseProfileExtraState();
@@ -9,6 +11,7 @@ class ChooseProfileExtra extends StatefulWidget {
 
 class _ChooseProfileExtraState extends State<ChooseProfileExtra> {
   bool editMode = false;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -70,16 +73,40 @@ class _ChooseProfileExtraState extends State<ChooseProfileExtra> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  ProfileWidget(
-                    isEditing: editMode,
-                    icon: Icons.person,
-                    name: 'Yaşar',
-                    size: size,
+                  GestureDetector(
+                    onTap: () {
+                      if (editMode == true)
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => CreateProfileExtra(
+                              isStudent: true,
+                              lastName: "Yaşar",
+                              name: 'Kemal',
+                            ),
+                          ),
+                        );
+                    },
+                    child: ProfileWidget(
+                      isEditing: editMode,
+                      icon: Icons.person,
+                      name: 'Yaşar',
+                      size: size,
+                    ),
                   ),
                   GestureDetector(
                     onTap: () {
                       if (editMode == true)
-                        Navigator.of(context).pushNamed("/createProfileExtra");
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => CreateProfileExtra(
+                              isStudent: false,
+                              lastName: "Ayşe",
+                              name: 'Kemal',
+                            ),
+                          ),
+                        );
                     },
                     child: ProfileWidget(
                       image: ImageConstants.instance.profile,
