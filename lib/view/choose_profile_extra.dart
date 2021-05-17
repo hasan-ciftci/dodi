@@ -86,6 +86,9 @@ class _ChooseProfileExtraState extends State<ChooseProfileExtra> {
                             ),
                           ),
                         );
+                      else{
+                        Navigator.of(context).pushNamed("/classSelect");
+                      }
                     },
                     child: ProfileWidget(
                       isEditing: editMode,
@@ -107,6 +110,9 @@ class _ChooseProfileExtraState extends State<ChooseProfileExtra> {
                             ),
                           ),
                         );
+                      else{
+                        Navigator.of(context).pushNamed("/classSelect");
+                      }
                     },
                     child: ProfileWidget(
                       image: ImageConstants.instance.profile,

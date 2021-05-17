@@ -87,6 +87,9 @@ class _ChooseProfileViewState extends State<ChooseProfileView> {
                             ),
                           ),
                         );
+                      else{
+                        Navigator.of(context).pushNamed("/classSelect");
+                      }
                     },
                     child: ProfileWidget(
                       isEditing: editMode,
