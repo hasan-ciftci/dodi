@@ -12,10 +12,15 @@ class SignUpView extends StatefulWidget {
 class _SignUpViewState extends State<SignUpView> {
   TextEditingController _nameFieldController = TextEditingController();
   TextEditingController _lastNameFieldController = TextEditingController();
-  TextEditingController _mailFieldController = TextEditingController();
   TextEditingController _passwordFieldController = TextEditingController();
   TextEditingController _rePasswordFieldController = TextEditingController();
   TextEditingController _birthDayFieldController = TextEditingController();
+
+  bool isNameFieldValid = false;
+  bool isLastNameFieldValid = false;
+  bool isPasswordFieldValid = false;
+  bool isRePasswordFieldValid = false;
+  bool isBirthdayFieldValid = false;
 
   TextEditingController _schoolNameFieldController = TextEditingController();
   TextEditingController _cityFieldController = TextEditingController();
@@ -126,11 +131,7 @@ class _SignUpViewState extends State<SignUpView> {
             width: size.width * .9,
             child: buildVerifyPasswordTextFormField(),
           ),
-          SizedBox(
-            height: size.height * .1,
-            width: size.width * .9,
-            child: buildEmailTextFormField(),
-          ),
+
           SizedBox(
             height: size.height * .1,
             width: size.width * .9,
@@ -292,24 +293,6 @@ class _SignUpViewState extends State<SignUpView> {
     );
   }
 
-  TextFormField buildEmailTextFormField() {
-    return TextFormField(
-      controller: _mailFieldController,
-      decoration: InputDecoration(
-        suffixIcon: Icon(
-          Icons.done,
-          color: Colors.white,
-        ),
-        labelText: "E-Posta",
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(20.0),
-          ),
-        ),
-      ),
-    );
-  }
-
   ElevatedButton buildLoginButton(Size size, BuildContext context) {
     return ElevatedButton(
       onPressed: isNextButonActivated || isRegisterButonActivated
@@ -352,11 +335,29 @@ class _SignUpViewState extends State<SignUpView> {
     return TextFormField(
       controller: _nameFieldController,
       decoration: InputDecoration(
-        labelText: "Ad",
-        border: OutlineInputBorder(
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: isNameFieldValid
+                  ? Theme.of(context).backgroundColor
+                  : Colors.grey),
           borderRadius: BorderRadius.all(
             Radius.circular(20.0),
           ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: isNameFieldValid
+                  ? Theme.of(context).backgroundColor
+                  : Colors.grey),
+          borderRadius: BorderRadius.all(
+            Radius.circular(20.0),
+          ),
+        ),
+        labelText: "Ad",
+        labelStyle: TextStyle(
+          color: isNameFieldValid
+              ? Theme.of(context).backgroundColor
+              : Colors.grey,
         ),
       ),
     );
@@ -366,11 +367,29 @@ class _SignUpViewState extends State<SignUpView> {
     return TextFormField(
       controller: _lastNameFieldController,
       decoration: InputDecoration(
-        labelText: "Soyad",
-        border: OutlineInputBorder(
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: isLastNameFieldValid
+                  ? Theme.of(context).backgroundColor
+                  : Colors.grey),
           borderRadius: BorderRadius.all(
             Radius.circular(20.0),
           ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: isLastNameFieldValid
+                  ? Theme.of(context).backgroundColor
+                  : Colors.grey),
+          borderRadius: BorderRadius.all(
+            Radius.circular(20.0),
+          ),
+        ),
+        labelText: "Soyad",
+        labelStyle: TextStyle(
+          color: isLastNameFieldValid
+              ? Theme.of(context).backgroundColor
+              : Colors.grey,
         ),
       ),
     );
@@ -380,12 +399,33 @@ class _SignUpViewState extends State<SignUpView> {
     return TextFormField(
       controller: _passwordFieldController,
       decoration: InputDecoration(
-        suffixIcon: Icon(Icons.done),
-        labelText: "Şifre",
-        border: OutlineInputBorder(
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: isPasswordFieldValid
+                  ? Theme.of(context).backgroundColor
+                  : Colors.grey),
           borderRadius: BorderRadius.all(
             Radius.circular(20.0),
           ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: isPasswordFieldValid
+                  ? Theme.of(context).backgroundColor
+                  : Colors.grey),
+          borderRadius: BorderRadius.all(
+            Radius.circular(20.0),
+          ),
+        ),
+        suffixIcon: Opacity(
+          opacity: isPasswordFieldValid ? 1 : 0,
+          child: Icon(Icons.done,color: Theme.of(context).backgroundColor,),
+        ),
+        labelText: "Şifre",
+        labelStyle: TextStyle(
+          color: isPasswordFieldValid
+              ? Theme.of(context).backgroundColor
+              : Colors.grey,
         ),
       ),
     );
@@ -395,12 +435,33 @@ class _SignUpViewState extends State<SignUpView> {
     return TextFormField(
       controller: _rePasswordFieldController,
       decoration: InputDecoration(
-        suffixIcon: Icon(Icons.done),
-        labelText: "Şifre Tekrarı",
-        border: OutlineInputBorder(
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: isRePasswordFieldValid
+                  ? Theme.of(context).backgroundColor
+                  : Colors.grey),
           borderRadius: BorderRadius.all(
             Radius.circular(20.0),
           ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: isRePasswordFieldValid
+                  ? Theme.of(context).backgroundColor
+                  : Colors.grey),
+          borderRadius: BorderRadius.all(
+            Radius.circular(20.0),
+          ),
+        ),
+        suffixIcon: Opacity(
+          opacity: isRePasswordFieldValid ? 1 : 0,
+          child: Icon(Icons.done,color: Theme.of(context).backgroundColor,),
+        ),
+        labelText: "Şifre Tekrarı",
+        labelStyle: TextStyle(
+          color: isRePasswordFieldValid
+              ? Theme.of(context).backgroundColor
+              : Colors.grey,
         ),
       ),
     );
@@ -410,11 +471,29 @@ class _SignUpViewState extends State<SignUpView> {
     return TextFormField(
       controller: _birthDayFieldController,
       decoration: InputDecoration(
-        labelText: "Doğum tarihi",
-        border: OutlineInputBorder(
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: isBirthdayFieldValid
+                  ? Theme.of(context).backgroundColor
+                  : Colors.grey),
           borderRadius: BorderRadius.all(
             Radius.circular(20.0),
           ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: isBirthdayFieldValid
+                  ? Theme.of(context).backgroundColor
+                  : Colors.grey),
+          borderRadius: BorderRadius.all(
+            Radius.circular(20.0),
+          ),
+        ),
+        labelText: "Doğum tarihi",
+        labelStyle: TextStyle(
+          color: isBirthdayFieldValid
+              ? Theme.of(context).backgroundColor
+              : Colors.grey,
         ),
       ),
     );
@@ -422,17 +501,22 @@ class _SignUpViewState extends State<SignUpView> {
 
   bool get checkNameFieldFilled =>
       _nameFieldController.text != null && _nameFieldController.text.isNotEmpty;
+
   bool get checkLastNameFieldFilled =>
       _lastNameFieldController.text != null &&
       _lastNameFieldController.text.isNotEmpty;
-  bool get checMailFieldFilled =>
-      _mailFieldController.text != null && _mailFieldController.text.isNotEmpty;
+
   bool get checkPasswordFieldFilled =>
       _passwordFieldController.text != null &&
       _passwordFieldController.text.isNotEmpty;
+
   bool get checkRePasswordFieldFilled =>
       _rePasswordFieldController.text != null &&
-      _rePasswordFieldController.text.isNotEmpty;
+      _rePasswordFieldController.text.isNotEmpty &&
+      _passwordFieldController.text
+              .compareTo(_rePasswordFieldController.text) ==
+          0;
+
   bool get checkBirthDayFieldFilled =>
       _birthDayFieldController.text != null &&
       _birthDayFieldController.text.isNotEmpty;
@@ -440,11 +524,14 @@ class _SignUpViewState extends State<SignUpView> {
   bool get checkSchoolNameFieldFilled =>
       _schoolNameFieldController.text != null &&
       _schoolNameFieldController.text.isNotEmpty;
+
   bool get checkCityFieldFilled =>
       _cityFieldController.text != null && _cityFieldController.text.isNotEmpty;
+
   bool get checkParentPhoneFieldFilled =>
       _parentPhoneFieldController.text != null &&
       _parentPhoneFieldController.text.isNotEmpty;
+
   bool get checkParentMailFieldFilled =>
       _parentMailFieldController.text != null &&
       _parentMailFieldController.text.isNotEmpty;
@@ -452,10 +539,10 @@ class _SignUpViewState extends State<SignUpView> {
   bool get checkFirstStepFieldsAreComplete =>
       checkNameFieldFilled &&
       checkLastNameFieldFilled &&
-      checMailFieldFilled &&
       checkPasswordFieldFilled &&
       checkRePasswordFieldFilled &&
       checkBirthDayFieldFilled;
+
   bool get checkSecondStepFieldsAreComplete =>
       checkSchoolNameFieldFilled &&
       checkCityFieldFilled &&
@@ -465,29 +552,45 @@ class _SignUpViewState extends State<SignUpView> {
       declarationOfConsentRadioChecked;
 
   void checkFirstStepFormIsValid() {
-    print(checkFirstStepFieldsAreComplete);
-    if (checkFirstStepFieldsAreComplete && !isNextButonActivated) {
-      setState(() {
-        isNextButonActivated = true;
-      });
+    bool statusChanged = false;
+
+    if (checkFirstStepFieldsAreComplete != isNextButonActivated) {
+      isNextButonActivated = !isNextButonActivated;
+      statusChanged = true;
     }
-    if (!checkFirstStepFieldsAreComplete && isNextButonActivated) {
-      setState(() {
-        isNextButonActivated = false;
-      });
+    if (checkNameFieldFilled != isNameFieldValid) {
+      isNameFieldValid = !isNameFieldValid;
+      statusChanged = true;
+    }
+    if (checkLastNameFieldFilled != isLastNameFieldValid) {
+      isLastNameFieldValid = !isLastNameFieldValid;
+      statusChanged = true;
+    }
+    if (checkPasswordFieldFilled != isPasswordFieldValid) {
+      isPasswordFieldValid = !isPasswordFieldValid;
+      statusChanged = true;
+    }
+    if (checkRePasswordFieldFilled != isRePasswordFieldValid) {
+      isRePasswordFieldValid = !isRePasswordFieldValid;
+      statusChanged = true;
+    }
+    if (checkBirthDayFieldFilled != isBirthdayFieldValid) {
+      isBirthdayFieldValid = !isBirthdayFieldValid;
+      statusChanged = true;
+    }
+    if (statusChanged) {
+      setState(() {});
     }
   }
 
   void checkSecondStepFormIsValid() {
-    if (checkSecondStepFieldsAreComplete && !isRegisterButonActivated) {
-      setState(() {
-        isRegisterButonActivated = true;
-      });
+    bool statusChanged = false;
+    if (checkSecondStepFieldsAreComplete != isRegisterButonActivated) {
+      isRegisterButonActivated = !isRegisterButonActivated;
+      statusChanged = true;
     }
-    if (!checkSecondStepFieldsAreComplete && isRegisterButonActivated) {
-      setState(() {
-        isRegisterButonActivated = false;
-      });
+    if (statusChanged) {
+      setState(() {});
     }
   }
 }
