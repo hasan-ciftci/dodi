@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData().copyWith(
+        toggleableActiveColor: Color(0xFFF38424),
           primaryColor: Color(0xFF1C742C),
           backgroundColor: Color(0xFFF38424),
           elevatedButtonTheme: ElevatedButtonThemeData(

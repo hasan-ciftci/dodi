@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../core/constants/image_constants.dart';
@@ -8,6 +9,14 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
+  bool isRememberMeChecked = false;
+  bool isEmailValid = false;
+  bool isPasswordValid = false;
+  bool isLoginButtonActive = false;
+  bool isPasswordObscure = false;
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -64,6 +73,7 @@ class _LoginViewState extends State<LoginView> {
             color: Colors.white,
           ),
           child: Form(
+            onChanged: checkFirstStepFormIsValid,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -76,7 +86,7 @@ class _LoginViewState extends State<LoginView> {
                     SizedBox(height: size.height * .04),
                     buildEmailTextFormField(),
                     buildPasswordTextFormField(),
-                    buildRemembermeRadioButton(),
+                    buildRememberMeRadioButton(),
                   ],
                 ),
                 Spacer(),
@@ -92,19 +102,31 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  Row buildRemembermeRadioButton() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Radio(
-          onChanged: (value) {},
-          value: 1,
-          groupValue: 0,
-        ),
-        Text(
-          "Beni hatırla",
-        ),
-      ],
+  buildRememberMeRadioButton() {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          isRememberMeChecked = !isRememberMeChecked;
+        });
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Radio(
+            toggleable: true,
+            onChanged: (value) {
+              setState(() {
+                isRememberMeChecked = !isRememberMeChecked;
+              });
+            },
+            value: isRememberMeChecked,
+            groupValue: true,
+          ),
+          Text(
+            "Beni hatırla",
+          ),
+        ],
+      ),
     );
   }
 
@@ -187,13 +209,34 @@ class _LoginViewState extends State<LoginView> {
     return Padding(
       padding: EdgeInsets.all(8.0),
       child: TextFormField(
+        controller: _emailController,
         decoration: InputDecoration(
-          suffixIcon: Icon(Icons.done),
-          labelText: "E-Posta",
-          border: OutlineInputBorder(
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+                color: isEmailValid
+                    ? Theme.of(context).backgroundColor
+                    : Colors.grey),
             borderRadius: BorderRadius.all(
               Radius.circular(20.0),
             ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+                color: isEmailValid
+                    ? Theme.of(context).backgroundColor
+                    : Colors.grey),
+            borderRadius: BorderRadius.all(
+              Radius.circular(20.0),
+            ),
+          ),
+          suffixIcon: Opacity(
+              opacity: isEmailValid ? 1 : 0,
+              child:
+                  Icon(Icons.done, color: Theme.of(context).backgroundColor)),
+          labelText: "E-Posta",
+          labelStyle: TextStyle(
+            color:
+                isEmailValid ? Theme.of(context).backgroundColor : Colors.grey,
           ),
         ),
       ),
@@ -204,13 +247,45 @@ class _LoginViewState extends State<LoginView> {
     return Padding(
       padding: EdgeInsets.all(8.0),
       child: TextFormField(
+        controller: _passwordController,
+        obscureText: isPasswordObscure,
         decoration: InputDecoration(
-          suffixIcon: Icon(Icons.remove_red_eye),
-          labelText: "Şifre",
-          border: OutlineInputBorder(
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+                color: isPasswordValid
+                    ? Theme.of(context).backgroundColor
+                    : Colors.grey),
             borderRadius: BorderRadius.all(
               Radius.circular(20.0),
             ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+                color: isPasswordValid
+                    ? Theme.of(context).backgroundColor
+                    : Colors.grey),
+            borderRadius: BorderRadius.all(
+              Radius.circular(20.0),
+            ),
+          ),
+          suffixIcon: GestureDetector(
+              onTap: () {
+                setState(() {
+                  isPasswordObscure = !isPasswordObscure;
+                });
+              },
+              child: Opacity(
+                  opacity: isPasswordValid ? 1 : 0,
+                  child: Icon(
+                      isPasswordObscure
+                          ? CupertinoIcons.eye
+                          : CupertinoIcons.eye_slash,
+                      color: Theme.of(context).backgroundColor))),
+          labelText: "Şifre",
+          labelStyle: TextStyle(
+            color: isPasswordValid
+                ? Theme.of(context).backgroundColor
+                : Colors.grey,
           ),
         ),
       ),
@@ -222,9 +297,11 @@ class _LoginViewState extends State<LoginView> {
       height: size.height * .08,
       width: size.width * .9,
       child: ElevatedButton(
-        onPressed: () {
-          Navigator.of(context).pushNamed('/chooseProfile');
-        },
+        onPressed: isLoginButtonActive
+            ? () {
+                Navigator.of(context).pushNamed('/chooseProfile');
+              }
+            : null,
         child: Text(
           "Giriş Yap",
           style: Theme.of(context)
@@ -250,5 +327,36 @@ class _LoginViewState extends State<LoginView> {
         )
       ],
     );
+  }
+
+  bool get checkPasswordFieldFilled =>
+      _passwordController.text != null && _passwordController.text.isNotEmpty;
+
+  bool get checkEmailFieldFilled =>
+      _emailController.text != null && _emailController.text.isNotEmpty;
+
+  bool get checkFormFieldsAreComplete =>
+      checkPasswordFieldFilled && checkEmailFieldFilled;
+
+  void checkFirstStepFormIsValid() {
+    bool statusChanged = false;
+    if (isEmailValid != checkEmailFieldFilled) {
+      isEmailValid = !isEmailValid;
+      statusChanged = true;
+    }
+
+    if (isPasswordValid != checkPasswordFieldFilled) {
+      isPasswordValid = !isPasswordValid;
+      statusChanged = true;
+    }
+
+    if (checkFormFieldsAreComplete != isLoginButtonActive) {
+      isLoginButtonActive = !isLoginButtonActive;
+      statusChanged = true;
+    }
+
+    if (statusChanged) {
+      setState(() {});
+    }
   }
 }
