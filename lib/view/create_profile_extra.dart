@@ -12,6 +12,13 @@ class CreateProfileExtra extends StatefulWidget {
 class _CreateProfileExtraState extends State<CreateProfileExtra> {
   ProfileType _profileType = ProfileType.Parent;
   bool isProfilePictureSelected = false;
+  TextEditingController _nameController = TextEditingController(text: "Ayşe");
+  TextEditingController _lastNameController =
+      TextEditingController(text: "Kemal");
+  bool isNameFieldValid = true;
+  bool isLastNameFieldValid = true;
+  bool isSaveButtonActive = true;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -68,6 +75,7 @@ class _CreateProfileExtraState extends State<CreateProfileExtra> {
             color: Colors.white,
           ),
           child: Form(
+            onChanged: checkFormIsValid,
             child: Column(
               children: [
                 SizedBox(height: size.height * .08),
@@ -176,13 +184,31 @@ class _CreateProfileExtraState extends State<CreateProfileExtra> {
     return Padding(
       padding: EdgeInsets.all(8.0),
       child: TextFormField(
-        initialValue: "Ayşe",
+        controller: _nameController,
         decoration: InputDecoration(
-          labelText: "Ad",
-          border: OutlineInputBorder(
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+                color: isNameFieldValid
+                    ? Theme.of(context).backgroundColor
+                    : Colors.grey),
             borderRadius: BorderRadius.all(
               Radius.circular(20.0),
             ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+                color: isNameFieldValid
+                    ? Theme.of(context).backgroundColor
+                    : Colors.grey),
+            borderRadius: BorderRadius.all(
+              Radius.circular(20.0),
+            ),
+          ),
+          labelText: "Ad",
+          labelStyle: TextStyle(
+            color: isNameFieldValid
+                ? Theme.of(context).backgroundColor
+                : Colors.grey,
           ),
         ),
       ),
@@ -193,13 +219,31 @@ class _CreateProfileExtraState extends State<CreateProfileExtra> {
     return Padding(
       padding: EdgeInsets.all(8.0),
       child: TextFormField(
-        initialValue: "Kemal",
+        controller: _lastNameController,
         decoration: InputDecoration(
-          labelText: "Soyad",
-          border: OutlineInputBorder(
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+                color: isLastNameFieldValid
+                    ? Theme.of(context).backgroundColor
+                    : Colors.grey),
             borderRadius: BorderRadius.all(
               Radius.circular(20.0),
             ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+                color: isLastNameFieldValid
+                    ? Theme.of(context).backgroundColor
+                    : Colors.grey),
+            borderRadius: BorderRadius.all(
+              Radius.circular(20.0),
+            ),
+          ),
+          labelText: "Soyad",
+          labelStyle: TextStyle(
+            color: isLastNameFieldValid
+                ? Theme.of(context).backgroundColor
+                : Colors.grey,
           ),
         ),
       ),
@@ -211,9 +255,11 @@ class _CreateProfileExtraState extends State<CreateProfileExtra> {
       height: size.height * .08,
       width: size.width * .9,
       child: ElevatedButton(
-        onPressed: () {
-          Navigator.of(context).pushNamed("/chooseProfileExtra");
-        },
+        onPressed: isSaveButtonActive
+            ? () {
+                Navigator.of(context).pushNamed("/chooseProfileExtra");
+              }
+            : null,
         child: Text(
           "Kaydet",
           style: Theme.of(context)
@@ -267,5 +313,33 @@ class _CreateProfileExtraState extends State<CreateProfileExtra> {
         )
       ],
     );
+  }
+
+  bool get checkNameFieldFilled =>
+      _nameController.text != null && _nameController.text.isNotEmpty;
+
+  bool get checkLastNameFieldFilled =>
+      _lastNameController.text != null && _lastNameController.text.isNotEmpty;
+
+  bool get checkFormFieldsAreComplete =>
+      checkNameFieldFilled && checkLastNameFieldFilled;
+
+  void checkFormIsValid() {
+    bool statusChanged = false;
+    if (checkFormFieldsAreComplete != isSaveButtonActive) {
+      isSaveButtonActive = !isSaveButtonActive;
+      statusChanged = true;
+    }
+    if (isNameFieldValid != checkNameFieldFilled) {
+      isNameFieldValid = !isNameFieldValid;
+      statusChanged = true;
+    }
+    if (isLastNameFieldValid != checkLastNameFieldFilled) {
+      isLastNameFieldValid = !isLastNameFieldValid;
+      statusChanged = true;
+    }
+    if (statusChanged) {
+      setState(() {});
+    }
   }
 }
