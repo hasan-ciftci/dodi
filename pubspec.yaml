@@ -37,6 +37,7 @@ flutter:
     - assets/image/result.png
     - assets/image/profile.png
     - assets/image/pen_vector.png
+    - assets/image/comparison_graph.png
     - assets/image/pen_vector_orange.png
     - assets/image/mockquestions/soru1.png
     - assets/image/mockquestions/soru2.png

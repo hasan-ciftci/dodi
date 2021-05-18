@@ -15,16 +15,16 @@ class _ResultViewState extends State<ResultView> {
     return Scaffold(
       body: Stack(
         children: [
-          buildBackground(size, context),
+          buildBackground(size),
           buildPageHeader(size),
-          buildBody(size, context),
-          buildAppBar(size, context)
+          buildBody(size),
+          buildAppBar(size)
         ],
       ),
     );
   }
 
-  Align buildBody(Size size, BuildContext context) {
+  Align buildBody(Size size) {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(
@@ -37,6 +37,7 @@ class _ResultViewState extends State<ResultView> {
               topLeft: Radius.circular(50.0),
             )),
         child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
           child: Padding(
             padding: EdgeInsets.only(
               right: size.width * .09,
@@ -46,12 +47,13 @@ class _ResultViewState extends State<ResultView> {
             ),
             child: Column(
               children: [
-                buildResultPoint(context),
-                buildResultCaption(context),
+                buildResultPoint(),
+                buildResultCaption(size),
                 buildResultImage(),
                 buildLine(),
-                buildInformationText(context, size),
-                buildButtons(size, context),
+                buildInformationText(size),
+                buildComparisonGraph(),
+                buildButtons(size),
               ],
             ),
           ),
@@ -60,7 +62,10 @@ class _ResultViewState extends State<ResultView> {
     );
   }
 
-  Text buildResultPoint(BuildContext context) {
+  Image buildComparisonGraph() =>
+      Image.asset(ImageConstants.instance.comparisonGraph);
+
+  Text buildResultPoint() {
     return Text(
       "56",
       style: Theme.of(context).textTheme.headline1.copyWith(
@@ -69,11 +74,76 @@ class _ResultViewState extends State<ResultView> {
     );
   }
 
-  Text buildResultCaption(BuildContext context) {
-    return Text("Orta Seviye Başarı",
-        style: Theme.of(context).textTheme.headline6.copyWith(
-              color: Theme.of(context).backgroundColor,
-            ));
+  Column buildResultCaption(Size size) {
+    return Column(
+      children: [
+        Text(
+          "Orta Seviye Başarı",
+          style: Theme.of(context)
+              .textTheme
+              .headline6
+              .copyWith(color: Theme.of(context).backgroundColor),
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: 16.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              buildScoreTable(context),
+              SizedBox(
+                width: 16,
+              ),
+              buildViewSolutionsButton(size, context),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Column buildScoreTable(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          "2 doğru",
+          style: Theme.of(context)
+              .textTheme
+              .bodyText1
+              .copyWith(color: Colors.green),
+        ),
+        Text(
+          "1 yanlış",
+          style:
+              Theme.of(context).textTheme.bodyText1.copyWith(color: Colors.red),
+        ),
+        Text(
+          "Boş yok",
+          style: Theme.of(context)
+              .textTheme
+              .bodyText1
+              .copyWith(color: Colors.amber),
+        ),
+      ],
+    );
+  }
+
+  SizedBox buildViewSolutionsButton(Size size, BuildContext context) {
+    return SizedBox(
+      height: size.height * .08,
+      width: size.width * .35,
+      child: ElevatedButton(
+        onPressed: () {},
+        child: Text(
+          "Çözümlere git",
+          textAlign: TextAlign.center,
+          style:
+              Theme.of(context).textTheme.button.copyWith(color: Colors.white),
+        ),
+        style: ButtonStyle(
+          shape: MaterialStateProperty.all(StadiumBorder()),
+        ),
+      ),
+    );
   }
 
   Padding buildResultImage() {
@@ -90,25 +160,25 @@ class _ResultViewState extends State<ResultView> {
     );
   }
 
-  Padding buildInformationText(BuildContext context, Size size) {
+  Padding buildInformationText(Size size) {
+    String bulletPoint = "\u2022";
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: size.width * .02),
       child: Text(
         """
 Sayın Velimiz,
 
-Doç. Dr. Osman Abalı tarafından hazırlanan Görsel Algı ve Dikkat testi uygulamalarımızı tamamlamış bulunmaktayız.
 Testlerin puanlaması ve değerlendirilmesi aşamasında çocuğunuzun Dikkat ve Görsel Algı performansına ilişkin bilgilere ve yorumlara yer vereceğiz. Bu değerlendirmeler yapacağımız çalışmalara da yön verecek.
 Özellikle bilmeniz gereken nokta bu testin sonuçlarının TIBBİ TANILAMA AMACIYLA KULLANILMAMAKTA oluşudur.
 
 Test puanları öğrencinin;
 
-Genel dikkat düzeyi
-Görsel algı performansı
-Parça-bütün ilişkisini görebilme
-Benzerlik ve farklılıkları ayırt edebilme
-Sözel önermeleri doğru okuyabilme ve yorumlayabilme becerisi
-Tablo-grafik yorumlama
+$bulletPoint Genel dikkat düzeyi
+$bulletPoint Görsel algı performansı
+$bulletPoint Parça-bütün ilişkisini görebilme
+$bulletPoint Benzerlik ve farklılıkları ayırt edebilme
+$bulletPoint Sözel önermeleri doğru okuyabilme ve yorumlayabilme becerisi
+$bulletPoint Tablo-grafik yorumlama
 örüntü ilişkilerini kavrayabilme gibi konulardaki performansının yorumlanmasına dayanak oluşturmaktadır.
                   """,
         style: Theme.of(context).textTheme.subtitle1.copyWith(
@@ -118,14 +188,18 @@ Tablo-grafik yorumlama
     );
   }
 
-  Padding buildButtons(Size size, BuildContext context) {
+  Padding buildButtons(Size size) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: size.width * .02),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          buildGraphsButton(size, context),
-          buildSuggestedProductsButton(size, context),
+          SizedBox(
+              height: size.height * .15,
+              child: buildGeneralStatisticsButton(size, context)),
+          SizedBox(
+              height: size.height * .15,
+              child: buildSuggestedProductsButton(size, context)),
         ],
       ),
     );
@@ -157,7 +231,7 @@ Tablo-grafik yorumlama
     );
   }
 
-  Align buildAppBar(Size size, BuildContext context) {
+  Align buildAppBar(Size size) {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(
@@ -193,7 +267,7 @@ Tablo-grafik yorumlama
     );
   }
 
-  Column buildBackground(Size size, BuildContext context) {
+  Column buildBackground(Size size) {
     return Column(
       children: [
         Expanded(
@@ -206,52 +280,46 @@ Tablo-grafik yorumlama
     );
   }
 
-  SizedBox buildGraphsButton(Size size, BuildContext context) {
-    return SizedBox(
-      height: size.height * .15,
-      child: Center(
-        child: SizedBox(
-          height: size.height * .08,
-          width: size.width * .35,
-          child: ElevatedButton(
-            onPressed: () {},
-            child: Text(
-              "Grafikler",
-              textAlign: TextAlign.center,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline5
-                  .copyWith(color: Colors.white),
-            ),
-            style: ButtonStyle(
-              shape: MaterialStateProperty.all(StadiumBorder()),
-            ),
+  Center buildGeneralStatisticsButton(Size size, BuildContext context) {
+    return Center(
+      child: SizedBox(
+        height: size.height * .08,
+        width: size.width * .35,
+        child: ElevatedButton(
+          onPressed: () {},
+          child: Text(
+            "Genel İstatistikler",
+            textAlign: TextAlign.center,
+            style: Theme.of(context)
+                .textTheme
+                .button
+                .copyWith(color: Colors.white),
+          ),
+          style: ButtonStyle(
+            shape: MaterialStateProperty.all(StadiumBorder()),
           ),
         ),
       ),
     );
   }
 
-  SizedBox buildSuggestedProductsButton(Size size, BuildContext context) {
-    return SizedBox(
-      height: size.height * .15,
-      child: Center(
-        child: SizedBox(
-          height: size.height * .08,
-          width: size.width * .35,
-          child: ElevatedButton(
-            onPressed: () {},
-            child: Text(
-              "Tavsiye Ürünler",
-              textAlign: TextAlign.center,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline5
-                  .copyWith(color: Colors.white),
-            ),
-            style: ButtonStyle(
-              shape: MaterialStateProperty.all(StadiumBorder()),
-            ),
+  Center buildSuggestedProductsButton(Size size, BuildContext context) {
+    return Center(
+      child: SizedBox(
+        height: size.height * .08,
+        width: size.width * .35,
+        child: ElevatedButton(
+          onPressed: () {},
+          child: Text(
+            "Sana Uygun Ürünler",
+            textAlign: TextAlign.center,
+            style: Theme.of(context)
+                .textTheme
+                .button
+                .copyWith(color: Colors.white),
+          ),
+          style: ButtonStyle(
+            shape: MaterialStateProperty.all(StadiumBorder()),
           ),
         ),
       ),

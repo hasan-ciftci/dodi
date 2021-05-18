@@ -20,6 +20,7 @@ class ImageConstants {
   String get profile => "profile".toPng;
   String get penVector => "pen_vector".toPng;
   String get penVectorOrange => "pen_vector_orange".toPng;
+  String get comparisonGraph => "comparison_graph".toPng;
 
   String get soru1 => "soru1".mockQuestionToPng;
   String get soru2 => "soru2".mockQuestionToPng;
