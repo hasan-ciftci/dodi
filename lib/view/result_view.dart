@@ -286,7 +286,9 @@ $bulletPoint Tablo-grafik yorumlama
         height: size.height * .08,
         width: size.width * .35,
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pushNamed("/evaluationOverview");
+          },
           child: Text(
             "Genel İstatistikler",
             textAlign: TextAlign.center,
