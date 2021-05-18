@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class PhoneRegisterView extends StatefulWidget {
   @override
@@ -6,8 +7,22 @@ class PhoneRegisterView extends StatefulWidget {
 }
 
 class _PhoneRegisterViewState extends State<PhoneRegisterView> {
-  bool isVerificationCodeSended = false;
-  TextEditingController _inputController = TextEditingController();
+  bool isVerificationCodeSent = false;
+  bool rememberMeChecked = false;
+  bool isPhoneNumberValid = false;
+  bool isVerificationCodeValid = false;
+  TextEditingController _inputController;
+  MaskTextInputFormatter phoneMaskFormatter = MaskTextInputFormatter(
+      mask: '+90 ### ### ## ##', filter: {"#": RegExp(r'[0-9]')});
+  MaskTextInputFormatter verificationCodeMaskFormatter =
+      MaskTextInputFormatter(mask: '# # # #', filter: {"#": RegExp(r'[0-9]')});
+
+  @override
+  void initState() {
+    super.initState();
+    _inputController = TextEditingController();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -64,6 +79,7 @@ class _PhoneRegisterViewState extends State<PhoneRegisterView> {
             color: Colors.white,
           ),
           child: Form(
+            onChanged: checkFormIsValid,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -76,12 +92,12 @@ class _PhoneRegisterViewState extends State<PhoneRegisterView> {
                       alignment: Alignment.center,
                       children: [
                         Visibility(
-                          child: buildRemembermeRadioButton(),
-                          visible: !isVerificationCodeSended,
+                          child: buildRememberMeRadioButton(),
+                          visible: !isVerificationCodeSent,
                         ),
                         Visibility(
                           child: buildRemainingTime(),
-                          visible: isVerificationCodeSended,
+                          visible: isVerificationCodeSent,
                         )
                       ],
                     ),
@@ -100,7 +116,7 @@ class _PhoneRegisterViewState extends State<PhoneRegisterView> {
 
   Opacity buildVerificationInformationText() {
     return Opacity(
-      opacity: isVerificationCodeSended ? 1 : 0,
+      opacity: isVerificationCodeSent ? 1 : 0,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 32.0),
         child: Text(
@@ -128,14 +144,19 @@ class _PhoneRegisterViewState extends State<PhoneRegisterView> {
     );
   }
 
-  Row buildRemembermeRadioButton() {
+  Row buildRememberMeRadioButton() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Radio(
-          onChanged: (value) {},
-          value: 1,
-          groupValue: 0,
+          toggleable: true,
+          onChanged: (value) {
+            setState(() {
+              rememberMeChecked = !rememberMeChecked;
+            });
+          },
+          value: rememberMeChecked,
+          groupValue: true,
         ),
         Text(
           "Beni hatırla",
@@ -195,12 +216,16 @@ class _PhoneRegisterViewState extends State<PhoneRegisterView> {
     return Padding(
       padding: EdgeInsets.all(8.0),
       child: TextFormField(
+        inputFormatters: [
+          isVerificationCodeSent
+              ? verificationCodeMaskFormatter
+              : phoneMaskFormatter
+        ],
         keyboardType: TextInputType.number,
         controller: _inputController,
-        textAlign:
-            isVerificationCodeSended ? TextAlign.center : TextAlign.start,
+        textAlign: isVerificationCodeSent ? TextAlign.center : TextAlign.start,
         decoration: InputDecoration(
-          labelText: isVerificationCodeSended ? null : "Telefon Numarası",
+          labelText: isVerificationCodeSent ? null : "Telefon Numarası",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(20.0),
@@ -216,18 +241,20 @@ class _PhoneRegisterViewState extends State<PhoneRegisterView> {
       height: size.height * .08,
       width: size.width * .9,
       child: ElevatedButton(
-        onPressed: isVerificationCodeSended
+        onPressed: (isPhoneNumberValid && !isVerificationCodeSent)
             ? () {
-                Navigator.of(context).pushNamed("/chooseProfile");
-              }
-            : () {
                 setState(() {
                   _inputController.clear();
-                  isVerificationCodeSended = true;
+                  isVerificationCodeSent = true;
                 });
-              },
+              }
+            : (isVerificationCodeSent && isVerificationCodeValid)
+                ? () {
+                    Navigator.of(context).pushNamed("/chooseProfile");
+                  }
+                : null,
         child: Text(
-          isVerificationCodeSended ? "Devam Et " : "Onay Kodu Gönder",
+          isVerificationCodeSent ? "Devam Et " : "Onay Kodu Gönder",
           style: Theme.of(context)
               .textTheme
               .headline5
@@ -251,5 +278,28 @@ class _PhoneRegisterViewState extends State<PhoneRegisterView> {
         )
       ],
     );
+  }
+
+  /// 17 => Length of +90 ### ### ## ##
+  bool get checkPhoneFieldIsFilled => _inputController.text.length == 17;
+
+  /// 7 => Length of # # # #
+  bool get checkVerificationCodeFilled => _inputController.text.length == 7;
+
+  void checkFormIsValid() {
+    bool statusChanged = false;
+    if (isPhoneNumberValid != checkPhoneFieldIsFilled) {
+      isPhoneNumberValid = !isPhoneNumberValid;
+      statusChanged = true;
+    }
+
+    if (isVerificationCodeValid != checkVerificationCodeFilled) {
+      isVerificationCodeValid = !isVerificationCodeValid;
+      statusChanged = true;
+    }
+
+    if (statusChanged) {
+      setState(() {});
+    }
   }
 }
