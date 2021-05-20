@@ -32,6 +32,7 @@ flutter:
     - assets/image/classes/
     - assets/image/introduction/
     - assets/image/socialmedia/
+    - assets/image/courses/
     - assets/image/analyzing.png
     - assets/image/line.png
     - assets/image/result.png

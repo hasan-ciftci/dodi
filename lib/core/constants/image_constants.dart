@@ -14,6 +14,9 @@ class ImageConstants {
   String getClassImage(int classNumber) =>
       (classNumber + 1).toString().classToPng;
 
+  String getCourseImage(int courseIndex) =>
+      _courses[courseIndex];
+
   String get analysingIcon => "analyzing".toPng;
   String get line => "line".toPng;
   String get result => "result".toPng;
@@ -35,4 +38,24 @@ class ImageConstants {
 
   String get facebook => "facebook".socialMediaToPng;
   String get google => "google".socialMediaToPng;
+
+  String get _science => "science".courseToPng;
+  String get _general => "general".courseToPng;
+  String get _lifeStudies => "life_studies".courseToPng;
+  String get _english => "english".courseToPng;
+  String get _maths => "maths".courseToPng;
+  String get _turkish => "turkish".courseToPng;
+  String get _intelligence => "intelligence".courseToPng;
+  String get _homeworks => "homeworks".courseToPng;
+
+  List<String> get _courses => [
+    _maths,
+    _turkish,
+    _lifeStudies,
+    _intelligence,
+    _english,
+    _science,
+    _general,
+    _homeworks
+  ];
 }

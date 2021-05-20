@@ -1,4 +1,5 @@
 import 'package:dodi/view/choose_profile_extra.dart';
+import 'package:dodi/view/course_select_view.dart';
 import 'package:dodi/view/create_profile_view.dart';
 import 'package:flutter/material.dart';
 
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
           ),
           bottomAppBarColor: Color(0xFFE9F0D0)),
       routes: {
-        '/': (context) => IntroductionPage(),
+       // '/': (context) => IntroductionPage(),
         '/login': (context) => LoginView(),
         '/register': (context) => SignUpView(),
         '/classSelect': (context) => ClassSelectView(),
@@ -49,6 +50,7 @@ class MyApp extends StatelessWidget {
         '/createProfile': (context) => CreateProfileView(),
         //Same with Choose Profile but included one more profile for scenerio.
         '/chooseProfileExtra': (context) => ChooseProfileExtra(),
+        '/': (context) => CourseSelectView(),
       },
     );
   }
