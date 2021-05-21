@@ -14,6 +14,9 @@ class ImageConstants {
   String getClassImage(int classNumber) =>
       (classNumber + 1).toString().classToPng;
 
+  String getNewClassImage(int classNumber) =>
+      (classNumber + 1).toString().newClassToPng;
+
   String getCourseImage(int courseIndex) =>
       _courses[courseIndex];
 

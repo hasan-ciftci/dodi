@@ -1,6 +1,7 @@
 import 'package:dodi/view/choose_profile_extra.dart';
 import 'package:dodi/view/course_select_view.dart';
 import 'package:dodi/view/create_profile_view.dart';
+import 'package:dodi/view/new_class_select.dart';
 import 'package:dodi/view/subject_select_view.dart';
 import 'package:flutter/material.dart';
 
@@ -52,7 +53,8 @@ class MyApp extends StatelessWidget {
         //Same with Choose Profile but included one more profile for scenerio.
         '/chooseProfileExtra': (context) => ChooseProfileExtra(),
         '/courseSelectView': (context) => CourseSelectView(),
-        '/': (context) => SubjectSelectView(),
+        '/subjectSelectView': (context) => SubjectSelectView(),
+        '/': (context) => NewClassSelect(),
       },
     );
   }

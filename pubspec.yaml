@@ -30,6 +30,7 @@ flutter:
 
   assets:
     - assets/image/classes/
+    - assets/image/newclasses/
     - assets/image/introduction/
     - assets/image/socialmedia/
     - assets/image/courses/
