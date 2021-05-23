@@ -2,6 +2,7 @@ import 'package:dodi/view/choose_profile_extra.dart';
 import 'package:dodi/view/course_select_view.dart';
 import 'package:dodi/view/create_profile_view.dart';
 import 'package:dodi/view/new_class_select.dart';
+import 'package:dodi/view/quiz/quiz_grade_twelve_view.dart';
 import 'package:dodi/view/subject_select_view.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,7 @@ import 'view/class_select_view.dart';
 import 'view/evaluation_overview_view.dart';
 import 'view/login_view.dart';
 import 'view/phone_register_view.dart';
-import 'view/question_view.dart';
+import 'view/quiz/quiz_grade_one_view.dart';
 import 'view/result_view.dart';
 import 'view/sign_up_view.dart';
 import 'view/test_introduction_view.dart';
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
         '/register': (context) => SignUpView(),
         '/classSelect': (context) => ClassSelectView(),
         '/startTest': (context) => TestIntroductionView(),
-        '/': (context) => QuestionView(),
+        '/questionView': (context) => QuizGradeOneView(),
         '/analyzingPage': (context) => AnalyzingView(),
         '/resultPage': (context) => ResultView(),
         '/evaluationOverview': (context) => EvaluationOverviewView(),
@@ -54,7 +55,10 @@ class MyApp extends StatelessWidget {
         '/chooseProfileExtra': (context) => ChooseProfileExtra(),
         '/courseSelectView': (context) => CourseSelectView(),
         '/subjectSelectView': (context) => SubjectSelectView(),
-        '/newClassSelect': (context) => NewClassSelect(),
+        '/newClassSelectView': (context) => NewClassSelect(),
+
+        ///silinecek
+        '/': (context) => QuizGradeTwelveView(),
       },
     );
   }

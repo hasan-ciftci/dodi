@@ -1,3 +1,5 @@
+import 'package:dodi/view/quiz/quiz_grade_one_view.dart';
+import 'package:dodi/view/quiz/quiz_grade_twelve_view.dart';
 import 'package:flutter/material.dart';
 
 import '../core/constants/image_constants.dart';
@@ -63,7 +65,16 @@ class _NewClassSelectState extends State<NewClassSelect> {
 
   ElevatedButton buildSelectClassButton(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: () {
+        int selectedClass = ((sliderValue * 11) + 1).round();
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) =>
+                selectedClass == 1 ? QuizGradeOneView() : QuizGradeTwelveView(),
+          ),
+        );
+      },
       child: Text("Sınıfı Seç",
           textAlign: TextAlign.center,
           style: Theme.of(context)

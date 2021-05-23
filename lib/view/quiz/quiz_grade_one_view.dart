@@ -1,15 +1,15 @@
 import 'package:dodi/core/enums/selected_option_enum.dart';
 import 'package:flutter/material.dart';
 
-import '../core/constants/image_constants.dart';
-import 'finish_test_screen.dart';
+import '../../core/constants/image_constants.dart';
+import '../finish_test_screen.dart';
 
-class QuestionView extends StatefulWidget {
+class QuizGradeOneView extends StatefulWidget {
   @override
-  _QuestionViewState createState() => _QuestionViewState();
+  _QuizGradeOneViewState createState() => _QuizGradeOneViewState();
 }
 
-class _QuestionViewState extends State<QuestionView>
+class _QuizGradeOneViewState extends State<QuizGradeOneView>
     with TickerProviderStateMixin {
   TabController _tabController;
   int _currentIndex = 0;
@@ -134,26 +134,29 @@ class _QuestionViewState extends State<QuestionView>
           ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: 16.0),
-            child: buildOption(context, size, SelectedOption.A, index,
-                questionModel.optionAImage),
+            child: buildOption(selectedOption: SelectedOption.A,size: size,index: index,image: questionModel.optionAImage,text: questionModel.optionBImage),
           ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: 16.0),
-            child: buildOption(context, size, SelectedOption.B, index,
-                questionModel.optionBImage),
+            child: buildOption(selectedOption: SelectedOption.B,size: size,index: index,image: questionModel.optionBImage,text: questionModel.optionBImage),
+
           ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: 16.0),
-            child: buildOption(context, size, SelectedOption.C, index,
-                questionModel.optionCImage),
+            child: buildOption(selectedOption: SelectedOption.C,size: size,index: index,image: questionModel.optionCImage,text: questionModel.optionBImage),
+
           ),
         ],
       ),
     );
   }
 
-  Row buildOption(BuildContext context, Size size,
-      SelectedOption selectedOption, int index, String image) {
+  Row buildOption(
+      {@required Size size,
+      @required SelectedOption selectedOption,
+      @required int index,
+      String image,
+      String text}) {
     return Row(
       children: [
         GestureDetector(

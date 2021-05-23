@@ -1,4 +1,4 @@
-enum SelectedOption { A, B, C, EMPTY }
+enum SelectedOption { A, B, C, D, E, EMPTY }
 
 extension SelectedOptionText on SelectedOption {
   String get optionTitle {
@@ -11,6 +11,12 @@ extension SelectedOptionText on SelectedOption {
         break;
       case SelectedOption.C:
         return "C";
+        break;
+      case SelectedOption.D:
+        return "D";
+        break;
+      case SelectedOption.E:
+        return "E";
         break;
       default:
         return "";

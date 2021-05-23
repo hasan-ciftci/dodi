@@ -33,6 +33,9 @@ class ImageConstants {
   String get soru1 => "soru1".mockQuestionToPng;
   String get soru2 => "soru2".mockQuestionToPng;
   String get soru3 => "soru3".mockQuestionToPng;
+
+  String get soru1_12 => "soru1_12".mockQuestionToPng;
+  String get soru3_12 => "soru3_12".mockQuestionToPng;
   String  questionOptions1({SelectedOption option}) =>
       "1${option.optionTitle.toLowerCase()}".mockQuestionToPng;
   String  questionOptions2({SelectedOption option}) =>
