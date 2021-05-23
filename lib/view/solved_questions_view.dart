@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../core/constants/image_constants.dart';
 
-class SolvedQuestionView extends StatefulWidget {
+class SolvedTestsView extends StatefulWidget {
   @override
-  _SolvedQuestionViewState createState() => _SolvedQuestionViewState();
+  _SolvedTestsViewState createState() => _SolvedTestsViewState();
 }
 
-class _SolvedQuestionViewState extends State<SolvedQuestionView> {
+class _SolvedTestsViewState extends State<SolvedTestsView> {
   bool isSelected = false;
 
   @override
