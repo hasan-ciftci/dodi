@@ -2,7 +2,7 @@ import 'package:dodi/view/choose_profile_extra.dart';
 import 'package:dodi/view/course_select_view.dart';
 import 'package:dodi/view/create_profile_view.dart';
 import 'package:dodi/view/new_class_select.dart';
-import 'package:dodi/view/quiz/quiz_grade_twelve_view.dart';
+
 import 'package:dodi/view/subject_select_view.dart';
 import 'package:flutter/material.dart';
 
@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
           bottomAppBarColor: Color(0xFFE9F0D0)),
       routes: {
         // '/': (context) => IntroductionPage(),
-        '/login': (context) => LoginView(),
+        '/': (context) => LoginView(),
         '/register': (context) => SignUpView(),
         '/classSelect': (context) => ClassSelectView(),
         '/startTest': (context) => TestIntroductionView(),
@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
         '/chooseProfileExtra': (context) => ChooseProfileExtra(),
         '/courseSelectView': (context) => CourseSelectView(),
         '/subjectSelectView': (context) => SubjectSelectView(),
-        '/': (context) => NewClassSelect(),
+        '/newClassSelect': (context) => NewClassSelect(),
       },
     );
   }

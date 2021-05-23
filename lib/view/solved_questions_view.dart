@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../core/constants/image_constants.dart';
 
-class SubjectSelectView extends StatefulWidget {
+class SolvedQuestionView extends StatefulWidget {
   @override
-  _SubjectSelectViewState createState() => _SubjectSelectViewState();
+  _SolvedQuestionViewState createState() => _SolvedQuestionViewState();
 }
 
-class _SubjectSelectViewState extends State<SubjectSelectView> {
+class _SolvedQuestionViewState extends State<SolvedQuestionView> {
   bool isSelected = false;
 
   @override
@@ -78,16 +78,12 @@ class _SubjectSelectViewState extends State<SubjectSelectView> {
                 physics: AlwaysScrollableScrollPhysics(
                     parent: BouncingScrollPhysics()),
                 itemBuilder: (BuildContext context, int index) {
-                  return GestureDetector(
-                    onTap: () =>
-                        Navigator.of(context).pushNamed("/questionView"),
-                    child: Text(
-                      subjects[index],
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline6
-                          .copyWith(fontWeight: FontWeight.w300),
-                    ),
+                  return Text(
+                    subjects[index],
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6
+                        .copyWith(fontWeight: FontWeight.w300),
                   );
                 },
                 separatorBuilder: (BuildContext context, int index) =>
@@ -160,7 +156,7 @@ class _SubjectSelectViewState extends State<SubjectSelectView> {
                 Icons.arrow_back_ios_outlined,
                 color: Colors.white,
               ),
-              Text("Konu Seçimi",
+              Text("Çözülmüş Testler",
                   style: TextStyle(
                     color: Colors.white,
                   )),
@@ -260,14 +256,14 @@ class _SubjectSelectViewState extends State<SubjectSelectView> {
   ];
 
   List<String> courses = [
-    "Matematik",
-    "Türkçe",
-    "Hayat Bilgisi",
-    "Zeka",
-    "İngilizce",
-    "Fen Bilimleri",
-    "Genel Deneme Testleri",
-    "Ödevler",
+    "Matematik\n%75",
+    "Türkçe\n%30",
+    "Hayat Bilgisi\n%80",
+    "Zeka\n%55",
+    "İngilizce\n%35",
+    "Fen Bilimleri\n%75",
+    "Genel Deneme Testleri\n%90",
+    "Ödevler\n%70",
   ];
   List<Color> courseColors = [
     Colors.orange,

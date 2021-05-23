@@ -393,7 +393,8 @@ class _EvaluationOverviewViewState extends State<EvaluationOverviewView> {
           height: size.height * .08,
           width: size.width * .9,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () =>
+                Navigator.of(context).pushNamed("/solvedQuestionView"),
             child: Text(
               "Çözülmüş Testler",
               style: Theme.of(context)

@@ -161,7 +161,7 @@ class _ClassSelectViewState extends State<ClassSelectView> {
           width: size.width * .9,
           child: ElevatedButton(
             onPressed: () {
-              Navigator.of(context).pushNamed('/startTest');
+              Navigator.of(context).pushNamed('/subjectSelectView');
             },
             child: Text(
               "1. Sınıfı Seç",
