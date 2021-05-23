@@ -111,12 +111,13 @@ class _SubjectSelectViewState extends State<SubjectSelectView> {
                 ],
               ),
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 32.0),
-              child: SizedBox(
-                height: size.height * .15,
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
+            SizedBox(
+              height: size.height * .15,
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 32.0),
                   child: Row(
                     children: List.generate(
                       courses.length,
@@ -255,14 +256,14 @@ class _SubjectSelectViewState extends State<SubjectSelectView> {
   ];
 
   List<String> courses = [
-    "Matematik",
-    "Türkçe",
-    "Hayat Bilgisi",
-    "Zeka",
-    "İngilizce",
-    "Fen Bilimleri",
-    "Genel Deneme Testleri",
-    "Ödevler",
+    "Matematik\n%75",
+    "Türkçe\n%30",
+    "Hayat Bilgisi\n%80",
+    "Zeka\n%55",
+    "İngilizce\n%35",
+    "Fen Bilimleri\n%75",
+    "Genel Deneme Testleri\n%90",
+    "Ödevler\n%70",
   ];
   List<Color> courseColors = [
     Colors.orange,

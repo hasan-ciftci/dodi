@@ -54,11 +54,8 @@ class MyApp extends StatelessWidget {
         //Same with Choose Profile but included one more profile for scenerio.
         '/chooseProfileExtra': (context) => ChooseProfileExtra(),
         '/courseSelectView': (context) => CourseSelectView(),
-        '/subjectSelectView': (context) => SubjectSelectView(),
+        '/': (context) => SubjectSelectView(),
         '/newClassSelectView': (context) => NewClassSelect(),
-
-        ///silinecek
-        '/': (context) => QuizGradeTwelveView(),
       },
     );
   }
