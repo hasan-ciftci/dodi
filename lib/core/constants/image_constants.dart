@@ -1,3 +1,5 @@
+import 'package:dodi/core/enums/selected_option_enum.dart';
+
 part '../extension/image_extension.dart';
 
 class ImageConstants {
@@ -31,9 +33,12 @@ class ImageConstants {
   String get soru1 => "soru1".mockQuestionToPng;
   String get soru2 => "soru2".mockQuestionToPng;
   String get soru3 => "soru3".mockQuestionToPng;
-  String get cevap1 => "cevap1".mockQuestionToPng;
-  String get cevap2 => "cevap2".mockQuestionToPng;
-  String get cevap3 => "cevap3".mockQuestionToPng;
+  String  questionOptions1({SelectedOption option}) =>
+      "1${option.optionTitle.toLowerCase()}".mockQuestionToPng;
+  String  questionOptions2({SelectedOption option}) =>
+      "2${option.optionTitle.toLowerCase()}".mockQuestionToPng;
+  String  questionOptions3({SelectedOption option}) =>
+      "3${option.optionTitle.toLowerCase()}".mockQuestionToPng;
 
   String get introduction1 => "1".introductionToPng;
   String get introduction2 => "2".introductionToPng;

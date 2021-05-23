@@ -10,7 +10,6 @@ import 'view/choose_profile_view.dart';
 import 'view/class_select_view.dart';
 import 'view/evaluation_overview_view.dart';
 import 'view/login_view.dart';
-import 'view/onboarding_view.dart';
 import 'view/phone_register_view.dart';
 import 'view/question_view.dart';
 import 'view/result_view.dart';
@@ -27,9 +26,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData().copyWith(
-        toggleableActiveColor: Color(0xFFF38424),
+          toggleableActiveColor: Color(0xFFF38424),
           primaryColor: Color(0xFF1C742C),
           backgroundColor: Color(0xFFF38424),
+          accentColor: Color(0xFF1C742C),
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
               onPrimary: Color(0xFFF38424),
@@ -38,12 +38,12 @@ class MyApp extends StatelessWidget {
           ),
           bottomAppBarColor: Color(0xFFE9F0D0)),
       routes: {
-       // '/': (context) => IntroductionPage(),
+        // '/': (context) => IntroductionPage(),
         '/login': (context) => LoginView(),
         '/register': (context) => SignUpView(),
         '/classSelect': (context) => ClassSelectView(),
         '/startTest': (context) => TestIntroductionView(),
-        '/quizPage': (context) => QuestionView(),
+        '/': (context) => QuestionView(),
         '/analyzingPage': (context) => AnalyzingView(),
         '/resultPage': (context) => ResultView(),
         '/evaluationOverview': (context) => EvaluationOverviewView(),
@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
         '/chooseProfileExtra': (context) => ChooseProfileExtra(),
         '/courseSelectView': (context) => CourseSelectView(),
         '/subjectSelectView': (context) => SubjectSelectView(),
-        '/': (context) => NewClassSelect(),
+        '/newClassSelect': (context) => NewClassSelect(),
       },
     );
   }

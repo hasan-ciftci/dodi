@@ -1,3 +1,4 @@
+import 'package:dodi/core/enums/selected_option_enum.dart';
 import 'package:flutter/material.dart';
 
 import '../core/constants/image_constants.dart';
@@ -11,36 +12,67 @@ class QuestionView extends StatefulWidget {
 class _QuestionViewState extends State<QuestionView>
     with TickerProviderStateMixin {
   TabController _tabController;
+  int _currentIndex = 0;
+  int instantValueOfTabController;
+  SelectedOption question1 = SelectedOption.EMPTY;
+  SelectedOption question2 = SelectedOption.EMPTY;
+  SelectedOption question3 = SelectedOption.EMPTY;
+  List<SelectedOption> selectedAnswers;
+  List<QuestionModel> questions;
 
   @override
   void initState() {
     super.initState();
+
     _tabController = TabController(length: 4, vsync: this);
+    _tabController.animation.addListener(() {
+      instantValueOfTabController = _tabController.animation.value.round();
+      if (instantValueOfTabController != _currentIndex)
+        setState(() {
+          _currentIndex = (_tabController.animation.value).round();
+        });
+    });
+    selectedAnswers = [question1, question2, question3];
+    questions = [
+      QuestionModel(
+        questionText:
+            "Yukarıda verilen şeklin kapalı hali aşağıdakilerden hangisidir?",
+        questionImage: ImageConstants.instance.soru1,
+        optionAImage:
+            ImageConstants.instance.questionOptions1(option: SelectedOption.A),
+        optionBImage:
+            ImageConstants.instance.questionOptions1(option: SelectedOption.B),
+        optionCImage:
+            ImageConstants.instance.questionOptions1(option: SelectedOption.C),
+      ),
+      QuestionModel(
+        questionText:
+            "Yönerge 1: Kırmızı üçgenler sonda değildir.\nYönerge 2: Sarı üçgen kırmızı üçgenlerin solundadır.\n\nYukarıda verilen yönergelere göre üçgenlerin doğru sıralanışı aşağıdakilerden hangisidir?",
+        questionImage: ImageConstants.instance.soru2,
+        optionAImage:
+            ImageConstants.instance.questionOptions2(option: SelectedOption.A),
+        optionBImage:
+            ImageConstants.instance.questionOptions2(option: SelectedOption.B),
+        optionCImage:
+            ImageConstants.instance.questionOptions2(option: SelectedOption.C),
+      ),
+      QuestionModel(
+        questionText:
+            "Yukarıda verilen yönergelere göre üçgenlerin doğru sıralanışı aşağıdakilerden hangisidir?",
+        questionImage: ImageConstants.instance.soru3,
+        optionAImage:
+            ImageConstants.instance.questionOptions3(option: SelectedOption.A),
+        optionBImage:
+            ImageConstants.instance.questionOptions3(option: SelectedOption.B),
+        optionCImage:
+            ImageConstants.instance.questionOptions3(option: SelectedOption.C),
+      ),
+    ];
   }
 
   @override
   Widget build(BuildContext context) {
-    List<QuestionModel> questions = [
-      QuestionModel(
-        questionImage: ImageConstants.instance.soru1,
-        answerImage: ImageConstants.instance.cevap1,
-        text: 'Yukarıda verilen şeklin kapalı hali aşağıdakilerden hangisidir?',
-      ),
-      QuestionModel(
-        questionImage: ImageConstants.instance.soru2,
-        answerImage: ImageConstants.instance.cevap2,
-        text:
-            'Yönerge 1: Kırmızı üçgenler sonda değildir. Yönerge 2: Sarı üçgen kırmızı üçgenlerin solundadır.\n\nYukarıda verilen yönergelere göre üçgenlerin doğru sıralanışı aşağıdakilerden hangisidir?',
-      ),
-      QuestionModel(
-        questionImage: ImageConstants.instance.soru3,
-        answerImage: ImageConstants.instance.cevap3,
-        text:
-            'Yukarıda verilen sıralamaya göre soru işareti yerine aşağıdakilerden hangisi gelmelidir?',
-      ),
-    ];
     Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       body: Stack(
         fit: StackFit.loose,
@@ -48,92 +80,121 @@ class _QuestionViewState extends State<QuestionView>
           buildBackground(size, context),
           buildPageHeader(size, _tabController),
           TabBarView(controller: _tabController, children: [
-            Stack(
-              children: [
-                Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                    height: size.height * .75,
-                    width: size.width,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(50),
-                        bottomRight: Radius.circular(50),
-                      ),
-                      color: Colors.white,
-                    ),
-                    child: QuestionCard(
-                      size: size,
-                      questionText: questions[0].text,
-                      questionAnswer: questions[0].answerImage,
-                      questionImage: questions[0].questionImage,
-                    ),
-                  ),
-                ),
-                Options(size: size),
-              ],
+            TabItem(
+              size: size,
+              child: buildQuestionCard(
+                size: size,
+                index: 0,
+                questionModel: questions[0],
+              ),
             ),
-            Stack(
-              children: [
-                Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                    height: size.height * .75,
-                    width: size.width,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(50),
-                        bottomRight: Radius.circular(50),
-                      ),
-                      color: Colors.white,
-                    ),
-                    child: QuestionCard(
-                      size: size,
-                      questionText: questions[1].text,
-                      questionAnswer: questions[1].answerImage,
-                      questionImage: questions[1].questionImage,
-                    ),
-                  ),
-                ),
-                Options(size: size),
-              ],
+            TabItem(
+              size: size,
+              child: buildQuestionCard(
+                size: size,
+                index: 1,
+                questionModel: questions[1],
+              ),
             ),
-            Stack(
-              children: [
-                Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                    height: size.height * .75,
-                    width: size.width,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(50),
-                        bottomRight: Radius.circular(50),
-                      ),
-                      color: Colors.white,
-                    ),
-                    child: QuestionCard(
-                      size: size,
-                      questionText: questions[2].text,
-                      questionAnswer: questions[2].answerImage,
-                      questionImage: questions[2].questionImage,
-                    ),
-                  ),
-                ),
-                Options(size: size),
-              ],
+            TabItem(
+              size: size,
+              child: buildQuestionCard(
+                size: size,
+                index: 2,
+                questionModel: questions[2],
+              ),
             ),
             FinishTestView(),
           ]),
+          buildNextButton(size),
         ],
       ),
     );
   }
 
+  SingleChildScrollView buildQuestionCard(
+      {@required Size size,
+      @required int index,
+      @required QuestionModel questionModel}) {
+    return SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
+      padding: EdgeInsets.symmetric(horizontal: 50),
+      child: Column(
+        children: [
+          Image.asset(questionModel.questionImage),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 16.0),
+            child: Text(
+              questionModel.questionText,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyText1
+                  .copyWith(color: Theme.of(context).primaryColor),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 16.0),
+            child: buildOption(context, size, SelectedOption.A, index,
+                questionModel.optionAImage),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 16.0),
+            child: buildOption(context, size, SelectedOption.B, index,
+                questionModel.optionBImage),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 16.0),
+            child: buildOption(context, size, SelectedOption.C, index,
+                questionModel.optionCImage),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Row buildOption(BuildContext context, Size size,
+      SelectedOption selectedOption, int index, String image) {
+    return Row(
+      children: [
+        GestureDetector(
+            onTap: () {
+              setState(() {
+                selectedAnswers[index] = selectedOption;
+              });
+            },
+            child: Container(
+              padding: EdgeInsets.all(2),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: selectedAnswers[index] == selectedOption
+                    ? Theme.of(context).backgroundColor
+                    : Colors.grey,
+              ),
+              child: CircleAvatar(
+                backgroundColor: Colors.white,
+                radius: size.height * .035,
+                child: Text(
+                  selectedOption.optionTitle,
+                  style: Theme.of(context).textTheme.headline4.copyWith(
+                      color: selectedAnswers[index] == selectedOption
+                          ? Theme.of(context).backgroundColor
+                          : Theme.of(context).primaryColor),
+                ),
+              ),
+            )),
+        SizedBox(
+          width: 8,
+        ),
+        Flexible(
+          child: Center(
+            child: Image.asset(image),
+          ),
+        )
+      ],
+    );
+  }
+
   Align buildPageHeader(Size size, TabController tabController) {
-    tabController.addListener(() {
-      setState(() {});
-    });
     return Align(
       alignment: Alignment.topCenter,
       child: Container(
@@ -173,7 +234,7 @@ class _QuestionViewState extends State<QuestionView>
                       duration: Duration(milliseconds: 500),
                       curve: Curves.easeInOut,
                       width: size.width *
-                          (tabController.index + 1) /
+                          (_currentIndex + 1) /
                           (tabController.length - 1),
                       height: size.height * .01,
                       color: Theme.of(context).backgroundColor,
@@ -181,6 +242,43 @@ class _QuestionViewState extends State<QuestionView>
                   ],
                 ),
               ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  AnimatedOpacity buildNextButton(Size size) {
+    return AnimatedOpacity(
+      duration: Duration(milliseconds: 250),
+      opacity: _currentIndex == _tabController.length - 1 ? 0 : 1,
+      child: Align(
+        alignment: Alignment.bottomCenter,
+        child: Container(
+          height: size.height * .125,
+          child: Center(
+            child: SizedBox(
+              height: size.height * .08,
+              width: size.width * .9,
+              child: ElevatedButton(
+                onPressed: () {
+                  if (_currentIndex < _tabController.length - 1)
+                    _tabController.animateTo(_currentIndex + 1,
+                        duration: Duration(milliseconds: 1000),
+                        curve: Curves.easeInOut);
+                },
+                child: Text(
+                  "İleri",
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline5
+                      .copyWith(color: Colors.white),
+                ),
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all(StadiumBorder()),
+                ),
+              ),
             ),
           ),
         ),
@@ -202,229 +300,46 @@ class _QuestionViewState extends State<QuestionView>
   }
 }
 
-class Option extends StatelessWidget {
-  const Option({
-    Key key,
-    this.size,
-    this.color,
-    this.option,
-  }) : super(key: key);
-
-  final Color color;
-  final Size size;
-  final String option;
-
-  @override
-  Widget build(BuildContext context) {
-    print("rebuild");
-    print(color.toString());
-    return Container(
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: Colors.white,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(2),
-        child: CircleAvatar(
-          backgroundColor: color,
-          radius: size.height * .045,
-          child: Text(
-            option,
-            style: Theme.of(context).textTheme.headline4,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class QuestionCard extends StatefulWidget {
-  final String questionImage;
-  final String questionAnswer;
-  final String questionText;
-  final Size size;
-
-  const QuestionCard(
-      {Key key,
-      @required this.questionImage,
-      @required this.questionAnswer,
-      @required this.questionText,
-      @required this.size})
-      : super(key: key);
-
-  @override
-  _QuestionCardState createState() => _QuestionCardState();
-}
-
-class _QuestionCardState extends State<QuestionCard> {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        buildQuestionImage(),
-        buildQuestionText(widget.size, context),
-        buildAnswer(),
-      ],
-    );
-  }
-
-  Expanded buildQuestionImage() {
-    return Expanded(
-      child: Image.asset(widget.questionImage),
-    );
-  }
-
-  Expanded buildQuestionText(Size size, BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: size.width * .1,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Center(
-            child: SingleChildScrollView(
-              child: Text(
-                widget.questionText,
-                style: Theme.of(context).textTheme.subtitle1,
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Expanded buildAnswer() {
-    return Expanded(
-      child: Image.asset(widget.questionAnswer),
-    );
-  }
-}
-
 class QuestionModel {
+  final String questionText;
   final String questionImage;
-  final String answerImage;
-  final String text;
+  final String optionAImage;
+  final String optionBImage;
+  final String optionCImage;
 
   QuestionModel(
-      {@required this.questionImage,
-      @required this.answerImage,
-      @required this.text});
+      {@required this.questionText,
+      @required this.questionImage,
+      @required this.optionAImage,
+      @required this.optionBImage,
+      @required this.optionCImage});
 }
 
-enum SelectedOption { A, B, C }
+class TabItem extends StatelessWidget {
+  final Widget child;
 
-class Options extends StatefulWidget {
+  const TabItem({
+    Key key,
+    @required this.size,
+    @required this.child,
+  }) : super(key: key);
+
   final Size size;
-
-  const Options({Key key, this.size}) : super(key: key);
-
-  @override
-  _OptionsState createState() => _OptionsState();
-}
-
-class _OptionsState extends State<Options> {
-  SelectedOption selectedOption;
 
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: Alignment.bottomCenter,
+      alignment: Alignment.center,
       child: Container(
-        height: widget.size.height * .125,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  selectedOption = SelectedOption.A;
-                });
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(2),
-                  child: CircleAvatar(
-                    backgroundColor: selectedOption == SelectedOption.A
-                        ? Theme.of(context).backgroundColor
-                        : Theme.of(context).primaryColor,
-                    radius: widget.size.height * .045,
-                    child: Text(
-                      "A",
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline4
-                          .copyWith(color: Colors.white),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  selectedOption = SelectedOption.B;
-                });
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(2),
-                  child: CircleAvatar(
-                    backgroundColor: selectedOption == SelectedOption.B
-                        ? Theme.of(context).backgroundColor
-                        : Theme.of(context).primaryColor,
-                    radius: widget.size.height * .045,
-                    child: Text(
-                      "B",
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline4
-                          .copyWith(color: Colors.white),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  selectedOption = SelectedOption.C;
-                });
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(2),
-                  child: CircleAvatar(
-                    backgroundColor: selectedOption == SelectedOption.C
-                        ? Theme.of(context).backgroundColor
-                        : Theme.of(context).primaryColor,
-                    radius: widget.size.height * .045,
-                    child: Text(
-                      "C",
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline4
-                          .copyWith(color: Colors.white),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
+        height: size.height * .75,
+        width: size.width,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+              bottomRight: Radius.circular(50),
+              bottomLeft: Radius.circular(50)),
+          color: Colors.white,
         ),
+        child: child,
       ),
     );
   }

@@ -34,6 +34,7 @@ flutter:
     - assets/image/introduction/
     - assets/image/socialmedia/
     - assets/image/courses/
+    - assets/image/mockquestions/
     - assets/image/analyzing.png
     - assets/image/line.png
     - assets/image/result.png
@@ -41,15 +42,9 @@ flutter:
     - assets/image/pen_vector.png
     - assets/image/comparison_graph.png
     - assets/image/pen_vector_orange.png
-    - assets/image/mockquestions/soru1.png
-    - assets/image/mockquestions/soru2.png
-    - assets/image/mockquestions/soru3.png
-    - assets/image/mockquestions/cevap1.png
-    - assets/image/mockquestions/cevap2.png
-    - assets/image/mockquestions/cevap3.png
 
 flutter_native_splash:
-  background_image : assets/splash.png
+  background_image: assets/splash.png
   andorid: true
   ios: true
   android_gravity: fill
