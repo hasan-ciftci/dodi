@@ -132,7 +132,7 @@ class _ResultViewState extends State<ResultView> {
       height: size.height * .08,
       width: size.width * .35,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () =>Navigator.of(context).pushNamed("/solutionsView"),
         child: Text(
           "Çözümlere git",
           textAlign: TextAlign.center,
