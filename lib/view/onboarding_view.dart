@@ -11,11 +11,20 @@ class IntroductionPage extends StatefulWidget {
 class _IntroductionPageState extends State<IntroductionPage>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
+  int _currentIndex = 0;
+  int instantValueOfTabController;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
+    _tabController.animation.addListener(() {
+      instantValueOfTabController = _tabController.animation.value.round();
+      if (instantValueOfTabController != _currentIndex)
+        setState(() {
+          _currentIndex = (_tabController.animation.value).round();
+        });
+    });
   }
 
   @override
@@ -35,7 +44,7 @@ class _IntroductionPageState extends State<IntroductionPage>
               buildBody(size, context, 3),
             ],
           ),
-          buildPageFooter(size, _tabController.index),
+          buildPageFooter(size, _currentIndex),
         ],
       ),
     );
@@ -56,16 +65,17 @@ class _IntroductionPageState extends State<IntroductionPage>
         ),
         child: Column(
           children: [
-            Spacer(flex: 15),
-            Expanded(
-              flex: 40,
+            SizedBox(height: size.height * .1),
+            SizedBox(
+              height: size.height * .35,
               child: buildIntroductionImage(index),
             ),
-            Expanded(
-              flex: 30,
+            SizedBox(height: size.height * .05),
+            SizedBox(
+              height: size.height * .15,
               child: buildIntroductionText(size, context),
             ),
-            Spacer(flex: 15),
+            SizedBox(height: size.height * .1),
           ],
         ),
       ),
@@ -82,9 +92,13 @@ class _IntroductionPageState extends State<IntroductionPage>
     return Center(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: size.width * .2),
-        child: Text(
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-          style: Theme.of(context).textTheme.subtitle1,
+        child: SingleChildScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
+          child: Text(
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            style: Theme.of(context).textTheme.subtitle1,
+            textAlign: TextAlign.center,
+          ),
         ),
       ),
     );
@@ -94,9 +108,8 @@ class _IntroductionPageState extends State<IntroductionPage>
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(
-        height: size.height * .250,
+        height: size.height * .25,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             buildPageIndicators(size, index),
@@ -108,9 +121,6 @@ class _IntroductionPageState extends State<IntroductionPage>
   }
 
   Center buildPageIndicators(Size size, int index) {
-    _tabController.addListener(() {
-      setState(() {});
-    });
     return Center(
         child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -152,14 +162,15 @@ class _IntroductionPageState extends State<IntroductionPage>
     ));
   }
 
-  Container buildNextButton(Size size) {
-    return Container(
-      child: Padding(
-        padding: EdgeInsets.only(right: size.width * .1),
-        child: GestureDetector(
-          onTap: () {
-            Navigator.of(context).pushNamed('/login');
-          },
+  GestureDetector buildNextButton(Size size) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).pushNamed('/loginView');
+      },
+      child: Align(
+        alignment: Alignment.bottomRight,
+        child: Padding(
+          padding: EdgeInsets.all(size.width * .1),
           child: Text(
             "Geç",
             style: Theme.of(context)
