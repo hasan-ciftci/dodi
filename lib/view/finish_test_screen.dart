@@ -1,8 +1,13 @@
+import 'package:dodi/view/analyzing_view.dart';
 import 'package:flutter/material.dart';
 
 import '../core/constants/image_constants.dart';
 
 class FinishTestView extends StatefulWidget {
+  final int grade;
+
+  const FinishTestView({Key key, @required this.grade}) : super(key: key);
+
   @override
   _FinishTestViewState createState() => _FinishTestViewState();
 }
@@ -10,7 +15,9 @@ class FinishTestView extends StatefulWidget {
 class _FinishTestViewState extends State<FinishTestView> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery
+        .of(context)
+        .size;
 
     return Stack(
       children: [
@@ -31,7 +38,7 @@ class _FinishTestViewState extends State<FinishTestView> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Icon(Icons.arrow_back_ios_outlined),
-              Text("1. Sınıf"),
+              Text("${widget.grade}. Sınıf"),
             ],
           ),
         ),
@@ -64,7 +71,7 @@ class _FinishTestViewState extends State<FinishTestView> {
 
   Image buildTestIntroductionImage(Size size) {
     return Image.asset(
-      ImageConstants.instance.getClassImage(0),
+      ImageConstants.instance.getClassImage(widget.grade - 1),
       height: size.height * .4,
       width: size.width * .4,
       fit: BoxFit.contain,
@@ -76,7 +83,10 @@ class _FinishTestViewState extends State<FinishTestView> {
       height: size.height * .2,
       child: Text(
         "Sınıflar için Görsel Algı ve Dikkat Testi",
-        style: Theme.of(context).textTheme.subtitle1,
+        style: Theme
+            .of(context)
+            .textTheme
+            .subtitle1,
       ),
     );
   }
@@ -90,11 +100,14 @@ class _FinishTestViewState extends State<FinishTestView> {
           width: size.width * .9,
           child: ElevatedButton(
             onPressed: () {
-              Navigator.of(context).pushNamed('/analyzingPage');
+              Navigator.push(context, MaterialPageRoute(builder: (_) {
+                return AnalyzingView(grade: widget.grade);
+              }));
             },
             child: Text(
               "Testi bitir",
-              style: Theme.of(context)
+              style: Theme
+                  .of(context)
                   .textTheme
                   .headline5
                   .copyWith(color: Colors.white),
@@ -112,10 +125,14 @@ class _FinishTestViewState extends State<FinishTestView> {
     return Column(
       children: [
         Expanded(
-          child: Container(color: Theme.of(context).backgroundColor),
+          child: Container(color: Theme
+              .of(context)
+              .backgroundColor),
         ),
         Expanded(
-          child: Container(color: Theme.of(context).primaryColor),
+          child: Container(color: Theme
+              .of(context)
+              .primaryColor),
         )
       ],
     );

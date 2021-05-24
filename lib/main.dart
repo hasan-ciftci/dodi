@@ -4,6 +4,7 @@ import 'package:dodi/view/create_profile_view.dart';
 import 'package:dodi/view/new_class_select.dart';
 import 'package:dodi/view/solutions/solutions_grade_one_view.dart';
 import 'package:dodi/view/quiz/quiz_grade_twelve_view.dart';
+import 'package:dodi/view/solutions/solutions_grade_twelve_view.dart';
 import 'package:dodi/view/solved_tests_view.dart';
 
 import 'package:dodi/view/subject_select_view.dart';
@@ -60,7 +61,8 @@ class MyApp extends StatelessWidget {
         '/subjectSelectView': (context) => SubjectSelectView(),
         '/newClassSelect': (context) => NewClassSelect(),
         '/solvedTestsView': (context) => SolvedTestsView(),
-        '/': (context) => SolutionsView(),
+        '/solutionsView': (context) => SolutionsView(),
+        '/': (context) => SolutionsGradeTwelveView(),
       },
     );
   }

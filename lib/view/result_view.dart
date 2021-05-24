@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import '../core/constants/image_constants.dart';
 
 class ResultView extends StatefulWidget {
+  final int grade;
+
+  const ResultView({Key key, @required this.grade}) : super(key: key);
+
   @override
   _ResultViewState createState() => _ResultViewState();
 }
@@ -105,19 +109,19 @@ class _ResultViewState extends State<ResultView> {
     return Column(
       children: [
         Text(
-          "2 doğru",
+          widget.grade == 1 ? "2 doğru" : "1 doğru",
           style: Theme.of(context)
               .textTheme
               .bodyText1
               .copyWith(color: Colors.green),
         ),
         Text(
-          "1 yanlış",
+          widget.grade == 1 ? "1 yanlış" : "2 yanlış",
           style:
               Theme.of(context).textTheme.bodyText1.copyWith(color: Colors.red),
         ),
         Text(
-          "Boş yok",
+          widget.grade == 1 ? "Boş yok" : "1 Boş",
           style: Theme.of(context)
               .textTheme
               .bodyText1
@@ -132,7 +136,12 @@ class _ResultViewState extends State<ResultView> {
       height: size.height * .08,
       width: size.width * .35,
       child: ElevatedButton(
-        onPressed: () =>Navigator.of(context).pushNamed("/solutionsView"),
+        onPressed: () =>
+
+
+        widget.grade == 1
+            ? Navigator.of(context).pushNamed("/solutionsView")
+            : Navigator.of(context).pushNamed("/solutionsGradeTwelveView"),
         child: Text(
           "Çözümlere git",
           textAlign: TextAlign.center,
