@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
           ),
           bottomAppBarColor: Color(0xFFE9F0D0)),
       routes: {
-        '/': (context) => IntroductionPage(),
+         '/': (context) => IntroductionPage(),
         '/loginView': (context) => LoginView(),
         '/register': (context) => SignUpView(),
         '/classSelectView': (context) => ClassSelectView(),

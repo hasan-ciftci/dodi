@@ -88,7 +88,7 @@ class _ChooseProfileViewState extends State<ChooseProfileView> {
                           ),
                         );
                       else{
-                        Navigator.of(context).pushNamed("/classSelect");
+                        Navigator.of(context).pushNamed("/classSelectView");
                       }
                     },
                     child: ProfileWidget(
