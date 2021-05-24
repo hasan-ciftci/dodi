@@ -1,8 +1,14 @@
+import 'package:dodi/view/quiz/quiz_grade_one_view.dart';
+import 'package:dodi/view/quiz/quiz_grade_twelve_view.dart';
 import 'package:flutter/material.dart';
 
 import '../core/constants/image_constants.dart';
 
 class TestIntroductionView extends StatefulWidget {
+  final int grade;
+
+  const TestIntroductionView({Key key, this.grade}) : super(key: key);
+
   @override
   _TestIntroductionViewState createState() => _TestIntroductionViewState();
 }
@@ -101,7 +107,9 @@ class _TestIntroductionViewState extends State<TestIntroductionView> {
 
   Image buildTestIntroductionImage(Size size) {
     return Image.asset(
-      ImageConstants.instance.getClassImage(0),
+      widget.grade == 1
+          ? ImageConstants.instance.getNewClassImage(0)
+          : ImageConstants.instance.getNewClassImage(11),
       height: size.height * .35,
       width: size.width * .35,
       fit: BoxFit.contain,
@@ -123,9 +131,14 @@ class _TestIntroductionViewState extends State<TestIntroductionView> {
         height: size.height * .08,
         width: size.width * .9,
         child: ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).pushNamed('/quizPage');
-          },
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => widget.grade == 1
+                  ? QuizGradeOneView()
+                  : QuizGradeTwelveView(),
+            ),
+          ),
           child: Text(
             "Teste Başla",
             style: Theme.of(context)

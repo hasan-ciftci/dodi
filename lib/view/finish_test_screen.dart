@@ -71,7 +71,7 @@ class _FinishTestViewState extends State<FinishTestView> {
 
   Image buildTestIntroductionImage(Size size) {
     return Image.asset(
-      ImageConstants.instance.getClassImage(widget.grade - 1),
+      ImageConstants.instance.getNewClassImage(widget.grade - 1),
       height: size.height * .4,
       width: size.width * .4,
       fit: BoxFit.contain,

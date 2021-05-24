@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
         '/chooseProfileExtra': (context) => ChooseProfileExtra(),
         '/courseSelectView': (context) => CourseSelectView(),
         '/subjectSelectView': (context) => SubjectSelectView(),
-        '/newClassSelect': (context) => NewClassSelect(),
+        '/newClassSelectView': (context) => NewClassSelectView(),
         '/solvedTestsView': (context) => SolvedTestsView(),
         '/solutionsView': (context) => SolutionsView(),
         '/solutionsGradeTwelveView': (context) => SolutionsGradeTwelveView(),

@@ -3,13 +3,14 @@ import 'package:dodi/view/quiz/quiz_grade_twelve_view.dart';
 import 'package:flutter/material.dart';
 
 import '../core/constants/image_constants.dart';
+import 'course_select_view.dart';
 
-class NewClassSelect extends StatefulWidget {
+class NewClassSelectView extends StatefulWidget {
   @override
-  _NewClassSelectState createState() => _NewClassSelectState();
+  _NewClassSelectViewState createState() => _NewClassSelectViewState();
 }
 
-class _NewClassSelectState extends State<NewClassSelect> {
+class _NewClassSelectViewState extends State<NewClassSelectView> {
   bool isSelected = false;
   double sliderValue = 0.0;
   ScrollController scrollController = ScrollController();
@@ -70,8 +71,7 @@ class _NewClassSelectState extends State<NewClassSelect> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (_) =>
-                selectedClass == 1 ? QuizGradeOneView() : QuizGradeTwelveView(),
+            builder: (_) => CourseSelectView(grade: selectedClass,),
           ),
         );
       },

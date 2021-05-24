@@ -1,3 +1,4 @@
+import 'package:dodi/view/test_introduction_view.dart';
 import 'package:flutter/material.dart';
 
 import '../core/constants/image_constants.dart';
@@ -83,10 +84,12 @@ class _SubjectSelectViewState extends State<SubjectSelectView> {
                     parent: BouncingScrollPhysics()),
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
-                    onTap: () => widget.grade == 1
-                        ? Navigator.of(context).pushNamed("/questionView")
-                        : Navigator.of(context)
-                            .pushNamed("/quizGradeTwelveView"),
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => TestIntroductionView(grade: widget.grade,),
+                      ),
+                    ),
                     child: Text(
                       subjects[index],
                       style: Theme.of(context)

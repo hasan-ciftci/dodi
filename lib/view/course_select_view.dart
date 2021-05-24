@@ -1,8 +1,11 @@
 import 'package:dodi/core/constants/image_constants.dart';
+import 'package:dodi/view/subject_select_view.dart';
 import 'package:flutter/material.dart';
 
 class CourseSelectView extends StatefulWidget {
-  const CourseSelectView({Key key}) : super(key: key);
+  final int grade;
+
+  const CourseSelectView({Key key, @required this.grade}) : super(key: key);
 
   @override
   _CourseSelectViewState createState() => _CourseSelectViewState();
@@ -113,7 +116,14 @@ class _CourseSelectViewState extends State<CourseSelectView> {
           Flexible(
             child: GestureDetector(
               onTap: () {
-                setState(() {});
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => SubjectSelectView(
+                      grade: widget.grade,
+                    ),
+                  ),
+                );
               },
               child: Image.asset(
                 ImageConstants.instance.getCourseImage(
