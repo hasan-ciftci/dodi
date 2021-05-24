@@ -68,7 +68,9 @@ class _IntroductionPageState extends State<IntroductionPage>
             SizedBox(height: size.height * .1),
             SizedBox(
               height: size.height * .35,
-              child: buildIntroductionImage(index),
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(16.0),
+                  child: buildIntroductionImage(index)),
             ),
             SizedBox(height: size.height * .05),
             SizedBox(
