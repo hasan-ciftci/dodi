@@ -104,7 +104,9 @@ class _QuizGradeOneViewState extends State<QuizGradeOneView>
                 questionModel: questions[2],
               ),
             ),
-            FinishTestView(),
+            FinishTestView(
+              grade: 1,
+            ),
           ]),
           buildNextButton(size),
         ],
@@ -134,17 +136,30 @@ class _QuizGradeOneViewState extends State<QuizGradeOneView>
           ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: 16.0),
-            child: buildOption(selectedOption: SelectedOption.A,size: size,index: index,image: questionModel.optionAImage,text: questionModel.optionBImage),
+            child: buildOption(
+                selectedOption: SelectedOption.A,
+                size: size,
+                index: index,
+                image: questionModel.optionAImage,
+                text: questionModel.optionBImage),
           ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: 16.0),
-            child: buildOption(selectedOption: SelectedOption.B,size: size,index: index,image: questionModel.optionBImage,text: questionModel.optionBImage),
-
+            child: buildOption(
+                selectedOption: SelectedOption.B,
+                size: size,
+                index: index,
+                image: questionModel.optionBImage,
+                text: questionModel.optionBImage),
           ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: 16.0),
-            child: buildOption(selectedOption: SelectedOption.C,size: size,index: index,image: questionModel.optionCImage,text: questionModel.optionBImage),
-
+            child: buildOption(
+                selectedOption: SelectedOption.C,
+                size: size,
+                index: index,
+                image: questionModel.optionCImage,
+                text: questionModel.optionBImage),
           ),
         ],
       ),

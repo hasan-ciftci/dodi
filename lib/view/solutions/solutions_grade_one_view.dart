@@ -88,7 +88,10 @@ class _SolutionsViewState extends State<SolutionsView>
                 ),
               ),
             ),
-            FinishTestView(),
+            FinishTestView(
+              grade: 1,
+              isSolutionReview: true,
+            ),
           ]),
           AnimatedPositioned(
             top: solutionShowing ? 0 : -(size.height * .6),
@@ -193,24 +196,30 @@ class _SolutionsViewState extends State<SolutionsView>
           ),
         ),
         index == 0 || index == 2
-            ? Padding(
-                padding: EdgeInsets.only(bottom: 8.0),
-                child: Text(
-                  "Doğru Cevap Verildi",
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline6
-                      .copyWith(color: Colors.green),
+            ? Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: 8.0),
+                  child: Text(
+                    "Doğru Cevap Verildi",
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6
+                        .copyWith(color: Colors.green),
+                  ),
                 ),
               )
-            : Padding(
-                padding: EdgeInsets.only(bottom: 8.0),
-                child: Text(
-                  "Yanlış Cevap Verildi",
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline6
-                      .copyWith(color: Colors.red),
+            : Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: 8.0),
+                  child: Text(
+                    "Yanlış Cevap Verildi",
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6
+                        .copyWith(color: Colors.red),
+                  ),
                 ),
               ),
       ],

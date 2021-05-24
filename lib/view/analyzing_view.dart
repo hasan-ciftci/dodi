@@ -18,7 +18,7 @@ class _AnalyzingViewState extends State<AnalyzingView> {
     Size size = MediaQuery.of(context).size;
 
     Future.delayed(Duration(seconds: 1), () {
-      Navigator.push(context, MaterialPageRoute(builder: (_) {
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) {
         return ResultView(grade: widget.grade);
       }));
     });

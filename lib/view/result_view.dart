@@ -136,10 +136,7 @@ class _ResultViewState extends State<ResultView> {
       height: size.height * .08,
       width: size.width * .35,
       child: ElevatedButton(
-        onPressed: () =>
-
-
-        widget.grade == 1
+        onPressed: () => widget.grade == 1
             ? Navigator.of(context).pushNamed("/solutionsView")
             : Navigator.of(context).pushNamed("/solutionsGradeTwelveView"),
         child: Text(

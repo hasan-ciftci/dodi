@@ -35,6 +35,7 @@ flutter:
     - assets/image/socialmedia/
     - assets/image/courses/
     - assets/image/mockquestions/
+    - assets/image/lastquizzes/
     - assets/image/analyzing.png
     - assets/image/line.png
     - assets/image/result.png

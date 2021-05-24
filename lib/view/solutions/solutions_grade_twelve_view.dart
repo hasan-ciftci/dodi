@@ -113,6 +113,7 @@ class _SolutionsGradeTwelveViewState extends State<SolutionsGradeTwelveView>
             ),
             FinishTestView(
               grade: 12,
+              isSolutionReview: true,
             ),
           ]),
           AnimatedPositioned(

@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import '../core/constants/image_constants.dart';
 
 class SubjectSelectView extends StatefulWidget {
+  final int grade;
+
+  const SubjectSelectView({Key key, this.grade}) : super(key: key);
+
   @override
   _SubjectSelectViewState createState() => _SubjectSelectViewState();
 }
@@ -79,8 +83,10 @@ class _SubjectSelectViewState extends State<SubjectSelectView> {
                     parent: BouncingScrollPhysics()),
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
-                    onTap: () =>
-                        Navigator.of(context).pushNamed("/questionView"),
+                    onTap: () => widget.grade == 1
+                        ? Navigator.of(context).pushNamed("/questionView")
+                        : Navigator.of(context)
+                            .pushNamed("/quizGradeTwelveView"),
                     child: Text(
                       subjects[index],
                       style: Theme.of(context)
@@ -124,13 +130,13 @@ class _SubjectSelectViewState extends State<SubjectSelectView> {
                   padding: EdgeInsets.symmetric(horizontal: 32.0),
                   child: Row(
                     children: List.generate(
-                      courses.length,
+                      lastQuizzes.length,
                       (index) => Padding(
                         padding: EdgeInsets.only(right: 4.0),
                         child: CourseCard(
                           courseImageIndex: index,
                           size: size,
-                          courseName: courses[index],
+                          courseName: lastQuizzes[index],
                           courseColor: courseColors[index],
                         ),
                       ),
@@ -259,15 +265,11 @@ class _SubjectSelectViewState extends State<SubjectSelectView> {
     "Çizgi Yönünü Belirleme Testi"
   ];
 
-  List<String> courses = [
-    "Matematik",
-    "Türkçe",
-    "Hayat Bilgisi",
-    "Zeka",
-    "İngilizce",
-    "Fen Bilimleri",
-    "Genel Deneme Testleri",
-    "Ödevler",
+  List<String> lastQuizzes = [
+    "Zeka ve Bilişsel Değerlendirme Testi\n%75",
+    "Yetenek Testi\n%30",
+    "Gelişim Değerlendirme ve Ölçme Testi\n%80",
+    "Okula Hazırlık Testi\n%55",
   ];
   List<Color> courseColors = [
     Colors.orange,
@@ -306,7 +308,7 @@ class CourseCard extends StatelessWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(12),
             child: Image.asset(
-              ImageConstants.instance.getCourseImage(courseImageIndex),
+              ImageConstants.instance.getLastQuizzImage(courseImageIndex),
               fit: BoxFit.cover,
             ),
           ),

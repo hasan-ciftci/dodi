@@ -1,3 +1,4 @@
+import 'package:dodi/view/subject_select_view.dart';
 import 'package:flutter/material.dart';
 
 import '../core/constants/image_constants.dart';
@@ -9,6 +10,8 @@ class ClassSelectView extends StatefulWidget {
 
 class _ClassSelectViewState extends State<ClassSelectView> {
   bool isSelected = false;
+  int selectedClass;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -141,6 +144,7 @@ class _ClassSelectViewState extends State<ClassSelectView> {
         onTap: () {
           setState(() {
             isSelected = true;
+            selectedClass = (((columnIndex * 3) + (rowIndex))) + 1;
           });
         },
         child: Image.asset(
@@ -161,10 +165,13 @@ class _ClassSelectViewState extends State<ClassSelectView> {
           width: size.width * .9,
           child: ElevatedButton(
             onPressed: () {
-              Navigator.of(context).pushNamed('/subjectSelectView');
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (_) {
+                return SubjectSelectView(grade: selectedClass);
+              }));
             },
             child: Text(
-              "1. Sınıfı Seç",
+              "$selectedClass. Sınıfı Seç",
               style: Theme.of(context)
                   .textTheme
                   .headline5

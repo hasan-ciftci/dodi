@@ -5,8 +5,10 @@ import '../core/constants/image_constants.dart';
 
 class FinishTestView extends StatefulWidget {
   final int grade;
+  final bool isSolutionReview;
 
-  const FinishTestView({Key key, @required this.grade}) : super(key: key);
+  const FinishTestView({Key key, @required this.grade, this.isSolutionReview})
+      : super(key: key);
 
   @override
   _FinishTestViewState createState() => _FinishTestViewState();
@@ -15,9 +17,7 @@ class FinishTestView extends StatefulWidget {
 class _FinishTestViewState extends State<FinishTestView> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery
-        .of(context)
-        .size;
+    Size size = MediaQuery.of(context).size;
 
     return Stack(
       children: [
@@ -83,10 +83,7 @@ class _FinishTestViewState extends State<FinishTestView> {
       height: size.height * .2,
       child: Text(
         "Sınıflar için Görsel Algı ve Dikkat Testi",
-        style: Theme
-            .of(context)
-            .textTheme
-            .subtitle1,
+        style: Theme.of(context).textTheme.subtitle1,
       ),
     );
   }
@@ -100,14 +97,17 @@ class _FinishTestViewState extends State<FinishTestView> {
           width: size.width * .9,
           child: ElevatedButton(
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (_) {
-                return AnalyzingView(grade: widget.grade);
-              }));
+              widget.isSolutionReview != null && widget.isSolutionReview == true
+                  ? Navigator.of(context).pop()
+                  : Navigator.push(context, MaterialPageRoute(builder: (_) {
+                      return AnalyzingView(grade: widget.grade);
+                    }));
             },
             child: Text(
-              "Testi bitir",
-              style: Theme
-                  .of(context)
+              widget.isSolutionReview != null && widget.isSolutionReview == true
+                  ? "Bitir"
+                  : "Testi Bitir",
+              style: Theme.of(context)
                   .textTheme
                   .headline5
                   .copyWith(color: Colors.white),
@@ -125,14 +125,10 @@ class _FinishTestViewState extends State<FinishTestView> {
     return Column(
       children: [
         Expanded(
-          child: Container(color: Theme
-              .of(context)
-              .backgroundColor),
+          child: Container(color: Theme.of(context).backgroundColor),
         ),
         Expanded(
-          child: Container(color: Theme
-              .of(context)
-              .primaryColor),
+          child: Container(color: Theme.of(context).primaryColor),
         )
       ],
     );

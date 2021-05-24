@@ -22,6 +22,9 @@ class ImageConstants {
   String getCourseImage(int courseIndex) =>
       _courses[courseIndex];
 
+  String getLastQuizzImage(int courseIndex) =>
+      _lastQuizzes[courseIndex];
+
   String get analysingIcon => "analyzing".toPng;
   String get line => "line".toPng;
   String get result => "result".toPng;
@@ -62,6 +65,11 @@ class ImageConstants {
   String get _intelligence => "intelligence".courseToPng;
   String get _homeworks => "homeworks".courseToPng;
 
+  String get _lastQuiz1 => "lastQuiz1".lastQuizToPng;
+  String get _lastQuiz2 => "lastQuiz2".lastQuizToPng;
+  String get _lastQuiz3 => "lastQuiz3".lastQuizToPng;
+  String get _lastQuiz4 => "lastQuiz4".lastQuizToPng;
+
   List<String> get _courses => [
     _maths,
     _turkish,
@@ -71,5 +79,11 @@ class ImageConstants {
     _science,
     _general,
     _homeworks
+  ];
+  List<String> get _lastQuizzes => [
+    _lastQuiz1,
+    _lastQuiz2,
+    _lastQuiz3,
+    _lastQuiz4,
   ];
 }

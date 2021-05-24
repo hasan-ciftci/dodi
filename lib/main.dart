@@ -46,9 +46,10 @@ class MyApp extends StatelessWidget {
         // '/': (context) => IntroductionPage(),
         '/loginView': (context) => LoginView(),
         '/register': (context) => SignUpView(),
-        '/classSelect': (context) => ClassSelectView(),
+        '/': (context) => ClassSelectView(),
         '/startTest': (context) => TestIntroductionView(),
         '/questionView': (context) => QuizGradeOneView(),
+        '/quizGradeTwelveView': (context) => QuizGradeTwelveView(),
         '/analyzingPage': (context) => AnalyzingView(),
         '/resultPage': (context) => ResultView(),
         '/evaluationOverview': (context) => EvaluationOverviewView(),
@@ -62,7 +63,7 @@ class MyApp extends StatelessWidget {
         '/newClassSelect': (context) => NewClassSelect(),
         '/solvedTestsView': (context) => SolvedTestsView(),
         '/solutionsView': (context) => SolutionsView(),
-        '/': (context) => SolutionsGradeTwelveView(),
+        '/solutionsGradeTwelveView': (context) => SolutionsGradeTwelveView(),
       },
     );
   }

@@ -110,7 +110,7 @@ class _QuizGradeTwelveViewState extends State<QuizGradeTwelveView>
                 ),
               ),
             ),
-            FinishTestView(),
+            FinishTestView(grade: 12,),
           ]),
           buildNextButton(size),
         ],
