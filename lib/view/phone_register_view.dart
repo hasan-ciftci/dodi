@@ -30,7 +30,6 @@ class _PhoneRegisterViewState extends State<PhoneRegisterView> {
       body: Stack(
         children: [
           buildBackground(size, context),
-
           buildPageFooter(size),
           buildPageHeader(size),
           buildPhoneForm(size, context),
@@ -51,7 +50,7 @@ class _PhoneRegisterViewState extends State<PhoneRegisterView> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               GestureDetector(
-                onTap: ()=>Navigator.of(context).pop(),
+                onTap: () => Navigator.of(context).pop(),
                 child: Icon(
                   Icons.arrow_back_ios_outlined,
                   color: Colors.white,
@@ -142,7 +141,7 @@ class _PhoneRegisterViewState extends State<PhoneRegisterView> {
         Icon(
           Icons.watch_later_outlined,
           size: 20,
-          color: Theme.of(context).backgroundColor,
+          color: Theme.of(context).primaryColorLight,
         )
       ],
     );
@@ -229,11 +228,32 @@ class _PhoneRegisterViewState extends State<PhoneRegisterView> {
         controller: _inputController,
         textAlign: isVerificationCodeSent ? TextAlign.center : TextAlign.start,
         decoration: InputDecoration(
-          labelText: isVerificationCodeSent ? null : "Telefon Numarası",
-          border: OutlineInputBorder(
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+                color: (!isVerificationCodeSent && isPhoneNumberValid) ||
+                        (isVerificationCodeSent && isVerificationCodeValid)
+                    ? Theme.of(context).primaryColorLight
+                    : Colors.grey),
             borderRadius: BorderRadius.all(
               Radius.circular(20.0),
             ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+                color: (!isVerificationCodeSent && isPhoneNumberValid) ||
+                        (isVerificationCodeSent && isVerificationCodeValid)
+                    ? Theme.of(context).primaryColorLight
+                    : Colors.grey),
+            borderRadius: BorderRadius.all(
+              Radius.circular(20.0),
+            ),
+          ),
+          labelText: isVerificationCodeSent ? null : "Telefon Numarası",
+          labelStyle: TextStyle(
+            color: (!isVerificationCodeSent && isPhoneNumberValid) ||
+                    (isVerificationCodeSent && isVerificationCodeValid)
+                ? Theme.of(context).primaryColorLight
+                : Colors.grey,
           ),
         ),
       ),

@@ -167,7 +167,7 @@ class _ChooseProfileExtraState extends State<ChooseProfileExtra> {
           padding: EdgeInsets.only(bottom: 16.0),
           child: Column(
             children: [
-              Image.asset(ImageConstants.instance.penVectorOrange),
+              Image.asset(ImageConstants.instance.penVectorOrange,color: Theme.of(context).backgroundColor,),
               SizedBox(height: 4),
               Text("Profilleri Düzenle"),
             ],

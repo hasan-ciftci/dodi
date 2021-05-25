@@ -178,7 +178,7 @@ class _SignUpViewState extends State<SignUpView> {
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                       color: isSchoolNameFieldValid
-                          ? Theme.of(context).backgroundColor
+                          ? Theme.of(context).primaryColor
                           : Colors.grey),
                   borderRadius: BorderRadius.all(
                     Radius.circular(20.0),
@@ -187,7 +187,7 @@ class _SignUpViewState extends State<SignUpView> {
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                       color: isSchoolNameFieldValid
-                          ? Theme.of(context).backgroundColor
+                          ? Theme.of(context).primaryColor
                           : Colors.grey),
                   borderRadius: BorderRadius.all(
                     Radius.circular(20.0),
@@ -196,7 +196,7 @@ class _SignUpViewState extends State<SignUpView> {
                 labelText: "Okul ismi",
                 labelStyle: TextStyle(
                   color: isSchoolNameFieldValid
-                      ? Theme.of(context).backgroundColor
+                      ? Theme.of(context).primaryColor
                       : Colors.grey,
                 ),
               ),
@@ -211,7 +211,7 @@ class _SignUpViewState extends State<SignUpView> {
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                       color: isCityFieldValid
-                          ? Theme.of(context).backgroundColor
+                          ? Theme.of(context).primaryColor
                           : Colors.grey),
                   borderRadius: BorderRadius.all(
                     Radius.circular(20.0),
@@ -220,7 +220,7 @@ class _SignUpViewState extends State<SignUpView> {
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                       color: isCityFieldValid
-                          ? Theme.of(context).backgroundColor
+                          ? Theme.of(context).primaryColor
                           : Colors.grey),
                   borderRadius: BorderRadius.all(
                     Radius.circular(20.0),
@@ -229,7 +229,7 @@ class _SignUpViewState extends State<SignUpView> {
                 labelText: "Şehir",
                 labelStyle: TextStyle(
                   color: isCityFieldValid
-                      ? Theme.of(context).backgroundColor
+                      ? Theme.of(context).primaryColor
                       : Colors.grey,
                 ),
               ),
@@ -245,7 +245,7 @@ class _SignUpViewState extends State<SignUpView> {
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                       color: isParentPhoneFieldValid
-                          ? Theme.of(context).backgroundColor
+                          ? Theme.of(context).primaryColor
                           : Colors.grey),
                   borderRadius: BorderRadius.all(
                     Radius.circular(20.0),
@@ -254,7 +254,7 @@ class _SignUpViewState extends State<SignUpView> {
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                       color: isParentPhoneFieldValid
-                          ? Theme.of(context).backgroundColor
+                          ? Theme.of(context).primaryColor
                           : Colors.grey),
                   borderRadius: BorderRadius.all(
                     Radius.circular(20.0),
@@ -263,7 +263,7 @@ class _SignUpViewState extends State<SignUpView> {
                 labelText: "Veli Telefon numarası",
                 labelStyle: TextStyle(
                   color: isParentPhoneFieldValid
-                      ? Theme.of(context).backgroundColor
+                      ? Theme.of(context).primaryColor
                       : Colors.grey,
                 ),
               ),
@@ -278,7 +278,7 @@ class _SignUpViewState extends State<SignUpView> {
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                       color: isParentMailFieldValid
-                          ? Theme.of(context).backgroundColor
+                          ? Theme.of(context).primaryColor
                           : Colors.grey),
                   borderRadius: BorderRadius.all(
                     Radius.circular(20.0),
@@ -287,7 +287,7 @@ class _SignUpViewState extends State<SignUpView> {
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                       color: isParentMailFieldValid
-                          ? Theme.of(context).backgroundColor
+                          ? Theme.of(context).primaryColor
                           : Colors.grey),
                   borderRadius: BorderRadius.all(
                     Radius.circular(20.0),
@@ -296,7 +296,7 @@ class _SignUpViewState extends State<SignUpView> {
                 labelText: "Veli E-posta",
                 labelStyle: TextStyle(
                   color: isParentMailFieldValid
-                      ? Theme.of(context).backgroundColor
+                      ? Theme.of(context).primaryColor
                       : Colors.grey,
                 ),
               ),
@@ -339,9 +339,16 @@ class _SignUpViewState extends State<SignUpView> {
               children: [
                 TextSpan(
                   text: "Gizlilik politikasını",
-                  style: TextStyle(decoration: TextDecoration.underline),
+                  style: Theme.of(context).textTheme.bodyText2.copyWith(
+                      color: Theme.of(context).disabledColor,
+                      decoration: TextDecoration.underline),
                 ),
-                TextSpan(text: " okudum onaylıyorum")
+                TextSpan(
+                    text: " okudum onaylıyorum",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText2
+                        .copyWith(color: Theme.of(context).disabledColor))
               ],
             ),
           ),
@@ -372,10 +379,16 @@ class _SignUpViewState extends State<SignUpView> {
               style: Theme.of(context).textTheme.bodyText2,
               children: [
                 TextSpan(
-                  text: "Rıza beyanını",
-                  style: TextStyle(decoration: TextDecoration.underline),
-                ),
-                TextSpan(text: " okudum onaylıyorum")
+                    text: "Rıza beyanını",
+                    style: Theme.of(context).textTheme.bodyText2.copyWith(
+                        color: Theme.of(context).disabledColor,
+                        decoration: TextDecoration.underline)),
+                TextSpan(
+                    text: " okudum onaylıyorum",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText2
+                        .copyWith(color: Theme.of(context).disabledColor))
               ],
             ),
           ),
@@ -448,7 +461,7 @@ class _SignUpViewState extends State<SignUpView> {
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
               color: isNameFieldValid
-                  ? Theme.of(context).backgroundColor
+                  ? Theme.of(context).primaryColorLight
                   : Colors.grey),
           borderRadius: BorderRadius.all(
             Radius.circular(20.0),
@@ -457,7 +470,7 @@ class _SignUpViewState extends State<SignUpView> {
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
               color: isNameFieldValid
-                  ? Theme.of(context).backgroundColor
+                  ? Theme.of(context).primaryColorLight
                   : Colors.grey),
           borderRadius: BorderRadius.all(
             Radius.circular(20.0),
@@ -466,7 +479,7 @@ class _SignUpViewState extends State<SignUpView> {
         labelText: "Ad",
         labelStyle: TextStyle(
           color: isNameFieldValid
-              ? Theme.of(context).backgroundColor
+              ? Theme.of(context).primaryColorLight
               : Colors.grey,
         ),
       ),
@@ -480,7 +493,7 @@ class _SignUpViewState extends State<SignUpView> {
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
               color: isLastNameFieldValid
-                  ? Theme.of(context).backgroundColor
+                  ? Theme.of(context).primaryColorLight
                   : Colors.grey),
           borderRadius: BorderRadius.all(
             Radius.circular(20.0),
@@ -489,7 +502,7 @@ class _SignUpViewState extends State<SignUpView> {
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
               color: isLastNameFieldValid
-                  ? Theme.of(context).backgroundColor
+                  ? Theme.of(context).primaryColorLight
                   : Colors.grey),
           borderRadius: BorderRadius.all(
             Radius.circular(20.0),
@@ -498,7 +511,7 @@ class _SignUpViewState extends State<SignUpView> {
         labelText: "Soyad",
         labelStyle: TextStyle(
           color: isLastNameFieldValid
-              ? Theme.of(context).backgroundColor
+              ? Theme.of(context).primaryColorLight
               : Colors.grey,
         ),
       ),
@@ -512,7 +525,7 @@ class _SignUpViewState extends State<SignUpView> {
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
               color: isPasswordFieldValid
-                  ? Theme.of(context).backgroundColor
+                  ? Theme.of(context).primaryColorLight
                   : Colors.grey),
           borderRadius: BorderRadius.all(
             Radius.circular(20.0),
@@ -521,7 +534,7 @@ class _SignUpViewState extends State<SignUpView> {
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
               color: isPasswordFieldValid
-                  ? Theme.of(context).backgroundColor
+                  ? Theme.of(context).primaryColorLight
                   : Colors.grey),
           borderRadius: BorderRadius.all(
             Radius.circular(20.0),
@@ -531,13 +544,13 @@ class _SignUpViewState extends State<SignUpView> {
           opacity: isPasswordFieldValid ? 1 : 0,
           child: Icon(
             Icons.done,
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).primaryColorLight,
           ),
         ),
         labelText: "Şifre",
         labelStyle: TextStyle(
           color: isPasswordFieldValid
-              ? Theme.of(context).backgroundColor
+              ? Theme.of(context).primaryColorLight
               : Colors.grey,
         ),
       ),
@@ -551,7 +564,7 @@ class _SignUpViewState extends State<SignUpView> {
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
               color: isRePasswordFieldValid
-                  ? Theme.of(context).backgroundColor
+                  ? Theme.of(context).primaryColorLight
                   : Colors.grey),
           borderRadius: BorderRadius.all(
             Radius.circular(20.0),
@@ -560,7 +573,7 @@ class _SignUpViewState extends State<SignUpView> {
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
               color: isRePasswordFieldValid
-                  ? Theme.of(context).backgroundColor
+                  ? Theme.of(context).primaryColorLight
                   : Colors.grey),
           borderRadius: BorderRadius.all(
             Radius.circular(20.0),
@@ -570,13 +583,13 @@ class _SignUpViewState extends State<SignUpView> {
           opacity: isRePasswordFieldValid ? 1 : 0,
           child: Icon(
             Icons.done,
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).primaryColorLight,
           ),
         ),
         labelText: "Şifre Tekrarı",
         labelStyle: TextStyle(
           color: isRePasswordFieldValid
-              ? Theme.of(context).backgroundColor
+              ? Theme.of(context).primaryColorLight
               : Colors.grey,
         ),
       ),
@@ -590,7 +603,7 @@ class _SignUpViewState extends State<SignUpView> {
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
               color: isBirthdayFieldValid
-                  ? Theme.of(context).backgroundColor
+                  ? Theme.of(context).primaryColorLight
                   : Colors.grey),
           borderRadius: BorderRadius.all(
             Radius.circular(20.0),
@@ -599,7 +612,7 @@ class _SignUpViewState extends State<SignUpView> {
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
               color: isBirthdayFieldValid
-                  ? Theme.of(context).backgroundColor
+                  ? Theme.of(context).primaryColorLight
                   : Colors.grey),
           borderRadius: BorderRadius.all(
             Radius.circular(20.0),
@@ -608,7 +621,7 @@ class _SignUpViewState extends State<SignUpView> {
         labelText: "Doğum tarihi",
         labelStyle: TextStyle(
           color: isBirthdayFieldValid
-              ? Theme.of(context).backgroundColor
+              ? Theme.of(context).primaryColorLight
               : Colors.grey,
         ),
       ),

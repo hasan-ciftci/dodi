@@ -159,7 +159,7 @@ class _EvaluationOverviewViewState extends State<EvaluationOverviewView>
                       style: Theme.of(context)
                           .textTheme
                           .headline6
-                          .copyWith(color: Color(0xFF1C742C)),
+                          .copyWith(color: Theme.of(context).primaryColor),
                     ),
                   ),
                   Container(
@@ -310,7 +310,7 @@ class _EvaluationOverviewViewState extends State<EvaluationOverviewView>
                       style: Theme.of(context)
                           .textTheme
                           .headline6
-                          .copyWith(color: Color(0xFF1C742C)),
+                          .copyWith(color: Theme.of(context).primaryColor),
                     ),
                   ),
                   LectureSuccessPercentageBar(
@@ -384,7 +384,7 @@ class _EvaluationOverviewViewState extends State<EvaluationOverviewView>
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(50),
-            border: Border.all(color: Theme.of(context).backgroundColor)),
+            border: Border.all(color: Theme.of(context).primaryColorLight)),
         child: Row(
           children: [
             Text(
@@ -397,7 +397,7 @@ class _EvaluationOverviewViewState extends State<EvaluationOverviewView>
             Spacer(),
             Icon(
               Icons.keyboard_arrow_down,
-              color: Theme.of(context).backgroundColor,
+              color: Theme.of(context).primaryColorLight,
             )
           ],
         ),
@@ -419,7 +419,7 @@ class _EvaluationOverviewViewState extends State<EvaluationOverviewView>
             borderRadius: BorderRadius.only(
                 bottomRight: Radius.circular(25),
                 bottomLeft: Radius.circular(25)),
-            border: Border.all(color: Theme.of(context).backgroundColor)),
+            border: Border.all(color: Theme.of(context).primaryColorLight)),
         child: Padding(
           //Starts from half of dropdown container
           padding: EdgeInsets.only(top: size.height * .045),

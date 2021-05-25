@@ -39,17 +39,19 @@ class MyApp extends StatelessWidget {
         ),
         title: 'Flutter Demo',
         theme: ThemeData().copyWith(
-            toggleableActiveColor: Color(0xFFF38424),
-            primaryColor: Color(0xFF1C742C),
-            backgroundColor: Color(0xFFF38424),
-            accentColor: Color(0xFF1C742C),
+          disabledColor: Color(0xFF737373),
+            toggleableActiveColor: Color(0xFF6AC7EC),
+            primaryColor: Color(0xFF3494BC),
+            primaryColorLight: Color(0xFF6AC7EC),
+            backgroundColor: Color(0xFF7A7FF5),
+            accentColor: Color(0xFF3494BC),
             elevatedButtonTheme: ElevatedButtonThemeData(
               style: ElevatedButton.styleFrom(
-                onPrimary: Color(0xFFF38424),
-                primary: Color(0xFFF38424),
+                onPrimary: Color(0xFF7A7FF5),
+                primary: Color(0xFF7A7FF5),
               ),
             ),
-            bottomAppBarColor: Color(0xFFE9F0D0),
+            bottomAppBarColor: Color(0xFFFFFFFF),
             textTheme: TextTheme(
               bodyText1:
                   ThemeData().textTheme.bodyText1.copyWith(fontSize: 16.sp),

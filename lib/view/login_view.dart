@@ -96,7 +96,7 @@ class _LoginViewState extends State<LoginView> {
                 Spacer(),
                 buildLoginButton(size, context),
                 SizedBox(height: size.height * .02),
-                Text("Şifremi unuttum"),
+                Text("Şifremi unuttum",style: Theme.of(context).textTheme.bodyText2.copyWith(color: Theme.of(context).disabledColor)),
                 Spacer(),
               ],
             ),
@@ -127,7 +127,7 @@ class _LoginViewState extends State<LoginView> {
             groupValue: true,
           ),
           Text(
-            "Beni hatırla",
+            "Beni hatırla",style: Theme.of(context).textTheme.bodyText2.copyWith(color: Theme.of(context).disabledColor),
           ),
         ],
       ),
@@ -220,7 +220,7 @@ class _LoginViewState extends State<LoginView> {
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
                 color: isEmailValid
-                    ? Theme.of(context).backgroundColor
+                    ? Theme.of(context).primaryColorLight
                     : Colors.grey),
             borderRadius: BorderRadius.all(
               Radius.circular(20.0),
@@ -229,7 +229,7 @@ class _LoginViewState extends State<LoginView> {
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
                 color: isEmailValid
-                    ? Theme.of(context).backgroundColor
+                    ? Theme.of(context).primaryColorLight
                     : Colors.grey),
             borderRadius: BorderRadius.all(
               Radius.circular(20.0),
@@ -238,11 +238,11 @@ class _LoginViewState extends State<LoginView> {
           suffixIcon: Opacity(
               opacity: isEmailValid ? 1 : 0,
               child:
-                  Icon(Icons.done, color: Theme.of(context).backgroundColor)),
+                  Icon(Icons.done, color: Theme.of(context).primaryColorLight)),
           labelText: "E-Posta",
           labelStyle: TextStyle(
             color:
-                isEmailValid ? Theme.of(context).backgroundColor : Colors.grey,
+                isEmailValid ? Theme.of(context).primaryColorLight : Colors.grey,
           ),
         ),
       ),
@@ -259,7 +259,7 @@ class _LoginViewState extends State<LoginView> {
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
                 color: isPasswordValid
-                    ? Theme.of(context).backgroundColor
+                    ? Theme.of(context).primaryColorLight
                     : Colors.grey),
             borderRadius: BorderRadius.all(
               Radius.circular(20.0),
@@ -268,7 +268,7 @@ class _LoginViewState extends State<LoginView> {
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
                 color: isPasswordValid
-                    ? Theme.of(context).backgroundColor
+                    ? Theme.of(context).primaryColorLight
                     : Colors.grey),
             borderRadius: BorderRadius.all(
               Radius.circular(20.0),
@@ -286,11 +286,11 @@ class _LoginViewState extends State<LoginView> {
                       isPasswordObscure
                           ? CupertinoIcons.eye
                           : CupertinoIcons.eye_slash,
-                      color: Theme.of(context).backgroundColor))),
+                      color: Theme.of(context).primaryColorLight))),
           labelText: "Şifre",
           labelStyle: TextStyle(
             color: isPasswordValid
-                ? Theme.of(context).backgroundColor
+                ? Theme.of(context).primaryColorLight
                 : Colors.grey,
           ),
         ),

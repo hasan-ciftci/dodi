@@ -408,7 +408,7 @@ class _SolutionsViewState extends State<SolutionsView>
           child: Container(color: Theme.of(context).backgroundColor),
         ),
         Expanded(
-          child: Container(color: Theme.of(context).primaryColor),
+          child: Container(color: Theme.of(context).primaryColorLight),
         )
       ],
     );

@@ -82,7 +82,7 @@ class _ResultViewState extends State<ResultView> {
 
   Text buildResultPoint() {
     return Text(
-      "56",
+      "66",
       style: Theme.of(context).textTheme.headline1.copyWith(
           color: Theme.of(context).backgroundColor,
           fontWeight: FontWeight.w400),

@@ -63,15 +63,15 @@ class _SubjectSelectViewState extends State<SubjectSelectView> {
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderSide:
-                          BorderSide(color: Theme.of(context).backgroundColor),
+                          BorderSide(color: Theme.of(context).primaryColorLight),
                       borderRadius: BorderRadius.all(
                         Radius.circular(20.0),
                       ),
                     ),
                     suffixIcon: Icon(Icons.search,
-                        color: Theme.of(context).backgroundColor),
+                        color: Theme.of(context).primaryColorLight),
                     prefixIcon:
-                        Icon(Icons.mic, color: Theme.of(context).primaryColor),
+                        Icon(Icons.mic, color: Theme.of(context).primaryColorLight),
                     labelText: "Ne arıyorsun?",
                   ),
                 ),

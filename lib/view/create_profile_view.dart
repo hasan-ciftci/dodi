@@ -138,7 +138,7 @@ class _CreateProfileViewState extends State<CreateProfileView> {
                 });
               },
             ),
-            Text("Öğrenci"),
+            Text("Öğrenci",style: Theme.of(context).textTheme.bodyText2.copyWith(color: Theme.of(context).disabledColor),),
           ],
         ),
         SizedBox(width: 16),
@@ -153,7 +153,7 @@ class _CreateProfileViewState extends State<CreateProfileView> {
                 });
               },
             ),
-            Text("Veli"),
+            Text("Veli",style: Theme.of(context).textTheme.bodyText2.copyWith(color: Theme.of(context).disabledColor),),
           ],
         ),
       ],
@@ -191,7 +191,7 @@ class _CreateProfileViewState extends State<CreateProfileView> {
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
                 color: isNameFieldValid
-                    ? Theme.of(context).backgroundColor
+                    ? Theme.of(context).primaryColorLight
                     : Colors.grey),
             borderRadius: BorderRadius.all(
               Radius.circular(20.0),
@@ -200,7 +200,7 @@ class _CreateProfileViewState extends State<CreateProfileView> {
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
                 color: isNameFieldValid
-                    ? Theme.of(context).backgroundColor
+                    ? Theme.of(context).primaryColorLight
                     : Colors.grey),
             borderRadius: BorderRadius.all(
               Radius.circular(20.0),
@@ -209,7 +209,7 @@ class _CreateProfileViewState extends State<CreateProfileView> {
           labelText: "Ad",
           labelStyle: TextStyle(
             color: isNameFieldValid
-                ? Theme.of(context).backgroundColor
+                ? Theme.of(context).primaryColorLight
                 : Colors.grey,
           ),
         ),
@@ -226,7 +226,7 @@ class _CreateProfileViewState extends State<CreateProfileView> {
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
                 color: isLastNameFieldValid
-                    ? Theme.of(context).backgroundColor
+                    ? Theme.of(context).primaryColorLight
                     : Colors.grey),
             borderRadius: BorderRadius.all(
               Radius.circular(20.0),
@@ -235,7 +235,7 @@ class _CreateProfileViewState extends State<CreateProfileView> {
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
                 color: isLastNameFieldValid
-                    ? Theme.of(context).backgroundColor
+                    ? Theme.of(context).primaryColorLight
                     : Colors.grey),
             borderRadius: BorderRadius.all(
               Radius.circular(20.0),
@@ -244,7 +244,7 @@ class _CreateProfileViewState extends State<CreateProfileView> {
           labelText: "Soyad",
           labelStyle: TextStyle(
             color: isLastNameFieldValid
-                ? Theme.of(context).backgroundColor
+                ? Theme.of(context).primaryColorLight
                 : Colors.grey,
           ),
         ),

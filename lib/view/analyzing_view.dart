@@ -51,7 +51,10 @@ class _AnalyzingViewState extends State<AnalyzingView> {
             ),
             Text(
               "Cevaplarınız analiz ediliyor...",
-              style: Theme.of(context).textTheme.subtitle1,
+              style: Theme.of(context)
+                  .textTheme
+                  .subtitle1
+                  .copyWith(color: Theme.of(context).primaryColor),
             ),
           ],
         ),

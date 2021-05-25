@@ -44,7 +44,6 @@ class _CreateProfileExtraState extends State<CreateProfileExtra> {
       body: Stack(
         children: [
           buildBackground(size, context),
-
           buildPageFooter(size),
           buildPageHeader(size),
           buildCreateProfileForm(size, context),
@@ -215,7 +214,7 @@ class _CreateProfileExtraState extends State<CreateProfileExtra> {
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
                 color: isNameFieldValid
-                    ? Theme.of(context).backgroundColor
+                    ? Theme.of(context).primaryColorLight
                     : Colors.grey),
             borderRadius: BorderRadius.all(
               Radius.circular(20.0),
@@ -224,7 +223,7 @@ class _CreateProfileExtraState extends State<CreateProfileExtra> {
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
                 color: isNameFieldValid
-                    ? Theme.of(context).backgroundColor
+                    ? Theme.of(context).primaryColorLight
                     : Colors.grey),
             borderRadius: BorderRadius.all(
               Radius.circular(20.0),
@@ -233,7 +232,7 @@ class _CreateProfileExtraState extends State<CreateProfileExtra> {
           labelText: "Ad",
           labelStyle: TextStyle(
             color: isNameFieldValid
-                ? Theme.of(context).backgroundColor
+                ? Theme.of(context).primaryColorLight
                 : Colors.grey,
           ),
         ),
@@ -250,7 +249,7 @@ class _CreateProfileExtraState extends State<CreateProfileExtra> {
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
                 color: isLastNameFieldValid
-                    ? Theme.of(context).backgroundColor
+                    ? Theme.of(context).primaryColorLight
                     : Colors.grey),
             borderRadius: BorderRadius.all(
               Radius.circular(20.0),
@@ -259,7 +258,7 @@ class _CreateProfileExtraState extends State<CreateProfileExtra> {
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
                 color: isLastNameFieldValid
-                    ? Theme.of(context).backgroundColor
+                    ? Theme.of(context).primaryColorLight
                     : Colors.grey),
             borderRadius: BorderRadius.all(
               Radius.circular(20.0),
@@ -268,7 +267,7 @@ class _CreateProfileExtraState extends State<CreateProfileExtra> {
           labelText: "Soyad",
           labelStyle: TextStyle(
             color: isLastNameFieldValid
-                ? Theme.of(context).backgroundColor
+                ? Theme.of(context).primaryColorLight
                 : Colors.grey,
           ),
         ),

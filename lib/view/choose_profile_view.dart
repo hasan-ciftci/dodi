@@ -137,7 +137,7 @@ class _ChooseProfileViewState extends State<ChooseProfileView> {
             children: [
               Image.asset(ImageConstants.instance.penVectorOrange),
               SizedBox(height: 4),
-              Text("Profilleri Düzenle"),
+              Text("Profilleri Düzenle",style: Theme.of(context).textTheme.bodyText2.copyWith(color: Theme.of(context).disabledColor),),
             ],
           ),
         ),

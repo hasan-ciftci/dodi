@@ -94,14 +94,12 @@ class _NewClassSelectViewState extends State<NewClassSelectView> {
   SliderTheme buildSlider(BuildContext context, Size size) {
     return SliderTheme(
       data: SliderThemeData(
-        activeTickMarkColor: Theme.of(context).backgroundColor,
-        disabledActiveTickMarkColor: Colors.purple,
-        disabledInactiveTickMarkColor: Colors.green,
+        activeTickMarkColor: Theme.of(context).primaryColorLight,
         inactiveTickMarkColor: Colors.grey,
-        activeTrackColor: Theme.of(context).backgroundColor,
+        activeTrackColor: Theme.of(context).primaryColorLight,
         inactiveTrackColor: Colors.grey,
-        thumbColor: Theme.of(context).backgroundColor,
-        overlayColor: Theme.of(context).backgroundColor.withOpacity(.1),
+        thumbColor: Theme.of(context).primaryColorLight,
+        overlayColor: Theme.of(context).primaryColorLight.withOpacity(.1),
       ),
       child: SizedBox(
         width: size.width * .7,

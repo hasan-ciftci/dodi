@@ -47,10 +47,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                 height: 4,
               ),
               Text(widget.name,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText2
-                      .copyWith(color: Colors.grey))
+             style: Theme.of(context).textTheme.bodyText2.copyWith(color: Theme.of(context).disabledColor),)
             ],
           ),
         ),

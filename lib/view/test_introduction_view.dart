@@ -97,7 +97,7 @@ class _TestIntroductionViewState extends State<TestIntroductionView> {
                   color: Colors.transparent,
                   child: Padding(
                     padding: EdgeInsets.only(bottom: 16.0),
-                    child: Text("Test Detayları"),
+                    child: Text("Test Detayları",style: Theme.of(context).textTheme.bodyText2.copyWith(color: Theme.of(context).disabledColor),),
                   ),
                 ),
               ),
@@ -123,7 +123,7 @@ class _TestIntroductionViewState extends State<TestIntroductionView> {
     return Text(
       "${widget.grade}. Sınıflar için Görsel Algı ve Dikkat Testi",
       textAlign: TextAlign.center,
-      style: Theme.of(context).textTheme.subtitle1,
+        style: Theme.of(context).textTheme.subtitle1.copyWith(color: Theme.of(context).disabledColor),
     );
   }
 
@@ -183,7 +183,7 @@ class _TestIntroductionViewState extends State<TestIntroductionView> {
                     textAlign: TextAlign.center,
                     style: Theme.of(context)
                         .textTheme
-                        .bodyText1
+                        .bodyText2
                         .copyWith(color: Colors.white),
                   ),
                 ),

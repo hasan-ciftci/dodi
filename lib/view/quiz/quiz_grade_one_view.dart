@@ -314,7 +314,7 @@ class _QuizGradeOneViewState extends State<QuizGradeOneView>
           child: Container(color: Theme.of(context).backgroundColor),
         ),
         Expanded(
-          child: Container(color: Theme.of(context).primaryColor),
+          child: Container(color: Theme.of(context).primaryColorLight),
         )
       ],
     );

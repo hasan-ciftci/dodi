@@ -61,7 +61,7 @@ class _IntroductionPageState extends State<IntroductionPage>
             bottomLeft: Radius.circular(50),
             bottomRight: Radius.circular(50),
           ),
-          color: Color(0xFFE9F0D0),
+          color: Theme.of(context).bottomAppBarColor,
         ),
         child: Column(
           children: [
