@@ -1,8 +1,10 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dodi/core/constants/image_constants.dart';
 import 'package:dodi/core/enums/selected_page_enum.dart';
 import 'package:dodi/view/subject_select_view.dart';
 import 'package:dodi/widget/bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CourseSelectView extends StatefulWidget {
   final int grade;
@@ -14,6 +16,8 @@ class CourseSelectView extends StatefulWidget {
 }
 
 class _CourseSelectViewState extends State<CourseSelectView> {
+  AutoSizeGroup courseNames = AutoSizeGroup();
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -31,7 +35,7 @@ class _CourseSelectViewState extends State<CourseSelectView> {
 
   Container buildView(BuildContext context, Size size) {
     return Container(
-      margin: EdgeInsets.only(top: size.height*.125),
+      margin: EdgeInsets.only(top: size.height * .125),
       decoration: BoxDecoration(
         //Fill container curves with color
         gradient: LinearGradient(
@@ -45,7 +49,6 @@ class _CourseSelectViewState extends State<CourseSelectView> {
         ),
       ),
       child: SingleChildScrollView(
-
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -114,33 +117,49 @@ class _CourseSelectViewState extends State<CourseSelectView> {
   }
 
   buildCourseImage(int columnIndex, int rowIndex, Size size) {
-    return SizedBox(
-      height: size.height * .30,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Flexible(
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => SubjectSelectView(
-                      grade: widget.grade,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: SizedBox(
+        height: size.width * .4,
+        width: size.width * .4,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Flexible(
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => SubjectSelectView(
+                        grade: widget.grade,
+                      ),
                     ),
+                  );
+                },
+                child: Image.asset(
+                  ImageConstants.instance.getCourseImage(
+                    (((columnIndex * 2) + (rowIndex))),
                   ),
-                );
-              },
-              child: Image.asset(
-                ImageConstants.instance.getCourseImage(
-                  (((columnIndex * 2) + (rowIndex))),
                 ),
               ),
             ),
-          ),
-          SizedBox(height: 16),
-          Text(courses[(columnIndex * 2) + rowIndex])
-        ],
+            SizedBox(height: 8.h),
+            SizedBox(
+              width: size.width * .4,
+              child: AutoSizeText(
+                courses[(columnIndex * 2) + rowIndex],
+                group: courseNames,
+                maxLines: 2,
+                minFontSize: 10.sp,
+                stepGranularity: 5.sp,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.button,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
