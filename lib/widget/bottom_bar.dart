@@ -10,6 +10,13 @@ Align buildBottomAppBar(
     child: Container(
       height: size.height * .08,
       decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black54,
+            offset: Offset(0, 2),
+            blurRadius: 5,
+          )
+        ],
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(30), topRight: Radius.circular(30)),
         color: Theme.of(context).bottomAppBarColor,
