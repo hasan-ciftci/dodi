@@ -1,6 +1,8 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dodi/core/enums/selected_page_enum.dart';
 import 'package:dodi/widget/bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../core/constants/image_constants.dart';
 
@@ -14,6 +16,8 @@ class ResultView extends StatefulWidget {
 }
 
 class _ResultViewState extends State<ResultView> {
+  AutoSizeGroup myGroup = AutoSizeGroup();
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -22,7 +26,6 @@ class _ResultViewState extends State<ResultView> {
       body: Stack(
         children: [
           buildBackground(size),
-
           buildBody(size),
           buildPageHeader(size),
           buildBottomAppBar(size, context, SelectedPage.OVERVIEW),
@@ -226,7 +229,7 @@ $bulletPoint Tablo-grafik yorumlama
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               GestureDetector(
-                onTap: ()=>Navigator.of(context).pop(),
+                onTap: () => Navigator.of(context).pop(),
                 child: Icon(
                   Icons.arrow_back_ios_outlined,
                   color: Colors.white,
@@ -265,8 +268,9 @@ $bulletPoint Tablo-grafik yorumlama
           onPressed: () {
             Navigator.of(context).pushNamed("/evaluationOverview");
           },
-          child: Text(
+          child: AutoSizeText(
             "Genel İstatistikler",
+            group: myGroup,
             textAlign: TextAlign.center,
             style: Theme.of(context)
                 .textTheme
@@ -288,8 +292,20 @@ $bulletPoint Tablo-grafik yorumlama
         width: size.width * .35,
         child: ElevatedButton(
           onPressed: () {},
-          child: Text(
+          child: AutoSizeText(
             "Sana Uygun Ürünler",
+            overflowReplacement: AutoSizeText(
+              'Ürünler',
+              style: Theme.of(context)
+                  .textTheme
+                  .button
+                  .copyWith(color: Colors.white),
+              group: myGroup,
+            ),
+            group: myGroup,
+            maxLines: 2,
+            minFontSize: 10.sp,
+            stepGranularity: 5.sp,
             textAlign: TextAlign.center,
             style: Theme.of(context)
                 .textTheme

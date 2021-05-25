@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../core/constants/image_constants.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginView extends StatefulWidget {
   @override
@@ -145,9 +146,10 @@ class _LoginViewState extends State<LoginView> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text("Hesabınız yok mu?",
-                    style: TextStyle(
-                      color: Colors.white,
-                    )),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText2
+                        .copyWith(color: Colors.white)),
                 GestureDetector(
                   onTap: () {
                     Navigator.of(context).pushNamed('/register');
@@ -166,9 +168,10 @@ class _LoginViewState extends State<LoginView> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text("Telefon Numarası ile",
-                    style: TextStyle(
-                      color: Colors.white,
-                    )),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText2
+                        .copyWith(color: Colors.white)),
                 GestureDetector(
                   onTap: () {
                     Navigator.of(context).pushNamed('/phoneRegister');

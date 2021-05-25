@@ -12,6 +12,8 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   flutter_native_splash: ^1.1.8+4
+  flutter_screenutil: ^5.0.0+2
+  auto_size_text: ^2.1.0
 
 dev_dependencies:
   flutter_test:
@@ -19,7 +21,7 @@ dev_dependencies:
   charts_flutter: ^0.10.0
   flutter_launcher_icons:
   mask_text_input_formatter: ^1.2.1
-  flutter_screenutil: ^5.0.0+2
+
 
 flutter_icons:
   android: "launcher_icon"
