@@ -1,0 +1,1 @@
+enum SelectedPage { SHOP, HOME, OVERVIEW, TESTS, PROFILE }

@@ -1,5 +1,7 @@
+import 'package:dodi/core/enums/selected_page_enum.dart';
 import 'package:dodi/view/quiz/quiz_grade_one_view.dart';
 import 'package:dodi/view/quiz/quiz_grade_twelve_view.dart';
+import 'package:dodi/widget/bottom_bar.dart';
 import 'package:flutter/material.dart';
 
 import '../core/constants/image_constants.dart';
@@ -23,9 +25,9 @@ class _NewClassSelectViewState extends State<NewClassSelectView> {
       body: Stack(
         children: [
           buildBackground(size, context),
-          buildPageHeader(size),
           buildBody(size, context),
-          buildAppBar(size, context)
+          buildPageHeader(size),
+          buildBottomAppBar(size, context, SelectedPage.TESTS)
         ],
       ),
     );
@@ -71,7 +73,9 @@ class _NewClassSelectViewState extends State<NewClassSelectView> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (_) => CourseSelectView(grade: selectedClass,),
+            builder: (_) => CourseSelectView(
+              grade: selectedClass,
+            ),
           ),
         );
       },
@@ -140,9 +144,12 @@ class _NewClassSelectViewState extends State<NewClassSelectView> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Icon(
-                Icons.arrow_back_ios_outlined,
-                color: Colors.white,
+              GestureDetector(
+                onTap: () => Navigator.of(context).pop(),
+                child: Icon(
+                  Icons.arrow_back_ios_outlined,
+                  color: Colors.white,
+                ),
               ),
               Text("Sınıf Seçimi",
                   style: TextStyle(
@@ -150,42 +157,6 @@ class _NewClassSelectViewState extends State<NewClassSelectView> {
                   )),
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  Align buildAppBar(Size size, BuildContext context) {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Container(
-        height: size.height * .08,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30), topRight: Radius.circular(30)),
-          color: Theme.of(context).bottomAppBarColor,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Icon(
-              Icons.shopping_cart,
-              color: Color(0xFFB0B0B0),
-            ),
-            Icon(Icons.bar_chart, color: Color(0xFFB0B0B0)),
-            Icon(Icons.home, color: Color(0xFFB0B0B0)),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.menu_book, color: Color(0xFFB0B0B0)),
-                Text(
-                  "Testler",
-                  style: TextStyle(color: Color(0xFFB0B0B0)),
-                ),
-              ],
-            ),
-            Icon(Icons.person, color: Color(0xFFB0B0B0)),
-          ],
         ),
       ),
     );

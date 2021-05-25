@@ -97,7 +97,6 @@ class _QuizGradeTwelveViewState extends State<QuizGradeTwelveView>
         fit: StackFit.loose,
         children: [
           buildBackground(size, context),
-          buildPageHeader(size, _tabController),
           TabBarView(controller: _tabController, children: [
             ...List.generate(
               questions.length,
@@ -110,8 +109,11 @@ class _QuizGradeTwelveViewState extends State<QuizGradeTwelveView>
                 ),
               ),
             ),
-            FinishTestView(grade: 12,),
+            FinishTestView(
+              grade: 12,
+            ),
           ]),
+          buildPageHeader(size, _tabController),
           buildNextButton(size),
         ],
       ),
@@ -349,12 +351,18 @@ class _QuizGradeTwelveViewState extends State<QuizGradeTwelveView>
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Icon(
-                      Icons.arrow_back_ios_outlined,
-                      color: Theme.of(context).backgroundColor,
+                    GestureDetector(
+                      onTap: () => Navigator.of(context).pop(),
+                      child: Container(
+                        color: Colors.red,
+                        child: Icon(
+                          Icons.arrow_back_ios_outlined,
+                          color: Theme.of(context).backgroundColor,
+                        ),
+                      ),
                     ),
                     Text(
-                      "1. sınıf",
+                      "12. sınıf",
                       style: TextStyle(
                         color: Theme.of(context).backgroundColor,
                       ),

@@ -30,8 +30,9 @@ class _PhoneRegisterViewState extends State<PhoneRegisterView> {
       body: Stack(
         children: [
           buildBackground(size, context),
-          buildPageHeader(size),
+
           buildPageFooter(size),
+          buildPageHeader(size),
           buildPhoneForm(size, context),
         ],
       ),
@@ -49,9 +50,12 @@ class _PhoneRegisterViewState extends State<PhoneRegisterView> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Icon(
-                Icons.arrow_back_ios_outlined,
-                color: Colors.white,
+              GestureDetector(
+                onTap: ()=>Navigator.of(context).pop(),
+                child: Icon(
+                  Icons.arrow_back_ios_outlined,
+                  color: Colors.white,
+                ),
               ),
               Text(
                 "Telefon Numarası ile Giriş",

@@ -19,8 +19,9 @@ class _ChooseProfileViewState extends State<ChooseProfileView> {
       body: Stack(
         children: [
           buildBackground(size, context),
-          buildPageHeader(size),
+
           buildPageFooter(size),
+          buildPageHeader(size),
           buildProfiles(size, context),
         ],
       ),
@@ -38,9 +39,12 @@ class _ChooseProfileViewState extends State<ChooseProfileView> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Icon(
-                Icons.arrow_back_ios_outlined,
-                color: Colors.white,
+              GestureDetector(
+                onTap: ()=>Navigator.of(context).pop(),
+                child: Icon(
+                  Icons.arrow_back_ios_outlined,
+                    color: Colors.white,
+                ),
               ),
               Text(
                 "Profil",

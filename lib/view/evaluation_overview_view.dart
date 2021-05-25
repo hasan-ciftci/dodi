@@ -1,4 +1,6 @@
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:dodi/core/enums/selected_page_enum.dart';
+import 'package:dodi/widget/bottom_bar.dart';
 import 'package:flutter/material.dart';
 
 class EvaluationOverviewView extends StatefulWidget {
@@ -6,7 +8,10 @@ class EvaluationOverviewView extends StatefulWidget {
   _EvaluationOverviewViewState createState() => _EvaluationOverviewViewState();
 }
 
-class _EvaluationOverviewViewState extends State<EvaluationOverviewView> {
+class _EvaluationOverviewViewState extends State<EvaluationOverviewView>
+    with SingleTickerProviderStateMixin {
+  bool drawerOpen = false;
+  String drawerSelected = "Öğrenci Seç";
   List<Lecture> data = [
     Lecture(
       questionCount: 100,
@@ -64,7 +69,7 @@ class _EvaluationOverviewViewState extends State<EvaluationOverviewView> {
               ],
             ),
           ),
-          buildBottomAppBar(size, context)
+          buildBottomAppBar(size, context, SelectedPage.OVERVIEW)
         ],
       ),
     );
@@ -94,9 +99,12 @@ class _EvaluationOverviewViewState extends State<EvaluationOverviewView> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Icon(
-                Icons.arrow_back_ios_outlined,
-                color: Colors.white,
+              GestureDetector(
+                onTap: ()=>Navigator.of(context).pop(),
+                child: Icon(
+                  Icons.arrow_back_ios_outlined,
+                  color: Colors.white,
+                ),
               ),
               Text(
                 "Değerlendirme Tablosu",
@@ -134,14 +142,14 @@ class _EvaluationOverviewViewState extends State<EvaluationOverviewView> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            //Body placed 87,5% height of screen with all attributes below
+            buildDrawer(size, context),
             Padding(
-              padding: EdgeInsets.symmetric(
-                  vertical: size.height * .08, horizontal: 16),
+              padding: EdgeInsets.only(
+                  bottom: size.height * .08, right: 16, left: 16),
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: EdgeInsets.all(16.0),
                     child: Text(
                       "Yaşar için Genel Görünüm",
                       textAlign: TextAlign.center,
@@ -349,36 +357,101 @@ class _EvaluationOverviewViewState extends State<EvaluationOverviewView> {
     );
   }
 
-  Align buildBottomAppBar(Size size, BuildContext context) {
-    return Align(
-      alignment: Alignment.bottomCenter,
+  Stack buildDrawer(Size size, BuildContext context) {
+    return Stack(
+      children: [
+        buildDrawerOptions(size, context),
+        buildDrawerBody(size, context),
+      ],
+    );
+  }
+
+  GestureDetector buildDrawerBody(Size size, BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          drawerOpen = !drawerOpen;
+        });
+      },
       child: Container(
         height: size.height * .08,
+        width: size.width * .9,
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        margin: EdgeInsets.only(top: 25),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30), topRight: Radius.circular(30)),
-          color: Theme.of(context).bottomAppBarColor,
-        ),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(50),
+            border: Border.all(color: Theme.of(context).backgroundColor)),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
+            Text(
+              drawerSelected,
+              style: Theme.of(context)
+                  .textTheme
+                  .subtitle1
+                  .copyWith(color: Colors.grey),
+            ),
+            Spacer(),
             Icon(
-              Icons.shopping_cart,
-              color: Color(0xFFB0B0B0),
+              Icons.keyboard_arrow_down,
+              color: Theme.of(context).backgroundColor,
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  AnimatedSize buildDrawerOptions(Size size, BuildContext context) {
+    return AnimatedSize(
+      alignment: Alignment.topCenter,
+      vsync: this,
+      duration: Duration(milliseconds: 500),
+      reverseDuration: Duration(seconds: 1),
+      child: Container(
+        width: size.width * .9,
+        height: drawerOpen ? null : 0,
+        margin: EdgeInsets.only(top: 50),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+                bottomRight: Radius.circular(25),
+                bottomLeft: Radius.circular(25)),
+            border: Border.all(color: Theme.of(context).backgroundColor)),
+        child: Padding(
+          //Starts from half of dropdown container
+          padding: EdgeInsets.only(top: size.height * .045),
+          child: Column(
+            children: [
+              buildDrawerOption(context),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Padding buildDrawerOption(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      child: GestureDetector(
+        onTap: () {
+          setState(() {
+            drawerOpen = false;
+            drawerSelected = "Yaşar Kemal";
+          });
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Yaşar Kemal",
+              style: Theme.of(context)
+                  .textTheme
+                  .subtitle1
+                  .copyWith(color: Colors.grey),
+              textAlign: TextAlign.start,
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.bar_chart, color: Color(0xFFB0B0B0)),
-                Text(
-                  "Değerlendirme",
-                  style: TextStyle(color: Color(0xFFB0B0B0)),
-                ),
-              ],
-            ),
-            Icon(Icons.home, color: Color(0xFFB0B0B0)),
-            Icon(Icons.menu_book, color: Color(0xFFB0B0B0)),
-            Icon(Icons.person, color: Color(0xFFB0B0B0)),
+            Divider(),
           ],
         ),
       ),

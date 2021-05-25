@@ -24,8 +24,8 @@ class _TestIntroductionViewState extends State<TestIntroductionView> {
       body: Stack(
         children: [
           buildBackground(size),
-          buildPageHeader(size),
           buildBody(size),
+          buildPageHeader(size),
           buildFooter(size)
         ],
       ),
@@ -43,9 +43,12 @@ class _TestIntroductionViewState extends State<TestIntroductionView> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Icon(
-                Icons.arrow_back_ios_outlined,
-                color: Colors.white,
+              GestureDetector(
+                onTap: () => Navigator.of(context).pop(),
+                child: Icon(
+                  Icons.arrow_back_ios_outlined,
+                  color: Colors.white,
+                ),
               ),
               Text("1. Sınıf",
                   style: TextStyle(

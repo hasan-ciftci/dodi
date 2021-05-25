@@ -20,8 +20,9 @@ class _ResultViewState extends State<ResultView> {
       body: Stack(
         children: [
           buildBackground(size),
-          buildPageHeader(size),
+
           buildBody(size),
+          buildPageHeader(size),
           buildAppBar(size)
         ],
       ),
@@ -222,9 +223,12 @@ $bulletPoint Tablo-grafik yorumlama
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Icon(
-                Icons.arrow_back_ios_outlined,
-                color: Colors.white,
+              GestureDetector(
+                onTap: ()=>Navigator.of(context).pop(),
+                child: Icon(
+                  Icons.arrow_back_ios_outlined,
+                  color: Colors.white,
+                ),
               ),
               Text(
                 "Değerlendirme Tablosu",

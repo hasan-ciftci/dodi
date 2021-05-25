@@ -24,8 +24,8 @@ class _LoginViewState extends State<LoginView> {
       body: Stack(
         children: [
           buildBackground(size, context),
-          buildPageHeader(size),
           buildPageFooter(size),
+          buildPageHeader(size),
           buildLoginForm(size, context),
         ],
       ),
@@ -43,9 +43,12 @@ class _LoginViewState extends State<LoginView> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Icon(
-                Icons.arrow_back_ios_outlined,
-                color: Colors.white,
+              GestureDetector(
+                onTap: () => Navigator.of(context).pop(),
+                child: Icon(
+                  Icons.arrow_back_ios_outlined,
+                  color: Colors.white,
+                ),
               ),
               Text(
                 "Üye girişi",

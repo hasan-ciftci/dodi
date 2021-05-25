@@ -44,8 +44,9 @@ class _CreateProfileExtraState extends State<CreateProfileExtra> {
       body: Stack(
         children: [
           buildBackground(size, context),
-          buildPageHeader(size),
+
           buildPageFooter(size),
+          buildPageHeader(size),
           buildCreateProfileForm(size, context),
         ],
       ),
@@ -63,9 +64,12 @@ class _CreateProfileExtraState extends State<CreateProfileExtra> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Icon(
-                Icons.arrow_back_ios_outlined,
-                color: Colors.white,
+              GestureDetector(
+                onTap: ()=>Navigator.of(context).pop(),
+                child: Icon(
+                  Icons.arrow_back_ios_outlined,
+                  color: Colors.white,
+                ),
               ),
               Text(
                 "Profil Oluştur",

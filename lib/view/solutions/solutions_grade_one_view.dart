@@ -293,9 +293,12 @@ class _SolutionsViewState extends State<SolutionsView>
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Icon(
-                      Icons.arrow_back_ios_outlined,
-                      color: Theme.of(context).backgroundColor,
+                    GestureDetector(
+                      onTap: ()=>Navigator.of(context).pop(),
+                      child: Icon(
+                        Icons.arrow_back_ios_outlined,
+                        color: Theme.of(context).backgroundColor,
+                      ),
                     ),
                     GestureDetector(
                         onTap: () {

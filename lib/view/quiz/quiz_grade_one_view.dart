@@ -78,7 +78,6 @@ class _QuizGradeOneViewState extends State<QuizGradeOneView>
         fit: StackFit.loose,
         children: [
           buildBackground(size, context),
-          buildPageHeader(size, _tabController),
           TabBarView(controller: _tabController, children: [
             TabItem(
               size: size,
@@ -108,6 +107,7 @@ class _QuizGradeOneViewState extends State<QuizGradeOneView>
               grade: 1,
             ),
           ]),
+          buildPageHeader(size, _tabController),
           buildNextButton(size),
         ],
       ),
@@ -229,9 +229,12 @@ class _QuizGradeOneViewState extends State<QuizGradeOneView>
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Icon(
-                      Icons.arrow_back_ios_outlined,
-                      color: Theme.of(context).backgroundColor,
+                    GestureDetector(
+                      onTap: () => Navigator.of(context).pop(),
+                      child: Icon(
+                        Icons.arrow_back_ios_outlined,
+                        color: Theme.of(context).backgroundColor,
+                      ),
                     ),
                     Text(
                       "1. sınıf",

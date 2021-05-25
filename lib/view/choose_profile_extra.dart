@@ -19,8 +19,8 @@ class _ChooseProfileExtraState extends State<ChooseProfileExtra> {
       body: Stack(
         children: [
           buildBackground(size, context),
-          buildPageHeader(size),
           buildPageFooter(size),
+          buildPageHeader(size),
           buildProfiles(size, context),
         ],
       ),
@@ -38,9 +38,12 @@ class _ChooseProfileExtraState extends State<ChooseProfileExtra> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Icon(
-                Icons.arrow_back_ios_outlined,
-                color: Colors.white,
+              GestureDetector(
+                onTap: () => Navigator.of(context).pop(),
+                child: Icon(
+                  Icons.arrow_back_ios_outlined,
+                  color: Colors.white,
+                ),
               ),
               Text(
                 "Profil",
@@ -86,7 +89,7 @@ class _ChooseProfileExtraState extends State<ChooseProfileExtra> {
                             ),
                           ),
                         );
-                      else{
+                      else {
                         Navigator.of(context).pushNamed("/classSelectView");
                       }
                     },
@@ -110,7 +113,7 @@ class _ChooseProfileExtraState extends State<ChooseProfileExtra> {
                             ),
                           ),
                         );
-                      else{
+                      else {
                         Navigator.of(context).pushNamed("/newClassSelectView");
                       }
                     },

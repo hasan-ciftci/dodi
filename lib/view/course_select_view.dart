@@ -1,5 +1,7 @@
 import 'package:dodi/core/constants/image_constants.dart';
+import 'package:dodi/core/enums/selected_page_enum.dart';
 import 'package:dodi/view/subject_select_view.dart';
+import 'package:dodi/widget/bottom_bar.dart';
 import 'package:flutter/material.dart';
 
 class CourseSelectView extends StatefulWidget {
@@ -20,7 +22,7 @@ class _CourseSelectViewState extends State<CourseSelectView> {
       body: Stack(
         children: [
           buildView(context, size),
-          buildBottomNavigationBar(size),
+          buildBottomAppBar(size,context,SelectedPage.TESTS)
         ],
       ),
     );
@@ -91,9 +93,12 @@ class _CourseSelectViewState extends State<CourseSelectView> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Icon(
-              Icons.arrow_back_ios_outlined,
-              color: Colors.white,
+            GestureDetector(
+              onTap: ()=>Navigator.of(context).pop(),
+              child: Icon(
+                Icons.arrow_back_ios_outlined,
+                color: Colors.white,
+              ),
             ),
             Text(
               "Ders Seçimi",
@@ -135,38 +140,6 @@ class _CourseSelectViewState extends State<CourseSelectView> {
           SizedBox(height: 16),
           Text(courses[(columnIndex * 2) + rowIndex])
         ],
-      ),
-    );
-  }
-
-  Align buildBottomNavigationBar(Size size) {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Container(
-        height: size.height * .08,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30), topRight: Radius.circular(30)),
-          color: Theme.of(context).bottomAppBarColor,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Icon(Icons.shopping_cart, color: Color(0xFFB0B0B0)),
-            Icon(Icons.bar_chart, color: Color(0xFFB0B0B0)),
-            Icon(Icons.home, color: Color(0xFFB0B0B0)),
-            Column(
-              children: [
-                Icon(Icons.menu_book, color: Color(0xFFB0B0B0)),
-                Text(
-                  "Testler",
-                  style: TextStyle(color: Color(0xFFB0B0B0)),
-                ),
-              ],
-            ),
-            Icon(Icons.person, color: Color(0xFFB0B0B0)),
-          ],
-        ),
       ),
     );
   }

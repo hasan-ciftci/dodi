@@ -32,26 +32,6 @@ class _AnalyzingViewState extends State<AnalyzingView> {
     );
   }
 
-  Align buildPageHeader(Size size) {
-    return Align(
-      alignment: Alignment.topCenter,
-      child: Container(
-        height: size.height * .125,
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Icon(Icons.arrow_back_ios_outlined),
-              Text("Üye girişi"),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   Align buildBody(Size size, BuildContext context) {
     return Align(
       alignment: Alignment.center,
