@@ -155,7 +155,10 @@ class _CourseSelectViewState extends State<CourseSelectView> {
                 stepGranularity: 5.sp,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.button,
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle1
+                    .copyWith(color: Color(0xFF737373)),
               ),
             ),
           ],
