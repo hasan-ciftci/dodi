@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/constants/image_constants.dart';
 import '../finish_test_screen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SolutionsGradeTwelveView extends StatefulWidget {
   @override
@@ -140,10 +141,12 @@ class _SolutionsGradeTwelveViewState extends State<SolutionsGradeTwelveView>
               ),
               child: Column(
                 children: [
-                  Image.asset(ImageConstants.instance.video),
+                  SizedBox(
+                      height:size.height * .3,
+                      child: Image.asset(ImageConstants.instance.video,fit: BoxFit.contain,)),
                   Spacer(),
                   Text(
-                    "1. Sınıflar için Görsel Algı ve Dikkat Testi Soru Çözüm Videosu",
+                    "Soru Çözüm Videosu",
                     style: Theme.of(context)
                         .textTheme
                         .subtitle1
@@ -169,7 +172,7 @@ class _SolutionsGradeTwelveViewState extends State<SolutionsGradeTwelveView>
     return Stack(
       children: [
         Padding(
-          padding: EdgeInsets.only(bottom: 32.0),
+          padding: EdgeInsets.only(bottom: 32.0.sp),
           child: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             padding: EdgeInsets.symmetric(horizontal: 50),

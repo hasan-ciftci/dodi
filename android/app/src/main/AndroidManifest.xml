@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hasanciftci.dodi">
    <application
-        android:label="dodi"
+        android:label="Dijital Sorum"
         android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"

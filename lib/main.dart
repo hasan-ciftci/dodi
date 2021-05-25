@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: Size(360, 690),
       builder: () => MaterialApp(
+        debugShowCheckedModeBanner: false,
         builder: (context, child) => MediaQuery(
           child: child,
           data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),

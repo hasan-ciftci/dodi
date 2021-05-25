@@ -1,5 +1,6 @@
 import 'package:dodi/core/constants/image_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProfileWidget extends StatefulWidget {
   final String name;
@@ -35,13 +36,13 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                 decoration: ShapeDecoration(
                   color: Theme.of(context).backgroundColor,
                   shape: ContinuousRectangleBorder(
-                      borderRadius: BorderRadius.circular(16.0)),
+                      borderRadius: BorderRadius.circular(32.0.r)),
                 ),
                 height: widget.size.width / 4,
                 width: widget.size.width / 4,
                 child: widget.image == null
                     ? buildProfileIcon()
-                    : Image.asset(widget.image),
+                    : Image.asset(widget.image,fit: BoxFit.contain,),
               ),
               SizedBox(
                 height: 4,

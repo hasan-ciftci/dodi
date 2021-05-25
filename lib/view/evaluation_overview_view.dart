@@ -175,6 +175,7 @@ class _EvaluationOverviewViewState extends State<EvaluationOverviewView>
                     children: [
                       Expanded(
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -183,21 +184,21 @@ class _EvaluationOverviewViewState extends State<EvaluationOverviewView>
                                   color: Colors.pinkAccent,
                                   text: 'Matematik',
                                   isSquare: false,
-                                  size: 8,
+                                  size: 8.sp,
                                   textColor: Colors.pinkAccent,
                                 ),
                                 Indicator(
                                   color: Colors.blue,
                                   text: 'Hayat Bilgisi',
                                   isSquare: false,
-                                  size: 8,
+                                  size: 8.sp,
                                   textColor: Colors.blue,
                                 ),
                                 Indicator(
                                   color: Colors.purple,
                                   text: 'İngilizce',
                                   isSquare: false,
-                                  size: 8,
+                                  size: 8.sp,
                                   textColor: Colors.purple,
                                 ),
                               ],
@@ -210,7 +211,7 @@ class _EvaluationOverviewViewState extends State<EvaluationOverviewView>
                                       .textTheme
                                       .bodyText1
                                       .copyWith(
-                                          fontSize: 16,
+                                          fontSize: 16.sp,
                                           color: Colors.pinkAccent),
                                 ),
                                 Text(
@@ -219,7 +220,7 @@ class _EvaluationOverviewViewState extends State<EvaluationOverviewView>
                                       .textTheme
                                       .bodyText1
                                       .copyWith(
-                                          fontSize: 16, color: Colors.blue),
+                                          fontSize: 16.sp, color: Colors.blue),
                                 ),
                                 Text(
                                   "%30",
@@ -227,7 +228,7 @@ class _EvaluationOverviewViewState extends State<EvaluationOverviewView>
                                       .textTheme
                                       .bodyText1
                                       .copyWith(
-                                        fontSize: 16,
+                                        fontSize: 16.sp,
                                         color: Colors.purple,
                                       ),
                                 ),
@@ -248,21 +249,21 @@ class _EvaluationOverviewViewState extends State<EvaluationOverviewView>
                                   color: Colors.amber,
                                   text: 'Türkçe',
                                   isSquare: false,
-                                  size: 8,
+                                  size: 8.sp,
                                   textColor: Colors.amber,
                                 ),
                                 Indicator(
                                   color: Colors.deepPurpleAccent,
                                   text: 'Zeka',
                                   isSquare: false,
-                                  size: 8,
+                                  size: 8.sp,
                                   textColor: Colors.deepPurpleAccent,
                                 ),
                                 Indicator(
                                   color: Colors.green,
                                   text: 'Fen Bilimleri',
                                   isSquare: false,
-                                  size: 8,
+                                  size: 8.sp,
                                   textColor: Colors.green,
                                 ),
                               ],
@@ -275,7 +276,7 @@ class _EvaluationOverviewViewState extends State<EvaluationOverviewView>
                                       .textTheme
                                       .bodyText1
                                       .copyWith(
-                                          fontSize: 16, color: Colors.amber),
+                                          fontSize: 16.sp, color: Colors.amber),
                                 ),
                                 Text(
                                   "%40",
@@ -283,7 +284,7 @@ class _EvaluationOverviewViewState extends State<EvaluationOverviewView>
                                       .textTheme
                                       .bodyText1
                                       .copyWith(
-                                          fontSize: 16,
+                                          fontSize: 16.sp,
                                           color: Colors.deepPurpleAccent),
                                 ),
                                 Text(
@@ -292,7 +293,7 @@ class _EvaluationOverviewViewState extends State<EvaluationOverviewView>
                                       .textTheme
                                       .bodyText1
                                       .copyWith(
-                                          fontSize: 16, color: Colors.green),
+                                          fontSize: 16.sp, color: Colors.green),
                                 ),
                               ],
                             )
@@ -639,7 +640,7 @@ class Indicator extends StatelessWidget {
         ),
         Text(
           text,
-          style: TextStyle(fontSize: 16, color: textColor),
+          style: TextStyle(fontSize: 16.sp, color: textColor),
         )
       ],
     );
