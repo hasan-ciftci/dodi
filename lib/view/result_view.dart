@@ -26,7 +26,15 @@ class _ResultViewState extends State<ResultView> {
       body: Stack(
         children: [
           buildBackground(size),
-          buildBody(size),
+          SingleChildScrollView(
+            physics:
+                BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+            child: Column(
+              children: [
+                buildBody(size),
+              ],
+            ),
+          ),
           buildPageHeader(size),
           buildBottomAppBar(size, context, SelectedPage.OVERVIEW),
         ],
@@ -38,7 +46,7 @@ class _ResultViewState extends State<ResultView> {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(
-        height: size.height * .85,
+        margin: EdgeInsets.only(top: size.height * .125),
         width: size.width,
         decoration: BoxDecoration(
             color: Colors.white,
@@ -46,26 +54,23 @@ class _ResultViewState extends State<ResultView> {
               topRight: Radius.circular(50.0),
               topLeft: Radius.circular(50.0),
             )),
-        child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child: Padding(
-            padding: EdgeInsets.only(
-              right: size.width * .09,
-              left: size.width * .09,
-              bottom: size.height * .1,
-              top: size.height * .01,
-            ),
-            child: Column(
-              children: [
-                buildResultPoint(),
-                buildResultCaption(size),
-                buildResultImage(),
-                buildLine(),
-                buildInformationText(size),
-                buildComparisonGraph(),
-                buildButtons(size),
-              ],
-            ),
+        child: Padding(
+          padding: EdgeInsets.only(
+            right: size.width * .09,
+            left: size.width * .09,
+            bottom: size.height * .1,
+            top: size.height * .01,
+          ),
+          child: Column(
+            children: [
+              buildResultPoint(),
+              buildResultCaption(size),
+              buildResultImage(),
+              buildLine(),
+              buildInformationText(size),
+              buildComparisonGraph(),
+              buildButtons(size),
+            ],
           ),
         ),
       ),
@@ -222,6 +227,7 @@ $bulletPoint Tablo-grafik yorumlama
       alignment: Alignment.topCenter,
       child: Container(
         height: size.height * .125,
+        color: Theme.of(context).backgroundColor,
         child: Padding(
           padding: EdgeInsets.all(16.0),
           child: Row(
@@ -234,10 +240,6 @@ $bulletPoint Tablo-grafik yorumlama
                   Icons.arrow_back_ios_outlined,
                   color: Colors.white,
                 ),
-              ),
-              Text(
-                "Değerlendirme Tablosu",
-                style: TextStyle(color: Colors.white),
               ),
             ],
           ),
