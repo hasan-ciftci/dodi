@@ -64,12 +64,12 @@ class _EvaluationOverviewViewState extends State<EvaluationOverviewView>
                 BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
             child: Column(
               children: [
-                buildPageHeader(size),
                 buildBody(size, context),
               ],
             ),
           ),
-          buildBottomAppBar(size, context, SelectedPage.OVERVIEW)
+          buildBottomAppBar(size, context, SelectedPage.OVERVIEW),
+          buildPageHeader(size),
         ],
       ),
     );
@@ -92,6 +92,7 @@ class _EvaluationOverviewViewState extends State<EvaluationOverviewView>
     return Align(
       alignment: Alignment.topCenter,
       child: Container(
+        color: Theme.of(context).backgroundColor,
         height: size.height * .125,
         child: Padding(
           padding: EdgeInsets.all(16.0),
@@ -100,7 +101,7 @@ class _EvaluationOverviewViewState extends State<EvaluationOverviewView>
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               GestureDetector(
-                onTap: ()=>Navigator.of(context).pop(),
+                onTap: () => Navigator.of(context).pop(),
                 child: Icon(
                   Icons.arrow_back_ios_outlined,
                   color: Colors.white,
@@ -131,6 +132,7 @@ class _EvaluationOverviewViewState extends State<EvaluationOverviewView>
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(
+        margin: EdgeInsets.only(top: size.height * .125),
         width: size.width,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
