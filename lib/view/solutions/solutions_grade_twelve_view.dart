@@ -255,6 +255,7 @@ class _SolutionsGradeTwelveViewState extends State<SolutionsGradeTwelveView>
       children: [
         IntrinsicHeight(
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
                 width: size.width / 3,
@@ -281,6 +282,7 @@ class _SolutionsGradeTwelveViewState extends State<SolutionsGradeTwelveView>
         SizedBox(height: 16),
         IntrinsicHeight(
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
                 width: size.width / 3,

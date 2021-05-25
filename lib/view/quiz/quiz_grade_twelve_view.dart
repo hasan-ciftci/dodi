@@ -164,6 +164,7 @@ class _QuizGradeTwelveViewState extends State<QuizGradeTwelveView>
       children: [
         IntrinsicHeight(
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
                 width: size.width / 3,
@@ -190,6 +191,7 @@ class _QuizGradeTwelveViewState extends State<QuizGradeTwelveView>
         SizedBox(height: 16),
         IntrinsicHeight(
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
                 width: size.width / 3,
