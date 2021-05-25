@@ -93,7 +93,7 @@ class _IntroductionPageState extends State<IntroductionPage>
   Center buildIntroductionText(Size size, BuildContext context) {
     return Center(
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: size.width * .2),
+        padding: EdgeInsets.symmetric(horizontal: size.width * .1),
         child: SingleChildScrollView(
           physics: AlwaysScrollableScrollPhysics(),
           child: Text(

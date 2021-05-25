@@ -59,11 +59,11 @@ class _QuizGradeTwelveViewState extends State<QuizGradeTwelveView>
       ),
       QuestionModel(
         questionImage: ImageConstants.instance.soru3_12,
-        optionAText: "2 / 3",
-        optionBText: "3 / 4",
-        optionCText: "4 / 5",
-        optionDText: "1",
-        optionEText: "5 / 4",
+        optionAText: "I.",
+        optionBText: "II.",
+        optionCText: "III.",
+        optionDText: "IV.",
+        optionEText: "V",
       ),
       QuestionModel(
         questionText: "Ömer Seyfettin, Sait Faik Abasıyanık, Memduh Şevket"
