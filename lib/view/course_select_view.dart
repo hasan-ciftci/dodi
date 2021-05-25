@@ -22,7 +22,8 @@ class _CourseSelectViewState extends State<CourseSelectView> {
       body: Stack(
         children: [
           buildView(context, size),
-          buildBottomAppBar(size,context,SelectedPage.TESTS)
+          buildBottomAppBar(size, context, SelectedPage.TESTS),
+          buildAppBar(context, size),
         ],
       ),
     );
@@ -30,6 +31,7 @@ class _CourseSelectViewState extends State<CourseSelectView> {
 
   Container buildView(BuildContext context, Size size) {
     return Container(
+      margin: EdgeInsets.only(top: size.height*.125),
       decoration: BoxDecoration(
         //Fill container curves with color
         gradient: LinearGradient(
@@ -43,11 +45,10 @@ class _CourseSelectViewState extends State<CourseSelectView> {
         ),
       ),
       child: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            buildAppBar(context, size),
             buildCourses(size),
           ],
         ),
@@ -94,7 +95,7 @@ class _CourseSelectViewState extends State<CourseSelectView> {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             GestureDetector(
-              onTap: ()=>Navigator.of(context).pop(),
+              onTap: () => Navigator.of(context).pop(),
               child: Icon(
                 Icons.arrow_back_ios_outlined,
                 color: Colors.white,
