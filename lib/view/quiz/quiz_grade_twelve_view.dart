@@ -353,12 +353,9 @@ class _QuizGradeTwelveViewState extends State<QuizGradeTwelveView>
                   children: [
                     GestureDetector(
                       onTap: () => Navigator.of(context).pop(),
-                      child: Container(
-                        color: Colors.red,
-                        child: Icon(
-                          Icons.arrow_back_ios_outlined,
-                          color: Theme.of(context).backgroundColor,
-                        ),
+                      child: Icon(
+                        Icons.arrow_back_ios_outlined,
+                        color: Theme.of(context).backgroundColor,
                       ),
                     ),
                     Text(

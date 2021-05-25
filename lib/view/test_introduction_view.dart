@@ -121,7 +121,7 @@ class _TestIntroductionViewState extends State<TestIntroductionView> {
 
   Text buildTestIntroductionText(Size size, BuildContext context) {
     return Text(
-      "1. Sınıflar için Görsel Algı ve Dikkat Testi",
+      "${widget.grade}. Sınıflar için Görsel Algı ve Dikkat Testi",
       textAlign: TextAlign.center,
       style: Theme.of(context).textTheme.subtitle1,
     );

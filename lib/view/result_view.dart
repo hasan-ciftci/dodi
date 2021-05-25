@@ -1,3 +1,5 @@
+import 'package:dodi/core/enums/selected_page_enum.dart';
+import 'package:dodi/widget/bottom_bar.dart';
 import 'package:flutter/material.dart';
 
 import '../core/constants/image_constants.dart';
@@ -23,7 +25,7 @@ class _ResultViewState extends State<ResultView> {
 
           buildBody(size),
           buildPageHeader(size),
-          buildAppBar(size)
+          buildBottomAppBar(size, context, SelectedPage.OVERVIEW),
         ],
       ),
     );
@@ -236,42 +238,6 @@ $bulletPoint Tablo-grafik yorumlama
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  Align buildAppBar(Size size) {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Container(
-        height: size.height * .08,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30), topRight: Radius.circular(30)),
-          color: Theme.of(context).bottomAppBarColor,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Icon(
-              Icons.shopping_cart,
-              color: Color(0xFFB0B0B0),
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.bar_chart, color: Color(0xFFB0B0B0)),
-                Text(
-                  "Değerlendirme",
-                  style: TextStyle(color: Color(0xFFB0B0B0)),
-                ),
-              ],
-            ),
-            Icon(Icons.home, color: Color(0xFFB0B0B0)),
-            Icon(Icons.menu_book, color: Color(0xFFB0B0B0)),
-            Icon(Icons.person, color: Color(0xFFB0B0B0)),
-          ],
         ),
       ),
     );

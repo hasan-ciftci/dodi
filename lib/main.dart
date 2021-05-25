@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
           ),
           bottomAppBarColor: Color(0xFFE9F0D0)),
       routes: {
-        '/A': (context) => IntroductionPage(),
+        '/': (context) => IntroductionPage(),
         '/loginView': (context) => LoginView(),
         '/register': (context) => SignUpView(),
         '/classSelectView': (context) => ClassSelectView(),
@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
         '/createProfile': (context) => CreateProfileView(),
         //Same with Choose Profile but included one more profile for scenerio.
         '/chooseProfileExtra': (context) => ChooseProfileExtra(),
-        '/': (context) => CourseSelectView(),
+        '/courseSelectView': (context) => CourseSelectView(),
         '/subjectSelectView': (context) => SubjectSelectView(),
         '/newClassSelectView': (context) => NewClassSelectView(),
         '/solvedTestsView': (context) => SolvedTestsView(),

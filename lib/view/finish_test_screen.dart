@@ -62,7 +62,8 @@ class _FinishTestViewState extends State<FinishTestView> {
     return SizedBox(
       height: size.height * .2,
       child: Text(
-        "Sınıflar için Görsel Algı ve Dikkat Testi",
+        "${widget.grade}. Sınıflar için Görsel Algı ve Dikkat Testi",
+        textAlign: TextAlign.center,
         style: Theme.of(context).textTheme.subtitle1,
       ),
     );
