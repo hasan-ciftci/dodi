@@ -77,7 +77,7 @@ class MyApp extends StatelessWidget {
                   ThemeData().textTheme.overline.copyWith(fontSize: 10.sp),
             )),
         routes: {
-          '/a': (context) => IntroductionPage(),
+          '/': (context) => IntroductionPage(),
           '/loginView': (context) => LoginView(),
           '/register': (context) => SignUpView(),
           '/classSelectView': (context) => ClassSelectView(),
@@ -85,7 +85,7 @@ class MyApp extends StatelessWidget {
           '/questionView': (context) => QuizGradeOneView(),
           '/quizGradeTwelveView': (context) => QuizGradeTwelveView(),
           '/analyzingPage': (context) => AnalyzingView(),
-          '/': (context) => ResultView(),
+          '/resultPage': (context) => ResultView(),
           '/evaluationOverview': (context) => EvaluationOverviewView(),
           '/phoneRegister': (context) => PhoneRegisterView(),
           '/chooseProfile': (context) => ChooseProfileView(),

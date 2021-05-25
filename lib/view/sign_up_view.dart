@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../core/constants/image_constants.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 enum LoginSteps { first, second }
 
@@ -38,6 +39,9 @@ class _SignUpViewState extends State<SignUpView> {
   bool privacyPolicyRadioChecked = false;
   bool declarationOfConsentRadioChecked = false;
 
+  MaskTextInputFormatter phoneMaskFormatter = MaskTextInputFormatter(
+      mask: '+90 ### ### ## ##', filter: {"#": RegExp(r'[0-9]')});
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -65,7 +69,7 @@ class _SignUpViewState extends State<SignUpView> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               GestureDetector(
-                onTap: ()=>Navigator.of(context).pop(),
+                onTap: () => Navigator.of(context).pop(),
                 child: Icon(
                   Icons.arrow_back_ios_outlined,
                   color: Colors.white,
@@ -235,6 +239,7 @@ class _SignUpViewState extends State<SignUpView> {
             height: size.height * .1,
             width: size.width * .9,
             child: TextFormField(
+              inputFormatters: [phoneMaskFormatter],
               controller: _parentPhoneFieldController,
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
@@ -314,8 +319,7 @@ class _SignUpViewState extends State<SignUpView> {
 
   Padding buildPrivacyPolicyRadioButton() {
     return Padding(
-      padding:  EdgeInsets.symmetric(horizontal:8.0),
-
+      padding: EdgeInsets.symmetric(horizontal: 8.0),
       child: Row(
         children: [
           Radio(
@@ -348,7 +352,7 @@ class _SignUpViewState extends State<SignUpView> {
 
   Padding buildDeclarationOfConsentRadioButton() {
     return Padding(
-      padding:  EdgeInsets.symmetric(horizontal:8.0),
+      padding: EdgeInsets.symmetric(horizontal: 8.0),
       child: Row(
         children: [
           Radio(
@@ -640,9 +644,10 @@ class _SignUpViewState extends State<SignUpView> {
   bool get checkCityFieldFilled =>
       _cityFieldController.text != null && _cityFieldController.text.isNotEmpty;
 
+  /// 17 => Length of +90 ### ### ## ##
   bool get checkParentPhoneFieldFilled =>
       _parentPhoneFieldController.text != null &&
-      _parentPhoneFieldController.text.isNotEmpty;
+      _parentPhoneFieldController.text.length == 17;
 
   bool get checkParentMailFieldFilled =>
       _parentMailFieldController.text != null &&
