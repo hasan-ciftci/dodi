@@ -2,6 +2,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:dodi/core/enums/selected_page_enum.dart';
 import 'package:dodi/widget/bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class EvaluationOverviewView extends StatefulWidget {
   @override
@@ -413,7 +414,7 @@ class _EvaluationOverviewViewState extends State<EvaluationOverviewView>
       child: Container(
         width: size.width * .9,
         height: drawerOpen ? null : 0,
-        margin: EdgeInsets.only(top: 50),
+        margin: EdgeInsets.only(top: 50.sp),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
                 bottomRight: Radius.circular(25),
