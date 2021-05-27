@@ -2,6 +2,7 @@ import 'package:dodi/core/enums/selected_page_enum.dart';
 import 'package:dodi/view/test_introduction_view.dart';
 import 'package:dodi/widget/bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../core/constants/image_constants.dart';
 
@@ -15,7 +16,6 @@ class SubjectSelectView extends StatefulWidget {
 }
 
 class _SubjectSelectViewState extends State<SubjectSelectView> {
-  bool isSelected = false;
   TextEditingController searchController = TextEditingController();
 
   @override
@@ -24,6 +24,7 @@ class _SubjectSelectViewState extends State<SubjectSelectView> {
     searchController.addListener(() {
       setState(() {});
     });
+    activateSpeechRecognizer();
   }
 
   @override
@@ -61,30 +62,39 @@ class _SubjectSelectViewState extends State<SubjectSelectView> {
                 child: SizedBox(
                   height: size.height * .1,
                   width: size.width * .9,
-                  child: TextFormField(
-                    controller: searchController,
-                    decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Theme.of(context).backgroundColor,
-                        ),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(20.0),
+                  child: Stack(
+                    alignment: Alignment.centerLeft,
+                    children: [
+                      TextFormField(
+                        controller: searchController,
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.only(left: 50.0),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Theme.of(context).backgroundColor,
+                            ),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(20.0),
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Theme.of(context).primaryColorLight),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(20.0),
+                            ),
+                          ),
+                          suffixIcon: Icon(Icons.search,
+                              color: Theme.of(context).primaryColorLight),
+                          labelText: "Ne arıyorsun?",
                         ),
                       ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
+                      IconButton(
+                        icon: Icon(Icons.mic,
                             color: Theme.of(context).primaryColorLight),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(20.0),
-                        ),
+                        onPressed: () {},
                       ),
-                      suffixIcon: Icon(Icons.search,
-                          color: Theme.of(context).primaryColorLight),
-                      prefixIcon: Icon(Icons.mic,
-                          color: Theme.of(context).primaryColorLight),
-                      labelText: "Ne arıyorsun?",
-                    ),
+                    ],
                   ),
                 ),
               ),
@@ -276,6 +286,20 @@ class _SubjectSelectViewState extends State<SubjectSelectView> {
     Colors.pinkAccent,
     Colors.orange,
   ];
+
+  void requestPermission() async {
+    PermissionStatus permission = await PermissionHandler()
+        .checkPermissionStatus(PermissionGroup.microphone);
+
+    if (permission != PermissionStatus.granted) {
+      await PermissionHandler()
+          .requestPermissions([PermissionGroup.microphone]);
+    }
+  }
+
+  void activateSpeechRecognizer() {
+    requestPermission();
+  }
 }
 
 class CourseCard extends StatelessWidget {
