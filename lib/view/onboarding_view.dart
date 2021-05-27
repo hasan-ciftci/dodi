@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -14,6 +15,9 @@ class _IntroductionPageState extends State<IntroductionPage>
   int _currentIndex = 0;
   int instantValueOfTabController;
 
+  List<String> introductionTexts;
+  List<String> introductionImages;
+
   @override
   void initState() {
     super.initState();
@@ -25,6 +29,17 @@ class _IntroductionPageState extends State<IntroductionPage>
           _currentIndex = (_tabController.animation.value).round();
         });
     });
+
+    introductionTexts = [
+      introductionPage1Text,
+      introductionPage2Text,
+      introductionPage3Text
+    ];
+    introductionImages = [
+      introductionPage1Image,
+      introductionPage2Image,
+      introductionPage3Image
+    ];
   }
 
   @override
@@ -39,9 +54,9 @@ class _IntroductionPageState extends State<IntroductionPage>
           TabBarView(
             controller: _tabController,
             children: [
-              buildBody(size, context, 1),
-              buildBody(size, context, 2),
-              buildBody(size, context, 3),
+              buildBody(size: size, page: 1),
+              buildBody(size: size, page: 2),
+              buildBody(size: size, page: 3),
             ],
           ),
           buildPageFooter(size, _currentIndex),
@@ -50,7 +65,7 @@ class _IntroductionPageState extends State<IntroductionPage>
     );
   }
 
-  Align buildBody(Size size, BuildContext context, int index) {
+  Align buildBody({Size size, int page}) {
     return Align(
       alignment: Alignment.topCenter,
       child: Container(
@@ -70,12 +85,12 @@ class _IntroductionPageState extends State<IntroductionPage>
               height: size.height * .35,
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(16.0),
-                  child: buildIntroductionImage(index)),
+                  child: buildIntroductionImage(page)),
             ),
             SizedBox(height: size.height * .05),
             SizedBox(
               height: size.height * .15,
-              child: buildIntroductionText(size, context),
+              child: buildIntroductionText(page, size),
             ),
             SizedBox(height: size.height * .1),
           ],
@@ -84,27 +99,19 @@ class _IntroductionPageState extends State<IntroductionPage>
     );
   }
 
-  Image buildIntroductionImage(int index) => index == 1
-      ? Image.asset(ImageConstants.instance.introduction1)
-      : index == 2
-          ? Image.asset(ImageConstants.instance.introduction2)
-          : Image.asset(ImageConstants.instance.introduction3);
+  Image buildIntroductionImage(int page) =>
+      Image.asset(introductionImages[page - 1]);
 
-  Center buildIntroductionText(Size size, BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: size.width * .1),
-        child: SingleChildScrollView(
-          physics: AlwaysScrollableScrollPhysics(),
-          child: Text(
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  Center buildIntroductionText(int page, Size size) => Center(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: size.width * .1),
+          child: AutoSizeText(
+            introductionTexts[page - 1],
             style: Theme.of(context).textTheme.subtitle1,
             textAlign: TextAlign.center,
           ),
         ),
-      ),
-    );
-  }
+      );
 
   Align buildPageFooter(Size size, int index) {
     return Align(
@@ -185,4 +192,15 @@ class _IntroductionPageState extends State<IntroductionPage>
       ),
     );
   }
+
+  String introductionPage1Text =
+      "Dijital Sorum, interaktif bir soru bankası uygulamasıdır. Veli ve öğrenci için performans ve verim odaklı özellikler sunar.";
+  String introductionPage2Text =
+      "Veli, kendine özel profil oluşturup aynı hesaba tanımlı öğrencilerinin performans grafiğini, çözmüş olduğu testleri ve etkinliklerini izleyebilir. ";
+  String introductionPage3Text =
+      "Öğrenci, ders ve konu başlıklarına göre filtrelenmiş testleri kolaylıkla bulup, testi tamamladıktan sonra video çözümlerini izleyebilir ve değerlendirme notlarını inceleyebilir. Dijital Sorum, soru banklarını cebinize sığdırır.";
+
+  String introductionPage1Image = ImageConstants.instance.introduction1;
+  String introductionPage2Image = ImageConstants.instance.introduction2;
+  String introductionPage3Image = ImageConstants.instance.introduction3;
 }
