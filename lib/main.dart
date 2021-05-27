@@ -1,4 +1,3 @@
-import 'package:dodi/view/choose_profile_extra.dart';
 import 'package:dodi/view/course_select_view.dart';
 import 'package:dodi/view/create_profile_view.dart';
 import 'package:dodi/view/new_class_select.dart';
@@ -41,7 +40,7 @@ class MyApp extends StatelessWidget {
         ),
         title: 'Flutter Demo',
         theme: ThemeData().copyWith(
-          disabledColor: Color(0xFF737373),
+            disabledColor: Color(0xFF737373),
             toggleableActiveColor: Color(0xFF6AC7EC),
             primaryColor: Color(0xFF3494BC),
             primaryColorLight: Color(0xFF6AC7EC),
@@ -81,7 +80,7 @@ class MyApp extends StatelessWidget {
                   ThemeData().textTheme.overline.copyWith(fontSize: 10.sp),
             )),
         routes: {
-          '/subjectSelectView': (context) => IntroductionPage(),
+          '/': (context) => IntroductionPage(),
           '/loginView': (context) => LoginView(),
           '/register': (context) => SignUpView(),
           '/classSelectView': (context) => ClassSelectView(),
@@ -94,10 +93,8 @@ class MyApp extends StatelessWidget {
           '/phoneRegister': (context) => PhoneRegisterView(),
           '/chooseProfile': (context) => ChooseProfileView(),
           '/createProfile': (context) => CreateProfileView(),
-          //Same with Choose Profile but included one more profile for scenerio.
-          '/chooseProfileExtra': (context) => ChooseProfileExtra(),
           '/courseSelectView': (context) => CourseSelectView(),
-          '/': (context) => SubjectSelectView(),
+          '/subjectSelectView': (context) => SubjectSelectView(),
           '/newClassSelectView': (context) => NewClassSelectView(),
           '/solvedTestsView': (context) => SolvedTestsView(),
           '/solutionsView': (context) => SolutionsView(),

@@ -2,8 +2,6 @@ import 'package:dodi/core/constants/image_constants.dart';
 import 'package:dodi/widget/profile_widget.dart';
 import 'package:flutter/material.dart';
 
-import 'create_profile_extra.dart';
-
 class ChooseProfileView extends StatefulWidget {
   @override
   _ChooseProfileViewState createState() => _ChooseProfileViewState();
@@ -19,7 +17,6 @@ class _ChooseProfileViewState extends State<ChooseProfileView> {
       body: Stack(
         children: [
           buildBackground(size, context),
-
           buildPageFooter(size),
           buildPageHeader(size),
           buildProfiles(size, context),
@@ -40,10 +37,10 @@ class _ChooseProfileViewState extends State<ChooseProfileView> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               GestureDetector(
-                onTap: ()=>Navigator.of(context).pop(),
+                onTap: () => Navigator.of(context).pop(),
                 child: Icon(
                   Icons.arrow_back_ios_outlined,
-                    color: Colors.white,
+                  color: Colors.white,
                 ),
               ),
               Text(
@@ -74,54 +71,75 @@ class _ChooseProfileViewState extends State<ChooseProfileView> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Spacer(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      if (editMode == true)
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => CreateProfileExtra(
-                              isStudent: true,
-                              lastName: "Yaşar",
-                              name: 'Kemal',
-                            ),
-                          ),
-                        );
-                      else{
-                        Navigator.of(context).pushNamed("/newClassSelectView");
-                      }
-                    },
-                    child: ProfileWidget(
-                      isEditing: editMode,
-                      icon: Icons.person,
-                      name: 'Yaşar',
-                      size: size,
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      print("hasan");
-                      Navigator.of(context).pushNamed("/createProfile");
-                    },
-                    child: ProfileWidget(
-                      icon: Icons.add,
-                      name: 'Yeni Profil',
-                      size: size,
-                    ),
-                  ),
-                ],
-              ),
-              Spacer(),
+              Expanded(
+                  child: Center(
+                child: SingleChildScrollView(
+                  child: buildBottomSheetActions(
+                      profiles: [1], size: size, crossAxisLength: 2),
+                ),
+              )),
               buildEditProfilesButton(context),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Widget buildBottomSheetActions(
+      {@required int crossAxisLength,
+      @required List<dynamic> profiles,
+      Size size}) {
+    if (profiles.length == 0) {
+      return GestureDetector(
+        onTap: () {
+          Navigator.of(context).pushNamed("/createProfile");
+        },
+        child: ProfileWidget(
+          icon: Icons.add,
+          name: 'Yeni Ekle',
+          size: size,
+        ),
+      );
+    } else {
+      return Column(
+        children: List.generate(
+          ((profiles.length / crossAxisLength) + 1).floor(),
+          (columnIndex) => Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: List.generate(
+              crossAxisLength,
+              (rowIndex) => columnIndex * crossAxisLength + rowIndex ==
+                      profiles.length
+                  ? GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pushNamed("/createProfile");
+                      },
+                      child: ProfileWidget(
+                        icon: Icons.add,
+                        name: 'Yeni Ekle',
+                        size: size,
+                      ),
+                    )
+                  : columnIndex * crossAxisLength + rowIndex > profiles.length
+                      ? Container(
+                          child: Text((columnIndex).toString()),
+                          margin: EdgeInsets.all(8.0),
+                          color: Colors.green,
+                          height: size.width / 4,
+                          width: size.width / 4,
+                        )
+                      : ProfileWidget(
+                          isEditing: editMode,
+                          icon: Icons.person,
+                          name: 'Yaşar',
+                          size: size,
+                        ),
+            ),
+          ),
+        ),
+      );
+    }
   }
 
   GestureDetector buildEditProfilesButton(BuildContext context) {
@@ -137,7 +155,13 @@ class _ChooseProfileViewState extends State<ChooseProfileView> {
             children: [
               Image.asset(ImageConstants.instance.penVectorOrange),
               SizedBox(height: 4),
-              Text("Profilleri Düzenle",style: Theme.of(context).textTheme.bodyText2.copyWith(color: Theme.of(context).disabledColor),),
+              Text(
+                "Profilleri Düzenle",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText2
+                    .copyWith(color: Theme.of(context).disabledColor),
+              ),
             ],
           ),
         ),

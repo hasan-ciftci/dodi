@@ -29,6 +29,7 @@ class ImageConstants {
   String get line => "line".toPng;
   String get result => "result".toPng;
   String get profile => "profile".toPng;
+  String get profile_child => "profile_child".toPng;
   String get penVector => "pen_vector".toPng;
   String get penVectorOrange => "pen_vector_color".toPng;
   String get comparisonGraph => "comparison_graph".toPng;

@@ -46,6 +46,7 @@ flutter:
     - assets/image/line.png
     - assets/image/result.png
     - assets/image/profile.png
+    - assets/image/profile_child.png
     - assets/image/pen_vector.png
     - assets/image/comparison_graph.png
     - assets/image/pen_vector_color.png
