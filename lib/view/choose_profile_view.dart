@@ -1,6 +1,10 @@
+import 'package:dodi/bloc/profile_cubit.dart';
 import 'package:dodi/core/constants/image_constants.dart';
+import 'package:dodi/core/enums/profile_type_enum.dart';
+import 'package:dodi/view/create_profile_view.dart';
 import 'package:dodi/widget/profile_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ChooseProfileView extends StatefulWidget {
   @override
@@ -56,44 +60,63 @@ class _ChooseProfileViewState extends State<ChooseProfileView> {
     );
   }
 
-  Align buildProfiles(Size size, BuildContext context) {
-    return Align(
-      alignment: Alignment.center,
-      child: SingleChildScrollView(
-        reverse: true,
-        child: Container(
-          height: size.height * .75,
-          width: size.width,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(50.0),
-            color: Colors.white,
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Expanded(
-                  child: Center(
-                child: SingleChildScrollView(
-                  child: buildBottomSheetActions(
-                      profiles: [1], size: size, crossAxisLength: 2),
-                ),
-              )),
-              buildEditProfilesButton(context),
-            ],
-          ),
-        ),
+  buildProfiles(Size size, BuildContext context) {
+    return BlocProvider<ProfileCubit>(
+      create: (BuildContext context) {
+        return ProfileCubit();
+      },
+      child: Builder(
+        builder: (BuildContext context) {
+          List<User> users = context.read<ProfileCubit>().users;
+          return Align(
+            alignment: Alignment.center,
+            child: Container(
+              height: size.height * .75,
+              width: size.width,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50.0),
+                color: Colors.white,
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Expanded(
+                      child: Center(
+                    child: SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
+                      child: buildBottomSheetActions(
+                          profiles:users ,
+                          size: size,
+                          crossAxisLength: 2,
+                          context: context),
+                    ),
+                  )),
+                  buildEditProfilesButton(context),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
 
   Widget buildBottomSheetActions(
       {@required int crossAxisLength,
-      @required List<dynamic> profiles,
-      Size size}) {
+      @required List<User> profiles,
+      Size size,
+      BuildContext context}) {
     if (profiles.length == 0) {
       return GestureDetector(
         onTap: () {
-          Navigator.of(context).pushNamed("/createProfile");
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (_) => BlocProvider.value(
+                      value: BlocProvider.of<ProfileCubit>(context),
+                      child: CreateProfileView(),
+                    )),
+          );
         },
         child: ProfileWidget(
           icon: Icons.add,
@@ -113,7 +136,15 @@ class _ChooseProfileViewState extends State<ChooseProfileView> {
                       profiles.length
                   ? GestureDetector(
                       onTap: () {
-                        Navigator.of(context).pushNamed("/createProfile");
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => BlocProvider.value(
+                                    value:
+                                        BlocProvider.of<ProfileCubit>(context),
+                                    child: CreateProfileView(),
+                                  )),
+                        );
                       },
                       child: ProfileWidget(
                         icon: Icons.add,
@@ -123,23 +154,25 @@ class _ChooseProfileViewState extends State<ChooseProfileView> {
                     )
                   : columnIndex * crossAxisLength + rowIndex > profiles.length
                       ? Container(
-                          child: Text((columnIndex).toString()),
                           margin: EdgeInsets.all(8.0),
-                          color: Colors.green,
                           height: size.width / 4,
                           width: size.width / 4,
                         )
                       : ProfileWidget(
                           isEditing: editMode,
                           icon: Icons.person,
-                          name: 'Yaşar',
+                          name: profiles[columnIndex * crossAxisLength + rowIndex].name,
                           size: size,
+                image: profiles[columnIndex * crossAxisLength + rowIndex].hasProfilePic
+                    ? profiles[columnIndex * crossAxisLength + rowIndex].profileType.index == ProfileType.Parent.index ? ImageConstants.instance.profile:ImageConstants.instance.profile_child
+                    : null,
                         ),
             ),
           ),
         ),
       );
     }
+
   }
 
   GestureDetector buildEditProfilesButton(BuildContext context) {

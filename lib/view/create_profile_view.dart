@@ -1,8 +1,10 @@
+import 'package:dodi/bloc/profile_cubit.dart';
 import 'package:dodi/core/constants/image_constants.dart';
 import 'package:dodi/widget/profile_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-enum ProfileType { Student, Parent }
+import 'create_profile_extra.dart';
 
 class CreateProfileView extends StatefulWidget {
   @override
@@ -112,7 +114,9 @@ class _CreateProfileViewState extends State<CreateProfileView> {
           },
           child: ProfileWidget(
             image: isProfilePictureSelected
-                ? ImageConstants.instance.profile
+                ? _profileType == ProfileType.Parent
+                    ? ImageConstants.instance.profile
+                    : ImageConstants.instance.profile_child
                 : null,
             name: "Profil Resmi Yükle",
             icon: Icons.add,
@@ -138,7 +142,13 @@ class _CreateProfileViewState extends State<CreateProfileView> {
                 });
               },
             ),
-            Text("Öğrenci",style: Theme.of(context).textTheme.bodyText2.copyWith(color: Theme.of(context).disabledColor),),
+            Text(
+              "Öğrenci",
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyText2
+                  .copyWith(color: Theme.of(context).disabledColor),
+            ),
           ],
         ),
         SizedBox(width: 16),
@@ -153,7 +163,13 @@ class _CreateProfileViewState extends State<CreateProfileView> {
                 });
               },
             ),
-            Text("Veli",style: Theme.of(context).textTheme.bodyText2.copyWith(color: Theme.of(context).disabledColor),),
+            Text(
+              "Veli",
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyText2
+                  .copyWith(color: Theme.of(context).disabledColor),
+            ),
           ],
         ),
       ],
@@ -259,7 +275,12 @@ class _CreateProfileViewState extends State<CreateProfileView> {
       child: ElevatedButton(
         onPressed: isSaveButtonActive
             ? () {
-                Navigator.of(context).pushNamed("/chooseProfileExtra");
+                context.read<ProfileCubit>().addUser(User(
+                    _nameController.text,
+                    _lastNameController.text,
+                    _profileType,
+                    isProfilePictureSelected,
+                    context.read<ProfileCubit>().id));
               }
             : null,
         child: Text(
