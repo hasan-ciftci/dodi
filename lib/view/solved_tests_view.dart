@@ -1,6 +1,13 @@
+import 'dart:math';
+
 import 'package:dodi/core/enums/selected_page_enum.dart';
 import 'package:dodi/widget/bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
+
+import 'package:speech_to_text/speech_recognition_error.dart';
+import 'package:speech_to_text/speech_recognition_result.dart';
+import 'package:speech_to_text/speech_to_text.dart';
 
 import '../core/constants/image_constants.dart';
 
@@ -11,6 +18,17 @@ class SolvedTestsView extends StatefulWidget {
 
 class _SolvedTestsViewState extends State<SolvedTestsView> {
   TextEditingController searchController = TextEditingController();
+  bool _hasSpeech = false;
+  double level = 0.0;
+  double minSoundLevel = 50000;
+  double maxSoundLevel = -50000;
+  String lastWords = '';
+  String lastError = '';
+  String lastStatus = '';
+  String _currentLocaleId = 'tr_TR';
+  int resultListened = 0;
+  bool hasSpeech = false;
+  final SpeechToText speech = SpeechToText();
 
   @override
   void initState() {
@@ -18,6 +36,7 @@ class _SolvedTestsViewState extends State<SolvedTestsView> {
     searchController.addListener(() {
       setState(() {});
     });
+    initSpeechState();
   }
 
   @override
@@ -55,30 +74,61 @@ class _SolvedTestsViewState extends State<SolvedTestsView> {
                 child: SizedBox(
                   height: size.height * .1,
                   width: size.width * .9,
-                  child: TextFormField(
-                    controller: searchController,
-                    decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Theme.of(context).backgroundColor,
-                        ),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(20.0),
+                  child: Stack(
+                    alignment: Alignment.centerLeft,
+                    children: [
+                      TextFormField(
+                        controller: searchController,
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.only(left: 50.0),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Theme.of(context).backgroundColor,
+                            ),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(20.0),
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Theme.of(context).primaryColorLight),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(20.0),
+                            ),
+                          ),
+                          suffixIcon: Icon(Icons.search,
+                              color: Theme.of(context).primaryColorLight),
+                          labelText: speech.isListening
+                              ? "Dinleniyor..."
+                              : "Ne arıyorsun?",
                         ),
                       ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Theme.of(context).backgroundColor),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(20.0),
+                      AnimatedOpacity(
+                        opacity: hasSpeech ? 1 : 0,
+                        duration: Duration(seconds: 1),
+                        child: IconButton(
+                          icon: Container(
+                            width: 40,
+                            height: 40,
+                            decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                      blurRadius: .26,
+                                      spreadRadius: level * 1.5,
+                                      color: Colors.black.withOpacity(.05))
+                                ],
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(50))),
+                            child: Icon(Icons.mic,
+                                color: Theme.of(context).primaryColorLight),
+                          ),
+                          onPressed: !_hasSpeech || speech.isListening
+                              ? null
+                              : startListening,
                         ),
                       ),
-                      suffixIcon: Icon(Icons.search,
-                          color: Theme.of(context).backgroundColor),
-                      prefixIcon: Icon(Icons.mic,
-                          color: Theme.of(context).primaryColor),
-                      labelText: "Ne arıyorsun?",
-                    ),
+                    ],
                   ),
                 ),
               ),
@@ -264,6 +314,97 @@ class _SolvedTestsViewState extends State<SolvedTestsView> {
     Colors.pinkAccent,
     Colors.orange,
   ];
+
+  void requestPermission() async {
+    PermissionStatus permission = await PermissionHandler()
+        .checkPermissionStatus(PermissionGroup.microphone);
+
+    if (permission != PermissionStatus.granted) {
+      await PermissionHandler()
+          .requestPermissions([PermissionGroup.microphone]);
+    }
+  }
+
+  void startListening() {
+    lastWords = '';
+    lastError = '';
+    speech.listen(
+        onResult: resultListener,
+        listenFor: Duration(seconds: 5),
+        pauseFor: Duration(seconds: 5),
+        partialResults: false,
+        localeId: _currentLocaleId,
+        onSoundLevelChange: soundLevelListener,
+        cancelOnError: true,
+        listenMode: ListenMode.confirmation);
+    setState(() {});
+  }
+
+  void stopListening() {
+    speech.stop();
+    setState(() {
+      level = 0.0;
+    });
+  }
+
+  void cancelListening() {
+    speech.cancel();
+    setState(() {
+      level = 0.0;
+    });
+  }
+
+  void resultListener(SpeechRecognitionResult result) {
+    ++resultListened;
+    print('Result listener $resultListened');
+    setState(() {
+      lastWords = '${result.recognizedWords}';
+      searchController.text = lastWords;
+    });
+  }
+
+  void soundLevelListener(double level) {
+    minSoundLevel = min(minSoundLevel, level);
+    maxSoundLevel = max(maxSoundLevel, level);
+    // print("sound level $level: $minSoundLevel - $maxSoundLevel ");
+    setState(() {
+      this.level = level;
+    });
+  }
+
+  void errorListener(SpeechRecognitionError error) {
+    print("Received error status: $error, listening: ${speech.isListening}");
+    setState(() {
+      lastError = '${error.errorMsg} - ${error.permanent}';
+    });
+  }
+
+  void statusListener(String status) {
+    print(
+        'Received listener status: $status, listening: ${speech.isListening}');
+    setState(() {
+      lastStatus = '$status';
+    });
+  }
+
+  Future<void> initSpeechState() async {
+    requestPermission();
+    hasSpeech = await speech.initialize(
+        onError: errorListener,
+        onStatus: statusListener,
+        debugLogging: true,
+        finalTimeout: Duration(milliseconds: 0));
+    if (hasSpeech) {
+      var systemLocale = await speech.systemLocale();
+      _currentLocaleId = systemLocale.localeId;
+    }
+
+    if (!mounted) return;
+
+    setState(() {
+      _hasSpeech = hasSpeech;
+    });
+  }
 }
 
 class CourseCard extends StatelessWidget {
