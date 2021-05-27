@@ -10,7 +10,15 @@ class SolvedTestsView extends StatefulWidget {
 }
 
 class _SolvedTestsViewState extends State<SolvedTestsView> {
-  bool isSelected = false;
+  TextEditingController searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    searchController.addListener(() {
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +28,9 @@ class _SolvedTestsViewState extends State<SolvedTestsView> {
       body: Stack(
         children: [
           buildBackground(size, context),
-
           buildBody(size, context),
           buildPageHeader(size),
-          buildBottomAppBar(size,context,SelectedPage.OVERVIEW)
+          buildBottomAppBar(size, context, SelectedPage.OVERVIEW)
         ],
       ),
     );
@@ -32,113 +39,125 @@ class _SolvedTestsViewState extends State<SolvedTestsView> {
   Align buildBody(Size size, BuildContext context) {
     return Align(
       alignment: Alignment.center,
-      child: Container(
-        height: size.height * .75,
-        width: size.width,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50.0),
-          color: Colors.white,
-        ),
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: size.height * .03),
-              child: SizedBox(
-                height: size.height * .1,
-                width: size.width * .9,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Theme.of(context).backgroundColor,
+      child: SingleChildScrollView(
+        reverse: true,
+        child: Container(
+          height: size.height * .75,
+          width: size.width,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(50.0),
+            color: Colors.white,
+          ),
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: size.height * .03),
+                child: SizedBox(
+                  height: size.height * .1,
+                  width: size.width * .9,
+                  child: TextFormField(
+                    controller: searchController,
+                    decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Theme.of(context).backgroundColor,
+                        ),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(20.0),
+                        ),
                       ),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(20.0),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Theme.of(context).backgroundColor),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(20.0),
+                        ),
                       ),
+                      suffixIcon: Icon(Icons.search,
+                          color: Theme.of(context).backgroundColor),
+                      prefixIcon: Icon(Icons.mic,
+                          color: Theme.of(context).primaryColor),
+                      labelText: "Ne arıyorsun?",
                     ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Theme.of(context).backgroundColor),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(20.0),
-                      ),
-                    ),
-                    suffixIcon: Icon(Icons.search,
-                        color: Theme.of(context).backgroundColor),
-                    prefixIcon:
-                        Icon(Icons.mic, color: Theme.of(context).primaryColor),
-                    labelText: "Ne arıyorsun?",
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: size.height * .3,
-              child: ListView.separated(
-                shrinkWrap: true,
-                primary: false,
-                padding: EdgeInsets.symmetric(horizontal: 50.0),
-                physics: AlwaysScrollableScrollPhysics(
-                    parent: BouncingScrollPhysics()),
-                itemBuilder: (BuildContext context, int index) {
-                  return Text(
-                    subjects[index],
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline6
-                        .copyWith(fontWeight: FontWeight.w300),
-                  );
-                },
-                separatorBuilder: (BuildContext context, int index) =>
-                    Divider(),
-                itemCount: subjects.length,
+              SizedBox(
+                height: size.height * .3,
+                child: ListView.separated(
+                  shrinkWrap: true,
+                  primary: false,
+                  padding: EdgeInsets.symmetric(horizontal: 50.0),
+                  physics: AlwaysScrollableScrollPhysics(
+                      parent: BouncingScrollPhysics()),
+                  itemBuilder: (BuildContext context, int index) {
+                    return subjects[index]
+                            .toLowerCase()
+                            .contains(searchController.text.toLowerCase())
+                        ? Text(
+                            subjects[index],
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline6
+                                .copyWith(fontWeight: FontWeight.w300),
+                          )
+                        : SizedBox();
+                  },
+                  separatorBuilder: (BuildContext context, int index) =>
+                      subjects[index]
+                              .toLowerCase()
+                              .contains(searchController.text.toLowerCase())
+                          ? Divider()
+                          : SizedBox(),
+                  itemCount: subjects.length,
+                ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: 32.0, vertical: size.height * .02),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Son Testler",
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                  Text(
-                    "Temizle",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText2
-                        .copyWith(color: Theme.of(context).primaryColor),
-                  ),
-                ],
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: 32.0, vertical: size.height * .02),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Son Testler",
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                    Text(
+                      "Temizle",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText2
+                          .copyWith(color: Theme.of(context).primaryColor),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            SizedBox(
-              height: size.height * .15,
-              child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 32.0),
-                  child: Row(
-                    children: List.generate(
-                      courses.length,
-                      (index) => Padding(
-                        padding: EdgeInsets.only(right: 4.0),
-                        child: CourseCard(
-                          courseImageIndex: index,
-                          size: size,
-                          courseName: courses[index],
-                          courseColor: courseColors[index],
+              SizedBox(
+                height: size.height * .15,
+                child: SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 32.0),
+                    child: Row(
+                      children: List.generate(
+                        courses.length,
+                        (index) => Padding(
+                          padding: EdgeInsets.only(right: 4.0),
+                          child: CourseCard(
+                            courseImageIndex: index,
+                            size: size,
+                            courseName: courses[index],
+                            courseColor: courseColors[index],
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -156,7 +175,7 @@ class _SolvedTestsViewState extends State<SolvedTestsView> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               GestureDetector(
-                onTap: ()=>Navigator.of(context).pop(),
+                onTap: () => Navigator.of(context).pop(),
                 child: Icon(
                   Icons.arrow_back_ios_outlined,
                   color: Colors.white,
