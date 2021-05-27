@@ -1,8 +1,14 @@
+import 'dart:math';
+
 import 'package:dodi/core/enums/selected_page_enum.dart';
 import 'package:dodi/view/test_introduction_view.dart';
 import 'package:dodi/widget/bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
+
+import 'package:speech_to_text/speech_recognition_error.dart';
+import 'package:speech_to_text/speech_recognition_result.dart';
+import 'package:speech_to_text/speech_to_text.dart';
 
 import '../core/constants/image_constants.dart';
 
@@ -17,6 +23,17 @@ class SubjectSelectView extends StatefulWidget {
 
 class _SubjectSelectViewState extends State<SubjectSelectView> {
   TextEditingController searchController = TextEditingController();
+  bool _hasSpeech = false;
+  double level = 0.0;
+  double minSoundLevel = 50000;
+  double maxSoundLevel = -50000;
+  String lastWords = '';
+  String lastError = '';
+  String lastStatus = '';
+  String _currentLocaleId = 'tr_TR';
+  int resultListened = 0;
+  bool hasSpeech = false;
+  final SpeechToText speech = SpeechToText();
 
   @override
   void initState() {
@@ -24,7 +41,7 @@ class _SubjectSelectViewState extends State<SubjectSelectView> {
     searchController.addListener(() {
       setState(() {});
     });
-    activateSpeechRecognizer();
+    initSpeechState();
   }
 
   @override
@@ -86,13 +103,35 @@ class _SubjectSelectViewState extends State<SubjectSelectView> {
                           ),
                           suffixIcon: Icon(Icons.search,
                               color: Theme.of(context).primaryColorLight),
-                          labelText: "Ne arıyorsun?",
+                          labelText: speech.isListening
+                              ? "Dinleniyor..."
+                              : "Ne arıyorsun?",
                         ),
                       ),
-                      IconButton(
-                        icon: Icon(Icons.mic,
-                            color: Theme.of(context).primaryColorLight),
-                        onPressed: () {},
+                      AnimatedOpacity(
+                        opacity: hasSpeech ? 1 : 0,
+                        duration: Duration(seconds: 1),
+                        child: IconButton(
+                          icon: Container(
+                            width: 40,
+                            height: 40,
+                            decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                      blurRadius: .26,
+                                      spreadRadius: level * 1.5,
+                                      color: Colors.black.withOpacity(.05))
+                                ],
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(50))),
+                            child: Icon(Icons.mic,
+                                color: Theme.of(context).primaryColorLight),
+                          ),
+                          onPressed: !_hasSpeech || speech.isListening
+                              ? null
+                              : startListening,
+                        ),
                       ),
                     ],
                   ),
@@ -297,8 +336,85 @@ class _SubjectSelectViewState extends State<SubjectSelectView> {
     }
   }
 
-  void activateSpeechRecognizer() {
+  void startListening() {
+    lastWords = '';
+    lastError = '';
+    speech.listen(
+        onResult: resultListener,
+        listenFor: Duration(seconds: 5),
+        pauseFor: Duration(seconds: 5),
+        partialResults: false,
+        localeId: _currentLocaleId,
+        onSoundLevelChange: soundLevelListener,
+        cancelOnError: true,
+        listenMode: ListenMode.confirmation);
+    setState(() {});
+  }
+
+  void stopListening() {
+    speech.stop();
+    setState(() {
+      level = 0.0;
+    });
+  }
+
+  void cancelListening() {
+    speech.cancel();
+    setState(() {
+      level = 0.0;
+    });
+  }
+
+  void resultListener(SpeechRecognitionResult result) {
+    ++resultListened;
+    print('Result listener $resultListened');
+    setState(() {
+      lastWords = '${result.recognizedWords}';
+      searchController.text = lastWords;
+    });
+  }
+
+  void soundLevelListener(double level) {
+    minSoundLevel = min(minSoundLevel, level);
+    maxSoundLevel = max(maxSoundLevel, level);
+    // print("sound level $level: $minSoundLevel - $maxSoundLevel ");
+    setState(() {
+      this.level = level;
+    });
+  }
+
+  void errorListener(SpeechRecognitionError error) {
+    print("Received error status: $error, listening: ${speech.isListening}");
+    setState(() {
+      lastError = '${error.errorMsg} - ${error.permanent}';
+    });
+  }
+
+  void statusListener(String status) {
+    print(
+        'Received listener status: $status, listening: ${speech.isListening}');
+    setState(() {
+      lastStatus = '$status';
+    });
+  }
+
+  Future<void> initSpeechState() async {
     requestPermission();
+    hasSpeech = await speech.initialize(
+        onError: errorListener,
+        onStatus: statusListener,
+        debugLogging: true,
+        finalTimeout: Duration(milliseconds: 0));
+    if (hasSpeech) {
+      var systemLocale = await speech.systemLocale();
+      _currentLocaleId = systemLocale.localeId;
+    }
+
+    if (!mounted) return;
+
+    setState(() {
+      _hasSpeech = hasSpeech;
+    });
   }
 }
 

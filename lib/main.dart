@@ -81,7 +81,7 @@ class MyApp extends StatelessWidget {
                   ThemeData().textTheme.overline.copyWith(fontSize: 10.sp),
             )),
         routes: {
-          '/': (context) => IntroductionPage(),
+          '/subjectSelectView': (context) => IntroductionPage(),
           '/loginView': (context) => LoginView(),
           '/register': (context) => SignUpView(),
           '/classSelectView': (context) => ClassSelectView(),
@@ -97,7 +97,7 @@ class MyApp extends StatelessWidget {
           //Same with Choose Profile but included one more profile for scenerio.
           '/chooseProfileExtra': (context) => ChooseProfileExtra(),
           '/courseSelectView': (context) => CourseSelectView(),
-          '/subjectSelectView': (context) => SubjectSelectView(),
+          '/': (context) => SubjectSelectView(),
           '/newClassSelectView': (context) => NewClassSelectView(),
           '/solvedTestsView': (context) => SolvedTestsView(),
           '/solutionsView': (context) => SolutionsView(),
