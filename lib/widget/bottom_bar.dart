@@ -25,6 +25,9 @@ Align buildBottomAppBar(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           GestureDetector(
+            onTap: () {
+              Navigator.of(context).pushNamed("/shopView");
+            },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

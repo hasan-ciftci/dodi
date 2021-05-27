@@ -3,6 +3,7 @@ import 'package:dodi/view/course_select_view.dart';
 import 'package:dodi/view/create_profile_view.dart';
 import 'package:dodi/view/new_class_select.dart';
 import 'package:dodi/view/onboarding_view.dart';
+import 'package:dodi/view/shop_view.dart';
 import 'package:dodi/view/solutions/solutions_grade_one_view.dart';
 import 'package:dodi/view/quiz/quiz_grade_twelve_view.dart';
 import 'package:dodi/view/solutions/solutions_grade_twelve_view.dart';
@@ -101,6 +102,7 @@ class MyApp extends StatelessWidget {
           '/solvedTestsView': (context) => SolvedTestsView(),
           '/solutionsView': (context) => SolutionsView(),
           '/solutionsGradeTwelveView': (context) => SolutionsGradeTwelveView(),
+          '/shopView': (context) => ShopView(),
         },
       ),
     );
