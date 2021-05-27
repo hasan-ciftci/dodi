@@ -73,28 +73,6 @@ Align buildBottomAppBar(
             ),
           ),
           GestureDetector(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.home,
-                  color: selectedPage == SelectedPage.HOME
-                      ? selectedColor
-                      : unSelectedColor,
-                ),
-                if (selectedPage == SelectedPage.HOME)
-                  Text(
-                    "Ana Sayfa",
-                    style: TextStyle(
-                      color: selectedPage == SelectedPage.HOME
-                          ? selectedColor
-                          : unSelectedColor,
-                    ),
-                  ),
-              ],
-            ),
-          ),
-          GestureDetector(
             onTap: () => Navigator.of(context).pushNamed("/newClassSelectView"),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
