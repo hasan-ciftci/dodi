@@ -1,5 +1,6 @@
 import 'package:dodi/bloc/profile_cubit.dart';
 import 'package:dodi/core/constants/image_constants.dart';
+import 'package:dodi/core/enums/profile_type_enum.dart';
 import 'package:dodi/widget/profile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -109,7 +110,7 @@ class _CreateProfileViewState extends State<CreateProfileView> {
         GestureDetector(
           onTap: () {
             setState(() {
-              isProfilePictureSelected = true;
+              isProfilePictureSelected = !isProfilePictureSelected;
             });
           },
           child: ProfileWidget(
@@ -281,6 +282,7 @@ class _CreateProfileViewState extends State<CreateProfileView> {
                     _profileType,
                     isProfilePictureSelected,
                     context.read<ProfileCubit>().id));
+                Navigator.of(context).pop();
               }
             : null,
         child: Text(

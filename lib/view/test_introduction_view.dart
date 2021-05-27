@@ -97,7 +97,13 @@ class _TestIntroductionViewState extends State<TestIntroductionView> {
                   color: Colors.transparent,
                   child: Padding(
                     padding: EdgeInsets.only(bottom: 16.0),
-                    child: Text("Test Detayları",style: Theme.of(context).textTheme.bodyText2.copyWith(color: Theme.of(context).disabledColor),),
+                    child: Text(
+                      "Test Detayları",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText2
+                          .copyWith(color: Theme.of(context).disabledColor),
+                    ),
                   ),
                 ),
               ),
@@ -121,9 +127,12 @@ class _TestIntroductionViewState extends State<TestIntroductionView> {
 
   Text buildTestIntroductionText(Size size, BuildContext context) {
     return Text(
-      "${widget.grade}. Sınıflar için Görsel Algı ve Dikkat Testi",
+      "${widget.grade == 1 ? "1" : "12"}. Sınıflar için Görsel Algı ve Dikkat Testi",
       textAlign: TextAlign.center,
-        style: Theme.of(context).textTheme.subtitle1.copyWith(color: Theme.of(context).disabledColor),
+      style: Theme.of(context)
+          .textTheme
+          .subtitle1
+          .copyWith(color: Theme.of(context).disabledColor),
     );
   }
 

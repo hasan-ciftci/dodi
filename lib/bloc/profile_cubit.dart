@@ -1,4 +1,5 @@
 import 'package:dodi/bloc/profile_states.dart';
+import 'package:dodi/core/enums/profile_type_enum.dart';
 import 'package:dodi/view/create_profile_extra.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,6 +16,14 @@ class ProfileCubit extends Cubit<ProfileState> {
     emit(AddProfileState());
   }
 
+  updateUser(String name, String lastName, bool hasProfilePic,
+      ProfileType profileType, int id) async {
+    await _users
+        .firstWhere((element) => element.id == id)
+        .updateUser(name, lastName, hasProfilePic, profileType);
+    emit(UpdateProfileState());
+  }
+
   removeUser(int id) {
     _users.removeWhere((element) => element.id == id);
     emit(RemoveProfileState());
@@ -22,11 +31,19 @@ class ProfileCubit extends Cubit<ProfileState> {
 }
 
 class User {
-  final int id;
-  final String name;
-  final String lastName;
-  final ProfileType profileType;
-  final bool hasProfilePic;
+  int id;
+  String name;
+  String lastName;
+  ProfileType profileType;
+  bool hasProfilePic;
 
   User(this.name, this.lastName, this.profileType, this.hasProfilePic, this.id);
+
+  updateUser(String name, String lastName, bool hasProfilePic,
+      ProfileType profileType) {
+    this.name = name;
+    this.lastName = lastName;
+    this.hasProfilePic = hasProfilePic;
+    this.profileType = profileType;
+  }
 }

@@ -1,10 +1,13 @@
 import 'package:dodi/bloc/profile_cubit.dart';
+import 'package:dodi/bloc/profile_states.dart';
 import 'package:dodi/core/constants/image_constants.dart';
 import 'package:dodi/core/enums/profile_type_enum.dart';
 import 'package:dodi/view/create_profile_view.dart';
 import 'package:dodi/widget/profile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'create_profile_extra.dart';
 
 class ChooseProfileView extends StatefulWidget {
   @override
@@ -61,43 +64,38 @@ class _ChooseProfileViewState extends State<ChooseProfileView> {
   }
 
   buildProfiles(Size size, BuildContext context) {
-    return BlocProvider<ProfileCubit>(
-      create: (BuildContext context) {
-        return ProfileCubit();
-      },
-      child: Builder(
-        builder: (BuildContext context) {
-          List<User> users = context.read<ProfileCubit>().users;
-          return Align(
-            alignment: Alignment.center,
-            child: Container(
-              height: size.height * .75,
-              width: size.width,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50.0),
-                color: Colors.white,
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Expanded(
-                      child: Center(
-                    child: SingleChildScrollView(
-                      physics: BouncingScrollPhysics(),
-                      child: buildBottomSheetActions(
-                          profiles:users ,
-                          size: size,
-                          crossAxisLength: 2,
-                          context: context),
-                    ),
-                  )),
-                  buildEditProfilesButton(context),
-                ],
-              ),
+    return BlocBuilder<ProfileCubit, ProfileState>(
+      builder: (BuildContext context, state) {
+        List<User> users = context.read<ProfileCubit>().users;
+        return Align(
+          alignment: Alignment.center,
+          child: Container(
+            height: size.height * .75,
+            width: size.width,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(50.0),
+              color: Colors.white,
             ),
-          );
-        },
-      ),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Expanded(
+                    child: Center(
+                      child: SingleChildScrollView(
+                        physics: BouncingScrollPhysics(),
+                        child: buildBottomSheetActions(
+                            profiles: users,
+                            size: size,
+                            crossAxisLength: 2,
+                            context: context),
+                      ),
+                    )),
+                buildEditProfilesButton(context),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -158,21 +156,70 @@ class _ChooseProfileViewState extends State<ChooseProfileView> {
                           height: size.width / 4,
                           width: size.width / 4,
                         )
-                      : ProfileWidget(
-                          isEditing: editMode,
-                          icon: Icons.person,
-                          name: profiles[columnIndex * crossAxisLength + rowIndex].name,
-                          size: size,
-                image: profiles[columnIndex * crossAxisLength + rowIndex].hasProfilePic
-                    ? profiles[columnIndex * crossAxisLength + rowIndex].profileType.index == ProfileType.Parent.index ? ImageConstants.instance.profile:ImageConstants.instance.profile_child
-                    : null,
+                      : GestureDetector(
+                          onTap: () {
+                            if (editMode == true)
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => BlocProvider.value(
+                                    value:
+                                        BlocProvider.of<ProfileCubit>(context),
+                                    child: CreateProfileExtra(
+                                      isStudent: profiles[columnIndex *
+                                                      crossAxisLength +
+                                                  rowIndex]
+                                              .profileType ==
+                                          ProfileType.Student,
+                                      lastName: profiles[
+                                              columnIndex * crossAxisLength +
+                                                  rowIndex]
+                                          .lastName,
+                                      name: profiles[
+                                              columnIndex * crossAxisLength +
+                                                  rowIndex]
+                                          .name,
+                                      id: profiles[
+                                              columnIndex * crossAxisLength +
+                                                  rowIndex]
+                                          .id,
+                                      profilePictureSelected: profiles[
+                                                  columnIndex *
+                                                          crossAxisLength +
+                                                      rowIndex]
+                                              .hasProfilePic !=
+                                          false,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            else
+                              Navigator.of(context).pushNamed("/newClassSelectView");
+                          },
+                          child: ProfileWidget(
+                            isEditing: editMode,
+                            icon: Icons.person,
+                            name: profiles[
+                                    columnIndex * crossAxisLength + rowIndex]
+                                .name,
+                            size: size,
+                            image: profiles[columnIndex * crossAxisLength +
+                                        rowIndex]
+                                    .hasProfilePic
+                                ? profiles[columnIndex * crossAxisLength +
+                                                rowIndex]
+                                            .profileType ==
+                                        ProfileType.Parent
+                                    ? ImageConstants.instance.profile
+                                    : ImageConstants.instance.profile_child
+                                : null,
+                          ),
                         ),
             ),
           ),
         ),
       );
     }
-
   }
 
   GestureDetector buildEditProfilesButton(BuildContext context) {

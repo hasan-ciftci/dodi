@@ -1,19 +1,24 @@
+import 'package:dodi/bloc/profile_cubit.dart';
 import 'package:dodi/core/constants/image_constants.dart';
+import 'package:dodi/core/enums/profile_type_enum.dart';
 import 'package:dodi/widget/profile_widget.dart';
 import 'package:flutter/material.dart';
-
-enum ProfileType { Student, Parent }
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CreateProfileExtra extends StatefulWidget {
   final String name;
   final String lastName;
   final bool isStudent;
+  final bool profilePictureSelected;
+  final int id;
 
   const CreateProfileExtra(
       {Key key,
       @required this.name,
       @required this.lastName,
-      @required this.isStudent})
+      @required this.isStudent,
+      @required this.id,
+      @required this.profilePictureSelected})
       : super(key: key);
 
   @override
@@ -35,6 +40,7 @@ class _CreateProfileExtraState extends State<CreateProfileExtra> {
     _nameController = TextEditingController(text: widget.name);
     _lastNameController = TextEditingController(text: widget.lastName);
     _profileType = widget.isStudent ? ProfileType.Student : ProfileType.Parent;
+    isProfilePictureSelected = widget.profilePictureSelected;
   }
 
   @override
@@ -64,7 +70,7 @@ class _CreateProfileExtraState extends State<CreateProfileExtra> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               GestureDetector(
-                onTap: ()=>Navigator.of(context).pop(),
+                onTap: () => Navigator.of(context).pop(),
                 child: Icon(
                   Icons.arrow_back_ios_outlined,
                   color: Colors.white,
@@ -128,15 +134,15 @@ class _CreateProfileExtraState extends State<CreateProfileExtra> {
         GestureDetector(
           onTap: () {
             setState(() {
-              isProfilePictureSelected = true;
+              isProfilePictureSelected = !isProfilePictureSelected;
             });
           },
           child: ProfileWidget(
-            image: widget.isStudent
-                ? isProfilePictureSelected
+            image: isProfilePictureSelected
+                ? _profileType == ProfileType.Parent
                     ? ImageConstants.instance.profile
-                    : null
-                : ImageConstants.instance.profile,
+                    : ImageConstants.instance.profile_child
+                : null,
             name: "Profil Resmi Yükle",
             icon: Icons.add,
             size: size,
@@ -281,8 +287,14 @@ class _CreateProfileExtraState extends State<CreateProfileExtra> {
       width: size.width * .9,
       child: ElevatedButton(
         onPressed: isSaveButtonActive
-            ? () {
-                Navigator.of(context).pushNamed("/chooseProfileExtra");
+            ? () async {
+                await context.read<ProfileCubit>().updateUser(
+                    _nameController.text,
+                    _lastNameController.text,
+                    isProfilePictureSelected,
+                    _profileType,
+                    widget.id);
+                Navigator.of(context).pop();
               }
             : null,
         child: Text(
@@ -304,8 +316,9 @@ class _CreateProfileExtraState extends State<CreateProfileExtra> {
       height: size.height * .05,
       width: size.width * .5,
       child: ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).pushNamed("/chooseProfile");
+          onPressed: () async {
+           await context.read<ProfileCubit>().removeUser(widget.id);
+           Navigator.pop(context);
           },
           child: Text(
             "Profili Sil",

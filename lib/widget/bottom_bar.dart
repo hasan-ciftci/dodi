@@ -96,7 +96,7 @@ Align buildBottomAppBar(
             ),
           ),
           GestureDetector(
-            onTap: () => Navigator.of(context).pushNamed("/chooseProfileExtra"),
+            onTap: () => Navigator.of(context).pushNamed("/chooseProfile"),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
