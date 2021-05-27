@@ -28,6 +28,10 @@
 	<string>Main</string>
 	<key>UIStatusBarHidden</key>
 	<false/>
+	<key>NSSpeechRecognitionUsageDescription</key>
+    <string>Arama çubuğunu kullanırken, ses ile girdi sağlamanızı sağlar.</string>
+	<key>NSMicrophoneUsageDescription</key>
+    <string>Arama çubuğunu kullanırken, ses ile girdi sağlamanızı sağlar. Sesiniz kaydedilmez.</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
