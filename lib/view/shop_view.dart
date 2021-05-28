@@ -72,7 +72,7 @@ class _ShopViewState extends State<ShopView> {
                   color: Theme.of(context).primaryColorDark,
                 ),
                 SizedBox(height: 8,),
-                Text("Ürünler güncelleniyor",
+                Text("Ürünler yakında eklenecek",
                     style: Theme.of(context)
                         .textTheme
                         .headline5

@@ -316,12 +316,10 @@ class _SolvedTestsViewState extends State<SolvedTestsView> {
   ];
 
   void requestPermission() async {
-    PermissionStatus permission = await PermissionHandler()
-        .checkPermissionStatus(PermissionGroup.microphone);
+    var status = await Permission.microphone.status;
 
-    if (permission != PermissionStatus.granted) {
-      await PermissionHandler()
-          .requestPermissions([PermissionGroup.microphone]);
+    if (!status.isGranted) {
+      await Permission.microphone.request();
     }
   }
 
