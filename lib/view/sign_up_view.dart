@@ -412,6 +412,12 @@ class _SignUpViewState extends State<SignUpView> {
           child: Image.asset(ImageConstants.instance.facebook),
           radius: size.width * .06,
         ),
+        SizedBox(width: 20),
+        CircleAvatar(
+          backgroundColor: Colors.white,
+          child: Image.asset(ImageConstants.instance.facebook),
+          radius: size.width * .06,
+        ),
       ],
     );
   }

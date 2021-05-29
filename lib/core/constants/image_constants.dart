@@ -56,6 +56,7 @@ class ImageConstants {
 
   String get facebook => "facebook".socialMediaToPng;
   String get google => "google".socialMediaToPng;
+  String get apple => "apple".socialMediaToPng;
 
   String get _science => "science".courseToPng;
   String get _general => "general".courseToPng;

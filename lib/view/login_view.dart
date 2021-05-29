@@ -96,7 +96,11 @@ class _LoginViewState extends State<LoginView> {
                 Spacer(),
                 buildLoginButton(size, context),
                 SizedBox(height: size.height * .02),
-                Text("Şifremi unuttum",style: Theme.of(context).textTheme.bodyText2.copyWith(color: Theme.of(context).disabledColor)),
+                Text("Şifremi unuttum",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText2
+                        .copyWith(color: Theme.of(context).disabledColor)),
                 Spacer(),
               ],
             ),
@@ -127,7 +131,11 @@ class _LoginViewState extends State<LoginView> {
             groupValue: true,
           ),
           Text(
-            "Beni hatırla",style: Theme.of(context).textTheme.bodyText2.copyWith(color: Theme.of(context).disabledColor),
+            "Beni hatırla",
+            style: Theme.of(context)
+                .textTheme
+                .bodyText2
+                .copyWith(color: Theme.of(context).disabledColor),
           ),
         ],
       ),
@@ -207,6 +215,12 @@ class _LoginViewState extends State<LoginView> {
           backgroundColor: Colors.white,
           radius: size.width * .06,
         ),
+        SizedBox(width: 20),
+        CircleAvatar(
+          child: Image.asset(ImageConstants.instance.apple),
+          backgroundColor: Colors.white,
+          radius: size.width * .06,
+        ),
       ],
     );
   }
@@ -241,8 +255,9 @@ class _LoginViewState extends State<LoginView> {
                   Icon(Icons.done, color: Theme.of(context).primaryColorLight)),
           labelText: "E-Posta",
           labelStyle: TextStyle(
-            color:
-                isEmailValid ? Theme.of(context).primaryColorLight : Colors.grey,
+            color: isEmailValid
+                ? Theme.of(context).primaryColorLight
+                : Colors.grey,
           ),
         ),
       ),
