@@ -86,7 +86,6 @@ class _LoginViewState extends State<LoginView> {
                 ),
                 Column(
                   children: [
-                    buildSocialMediaButtons(size),
                     SizedBox(height: size.height * .04),
                     buildEmailTextFormField(),
                     buildPasswordTextFormField(),
