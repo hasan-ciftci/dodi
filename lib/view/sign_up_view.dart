@@ -166,7 +166,6 @@ class _SignUpViewState extends State<SignUpView> {
           //Social media buttons placed 10% height of screen
           SizedBox(
             height: size.height * .1,
-            child: buildSocialMediaButtons(size),
           ),
           SizedBox(
             height: size.height * .1,
